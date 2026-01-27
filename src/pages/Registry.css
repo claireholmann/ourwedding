@@ -1,0 +1,92 @@
+.registry-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #dbeafe, #f0fdf4);
+}
+
+.back-nav {
+  padding: 1.5rem;
+}
+
+.back-link {
+  color: #ADD8E6;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s;
+}
+
+.back-link:hover {
+  color: #ADD8E6;;
+}
+
+.back-link svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.page-content {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.page-title {
+  font-size: 4rem;
+  font-family: 'Pinyon Script', cursive;
+  color: #ADD8E6;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.content-card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.intro-text {
+  font-size: 1.25rem;
+  color: #374151;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.registry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.registry-link {
+  display: block;
+  padding: 1.5rem;
+  border: 2px solid #bfdbfe;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.3s;
+}
+
+.registry-link:hover {
+  border-color: #ADD8E6;
+}
+
+.registry-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: 'Pinyon Script', cursive;
+  margin-bottom: 0.5rem;
+}
+
+.registry-description {
+  color: #4b5563;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+}

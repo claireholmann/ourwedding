@@ -1,0 +1,310 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Parisienne';
+  src: url('../assets/fonts/Parisienne/Parisienne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Dancing Script';
+  src: url('../assets/fonts/Dancing_Script/DancingScript-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Herr Von Muellerhoff';
+  src: url('../assets/fonts/Herr_Von_Muellerhoff/HerrVonMuellerhoff-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: url('../assets/fonts/The_Seasons/Fontspring-DEMO-theseasons-lt.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: url('../assets/fonts/The_Seasons/Fontspring-DEMO-theseasons-reg.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: url('../assets/fonts/The_Seasons/Fontspring-DEMO-theseasons-bd.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pinyon Script';
+  src: url('../assets/fonts/Pinyon_Script/PinyonScript-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.home-container {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.home-section {
+  scroll-snap-align: start;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.title-section {
+  background-image: url('../assets/images/engagement/bw-laugh-lift.JPG');
+  background-size: cover;
+  background-position: center;
+  align-items: flex-start;
+  padding: 4rem;
+}
+
+.title-content {
+  text-align: center;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+}
+
+.title-name {
+  font-size: 6rem;
+  font-family: 'The Seasons', serif;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  line-height: 1;
+}
+
+.title-and {
+  font-size: 5rem;
+  font-family: 'Pinyon Script', cursive;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 5px;
+  margin: -2rem 0 -1rem 0;
+  line-height: 1;
+}
+
+.title-subtitle {
+  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+
+.photo-text-section {
+  background: white;
+  padding: 4rem;
+}
+
+.photo-text-container {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.photo-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin-left: 4rem;
+}
+
+.section-image {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  outline: 10px double #ADD8E6;
+  outline-offset: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.text-side {
+  text-align: center;
+  margin-right: 4rem;
+}
+
+.text-side .photo-title {
+  font-size: 4rem;
+  font-family: 'Pinyon Script', cursive;
+  font-weight: 400;
+  color: #ADD8E6;
+  margin: 0;
+  line-height: 1;
+}
+
+.text-side .photo-date {
+  font-size: 3rem;
+  font-family: 'Pinyon Script', cursive;
+  font-weight: 400;
+  color: #ADD8E6;
+  margin: 0;
+  line-height: 1;
+}
+
+.text-side .photo-on {
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  color: #ADD8E6;
+  line-height: 1;
+}
+
+.details-section {
+  background-image: url('../assets/images/lemans/lemans.JPG');
+  background-size: cover;
+  background-position: center 92%;
+  position: relative;
+}
+
+.details-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 0;
+}
+
+.section-title,
+.details-content {
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-family: 'Pinyon Script', cursive;
+  color: #ADD8E6;
+  margin-bottom: 3rem;
+}
+
+.details-content {
+  max-width: 48rem;
+  text-align: center;
+}
+
+.detail-item {
+  margin-bottom: 2rem;
+}
+
+.details-section-title {
+  font-size: 3rem;
+  font-family: 'The Seasons', serif;
+  color: #ADD8E6;
+  margin-bottom: 3rem;
+}
+
+.detail-heading {
+  font-size: 2rem;
+  font-family: 'Pinyon Script', cursive;
+  font-weight: 400;
+  color: #ADD8E6;
+  margin-bottom: 0.5rem;
+}
+
+.detail-text {
+  font-size: 1.25rem;
+  font-family: 'Montserrat', sans-serif;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.detail-subtext {
+  font-size: 1.125rem;
+  font-family: 'Montserrat', sans-serif;
+  color: #4b5563;
+}
+
+.more-section {
+  background: #ADD8E6;
+}
+
+.more-section-title {
+  font-size: 3rem;
+  font-family: 'The Seasons', serif;
+  color: white;
+  margin-bottom: 3rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 64rem;
+  width: 100%;
+}
+
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ADD8E6;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s;
+}
+
+.card:hover .card-title {
+  color: #ADD8E6;
+}
+
+.card-description {
+  color: #4b5563;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .title-name {
+    font-size: 4rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
