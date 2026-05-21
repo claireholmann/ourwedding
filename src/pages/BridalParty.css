@@ -1,105 +1,234 @@
 .bridal-party-page {
+  --party-card-width: 250px;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #f0fdf4, #dbeafe);
+  background-color: #fafafa;
 }
 
-.back-nav {
-  padding: 1.5rem;
+.page-hero {
+  background: #003256;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
 }
 
-.back-link {
-  color: #ADD8E6;;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: color 0.3s;
+.page-eyebrow {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  margin: 0 0 1rem 0;
+  display: block;
 }
 
-.back-link:hover {
-  color: #ADD8E6;;
+.page-hero-title {
+  font-family: "The Seasons", serif;
+  font-size: 4rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.05em;
 }
 
-.back-link svg {
-  width: 1.25rem;
-  height: 1.25rem;
+.page-hero-divider {
+  width: 50px;
+  height: 1px;
+  background: rgba(101, 184, 212, 0.5);
+  margin: 1.25rem auto 0;
 }
 
 .page-content {
-  max-width: 72rem;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
-.page-title {
-  font-size: 4rem;
-  font-family: serif;
-  color: #ADD8E6;;
-  margin-bottom: 4rem;
-  text-align: center;
+  padding: 3rem 2rem;
 }
 
 .party-section {
-  margin-bottom: 4rem;
+  margin-bottom: 3.5rem;
+}
+
+.section-eyebrow {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
 .section-title {
-  font-size: 2.5rem;
-  font-family: serif;
-  color: #ADD8E6;;
-  margin-bottom: 2rem;
-  text-align: center;
+  font-family: "The Seasons", serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: #003256;
+  margin: 0 0 1.5rem 0;
+}
+
+.paired-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
 }
 
 .party-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, var(--party-card-width));
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.party-grid-three {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.party-grid-three .party-member {
+  flex: 0 0 var(--party-card-width);
+  max-width: var(--party-card-width);
+}
+
+.party-grid-two {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.party-grid-two .party-member {
+  flex: 0 0 var(--party-card-width);
+  max-width: var(--party-card-width);
+}
+
+.party-grid-single {
+  grid-template-columns: var(--party-card-width);
   justify-content: center;
 }
 
 .party-member {
-  flex: 0 0 300px;
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  width: var(--party-card-width);
+  background: #fff;
+  border-top: 2px solid #6c8b19;
+  border-radius: 0 0 8px 8px;
+  padding: 1.75rem;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 50, 86, 0.06);
+  transition: transform 0.3s ease;
+}
+
+.party-member:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 50, 86, 0.1);
 }
 
 .member-avatar {
-  width: 8rem;
-  height: 8rem;
-  background: #e0e7ff;
+  width: 10rem;
+  height: 10rem;
+  background: rgba(0, 50, 86, 0.05);
   border-radius: 50%;
-  margin: 0 auto 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
+  margin: 0 auto 0.75rem;
+  overflow: hidden;
+}
+
+.member-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.caitlyn-holman .member-avatar img {
+  transform: scale(1.25) translate(10px, 0);
+}
+
+.megan-holman .member-avatar img {
+  transform: scale(1.46) translate(20px, 28px);
+}
+
+.shannon-kosch .member-avatar img {
+  transform: scale(1.35) translate(0, 20px);
+}
+
+.emily-cripe .member-avatar img {
+  transform: scale(1.5) translate(0, 0);
+}
+
+.kelsey-kavanagh .member-avatar img {
+  transform: scale(3.25) translate(-22px, -10px);
+}
+
+.tyler-gillespie .member-avatar img {
+  transform: scale(1.2) translate(4px, 15px)
+}
+
+.joseph-roscetti .member-avatar img {
+  transform: scale(1.45) translate(4px, -9px);
+}
+
+.christopher-prattos .member-avatar img {
+  transform: scale(1.2) translate(-15px, 5px);
+}
+
+.griffin-holman .member-avatar img {
+  transform: scale(2.75) translate(25px, 26px);
+}
+
+.billy-jacoby .member-avatar img {
+  transform: scale(2) translate(26px, 5px);
+}
+
+.member-avatar img.ring-bearer-avatar {
+  transform: scale(1.5) translate(0, 8px);
 }
 
 .member-name {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #ADD8E6;;
-  margin-bottom: 0.5rem;
+  font-family: "The Seasons", serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #003256;
+  margin: 0 0 0.25rem 0;
 }
 
 .member-role {
-  color: #4b5563;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  color: #6b7280;
+  letter-spacing: 0.05em;
 }
 
 @media (max-width: 768px) {
-  .page-title {
+  .bridal-party-page {
+    --party-card-width: min(250px, calc((100% - 1.5rem) / 2));
+  }
+
+  .page-hero-title {
     font-size: 2.5rem;
   }
-  
-  .section-title {
-    font-size: 2rem;
-  }
-  
-  .party-grid {
+  .paired-grid {
     grid-template-columns: 1fr;
+  }
+  .party-grid {
+    grid-template-columns: repeat(2, var(--party-card-width));
+  }
+  .party-grid-single {
+    grid-template-columns: var(--party-card-width);
+  }
+  .party-grid-three {
+    max-width: 100%;
+  }
+
+  .party-grid-three .party-member {
+    flex: 0 0 var(--party-card-width);
+    max-width: var(--party-card-width);
+  }
+
+  .party-grid-two .party-member {
+    flex: 0 0 var(--party-card-width);
+    max-width: var(--party-card-width);
   }
 }

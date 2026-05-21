@@ -1,0 +1,213 @@
+.hotel-travel-container {
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+/* Page Hero */
+.page-hero {
+  background: #003256;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+}
+
+.page-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  margin: 0 0 1rem 0;
+  display: block;
+}
+
+.page-hero-title {
+  font-family: 'The Seasons', serif;
+  font-size: 4rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0 0 1rem 0;
+  letter-spacing: 0.05em;
+}
+
+.hotel-travel-container .page-hero-and {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7em;
+  letter-spacing: 0;
+  vertical-align: unset;
+  margin: 0;
+}
+
+.page-hero-divider {
+  width: 50px;
+  height: 1px;
+  background: rgba(101, 184, 212, 0.5);
+  margin: 1.25rem auto 0;
+}
+
+/* Content */
+.hotel-travel-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.hotel-section,
+.travel-section {
+  margin-bottom: 3.5rem;
+}
+
+.section-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.section-heading {
+  font-family: 'The Seasons', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: #003256;
+  margin: 0 0 1.5rem 0;
+}
+
+.hotel-intro {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.7;
+  margin: 0 0 2rem 0;
+}
+
+.hotel-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.hotel-card {
+  background-color: #fff;
+  border-left: 3px solid #6c8b19;
+  padding: 2rem;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 12px rgba(0, 50, 86, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hotel-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(0, 50, 86, 0.1);
+}
+
+.hotel-name {
+  font-family: 'The Seasons', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #003256;
+  margin: 0 0 0.75rem 0;
+}
+
+.hotel-book-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  transition: color 0.2s;
+}
+
+.hotel-book-link:hover {
+  color: #003256;
+}
+
+.hotel-book-link::after {
+  content: ' →';
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.hotel-info {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: #003256;
+  line-height: 1.8;
+  margin: 0 0 1rem 0;
+}
+
+.hotel-description {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+.travel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.travel-info {
+  background-color: #fff;
+  padding: 1.75rem;
+  border-radius: 8px;
+  border-top: 2px solid #6c8b19;
+  box-shadow: 0 2px 8px rgba(0, 50, 86, 0.06);
+  transition: transform 0.3s ease;
+}
+
+.travel-info:hover {
+  transform: translateY(-3px);
+}
+
+.travel-info h3 {
+  font-family: 'The Seasons', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #003256;
+  margin: 0 0 0.75rem 0;
+}
+
+.travel-info p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .page-hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hotel-travel-content {
+    padding: 2rem 1rem;
+  }
+
+  .section-heading {
+    font-size: 1.6rem;
+  }
+
+  .hotel-card {
+    padding: 1.5rem;
+  }
+
+  .travel-grid {
+    grid-template-columns: 1fr;
+  }
+}

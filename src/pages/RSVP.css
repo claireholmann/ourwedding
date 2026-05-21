@@ -1,0 +1,235 @@
+.rsvp-container {
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.page-hero {
+  background: #003256;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+}
+
+.page-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  margin: 0 0 1rem 0;
+  display: block;
+}
+
+.page-hero-title {
+  font-family: 'The Seasons', serif;
+  font-size: 4rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.page-hero-divider {
+  width: 50px;
+  height: 1px;
+  background: rgba(101, 184, 212, 0.5);
+  margin: 1.25rem auto 0;
+}
+
+.rsvp-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.rsvp-intro {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  color: #6b7280;
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.rsvp-lookup,
+.rsvp-form {
+  background-color: #fff;
+  border-top: 2px solid #6c8b19;
+  padding: 2rem;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 12px rgba(0, 50, 86, 0.06);
+}
+
+.lookup-error {
+  font-family: 'Montserrat', sans-serif;
+  color: #b00020;
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+}
+
+.success-message {
+  background-color: rgba(0, 50, 86, 0.04);
+  border: 1px solid rgba(0, 50, 86, 0.15);
+  border-top: 2px solid #6c8b19;
+  border-radius: 0 0 8px 8px;
+  padding: 2.5rem;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+.success-message h2 {
+  font-family: 'The Seasons', serif;
+  font-weight: 400;
+  color: #003256;
+  margin: 0 0 0.75rem 0;
+  font-size: 2rem;
+}
+
+.success-message p {
+  font-family: 'Montserrat', sans-serif;
+  color: #6b7280;
+  margin: 0;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.invite-summary {
+  border: 1px solid rgba(0, 50, 86, 0.08);
+  background-color: rgba(0, 50, 86, 0.02);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.invite-summary p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: #003256;
+  margin: 0;
+}
+
+.invite-summary p + p {
+  margin-top: 0.3rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #003256;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  color: #003256;
+  border: 1px solid rgba(0, 50, 86, 0.15);
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: #fafafa;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #6c8b19;
+  box-shadow: 0 0 0 3px rgba(101, 184, 212, 0.15);
+  background: #fff;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.event-rsvp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.event-rsvp-item {
+  border: 1px solid rgba(0, 50, 86, 0.08);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  background: #fafafa;
+}
+
+.event-name {
+  margin: 0 0 0.6rem 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #003256;
+}
+
+.radio-inline {
+  flex-direction: row;
+  gap: 1.2rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.radio-label input {
+  width: auto;
+  margin-right: 0.6rem;
+  cursor: pointer;
+  accent-color: #6c8b19;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 0.9rem;
+  background: #003256;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submit-button:hover {
+  background: #6c8b19;
+}
+
+@media (max-width: 768px) {
+  .page-hero-title { font-size: 2.5rem; }
+  .rsvp-content { padding: 2rem 1rem; }
+}

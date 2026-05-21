@@ -1,63 +1,6 @@
-@font-face {
-  font-family: 'Montserrat';
-  src: url('../assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Parisienne';
-  src: url('../assets/fonts/Parisienne/Parisienne-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Dancing Script';
-  src: url('../assets/fonts/Dancing_Script/DancingScript-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Herr Von Muellerhoff';
-  src: url('../assets/fonts/Herr_Von_Muellerhoff/HerrVonMuellerhoff-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'The Seasons';
-  src: url('../assets/fonts/The_Seasons/Fontspring-DEMO-theseasons-lt.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'The Seasons';
-  src: url('../assets/fonts/The_Seasons/Fontspring-DEMO-theseasons-reg.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'The Seasons';
-  src: url('../assets/fonts/The_Seasons/Fontspring-DEMO-theseasons-bd.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Pinyon Script';
-  src: url('../assets/fonts/Pinyon_Script/PinyonScript-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 .home-container {
   scroll-snap-type: y mandatory;
   height: 100vh;
-  overflow-y: scroll;
 }
 
 .home-section {
@@ -74,123 +17,250 @@
   background-image: url('../assets/images/engagement/bw-laugh-lift.JPG');
   background-size: cover;
   background-position: center;
-  align-items: flex-start;
-  padding: 4rem;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  padding: 4rem 4rem 3rem;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 50, 86, 0.45) 0%,
+    rgba(0, 50, 86, 0.6) 100%
+  );
+  z-index: 0;
 }
 
 .title-content {
+  position: absolute;
+  bottom: 3rem;
+  left: 0;
+  right: 0;
+  z-index: 1;
   text-align: center;
-  padding: 2rem 3rem;
-  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.title-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 1.5rem 0;
 }
 
 .title-name {
-  font-size: 6rem;
+  font-size: 7rem;
   font-family: 'The Seasons', serif;
   font-weight: 400;
   color: #fff;
   margin: 0;
-  line-height: 1;
+  line-height: 0.95;
+  letter-spacing: 0.12em;
 }
 
 .title-and {
-  font-size: 5rem;
-  font-family: 'Pinyon Script', cursive;
-  font-weight: 400;
-  color: #fff;
-  letter-spacing: 5px;
-  margin: -2rem 0 -1rem 0;
-  line-height: 1;
-}
-
-.title-subtitle {
-  font-size: 1.5rem;
-  font-family: 'Montserrat', sans-serif;
-  color: #fff;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-}
-
-.photo-text-section {
-  background: white;
-  padding: 4rem;
-}
-
-.photo-text-container {
-  display: flex;
-  align-items: center;
-  gap: 4rem;
-  max-width: 1200px;
-  width: 100%;
-}
-
-.photo-side {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  margin-left: 4rem;
-}
-
-.section-image {
-  max-width: 300px;
-  width: 100%;
-  height: auto;
-  outline: 10px double #ADD8E6;
-  outline-offset: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.text-side {
-  text-align: center;
-  margin-right: 4rem;
-}
-
-.text-side .photo-title {
   font-size: 4rem;
   font-family: 'Pinyon Script', cursive;
   font-weight: 400;
-  color: #ADD8E6;
-  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0.25rem 0;
   line-height: 1;
 }
 
-.text-side .photo-date {
-  font-size: 3rem;
-  font-family: 'Pinyon Script', cursive;
+.title-divider {
+  width: 60px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.5);
+  margin: 1.25rem auto 1rem;
+}
+
+.title-subtitle {
+  font-size: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
+  color: rgba(255, 255, 255, 0.75);
   font-weight: 400;
-  color: #ADD8E6;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
   margin: 0;
-  line-height: 1;
+}
+
+.photo-text-section {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)),
+    linear-gradient(120deg, rgba(101, 184, 212, 0.08), rgba(108, 139, 25, 0.05));
+  padding: 5.5rem 3rem;
+}
+
+.photo-text-container {
+  display: grid;
+  grid-template-columns: minmax(320px, 440px) minmax(360px, 540px);
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  gap: 4.25rem;
+  max-width: 1140px;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.photo-side {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.section-image {
+  width: 100%;
+  max-width: 420px;
+  height: 560px;
+  object-fit: cover;
+  object-position: 52% center;
+  border-radius: 4px;
+  border: 10px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 28px 56px rgba(0, 50, 86, 0.16);
+}
+
+.photo-side::after {
+  content: '';
+  position: absolute;
+  width: 88%;
+  max-width: 360px;
+  height: 84%;
+  border: 1px solid rgba(0, 50, 86, 0.22);
+  border-radius: 4px;
+  transform: translate(18px, 18px);
+  z-index: 0;
+}
+
+.photo-side .section-image {
+  position: relative;
+  z-index: 1;
+}
+
+.text-side {
+  max-width: 520px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.text-label {
+  align-self: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #4f6675;
+  display: inline-block;
+  padding: 0 0 0.75rem 0;
+  border-radius: 0;
+  background: transparent;
+  border-bottom: 1px solid rgba(0, 50, 86, 0.22);
+  margin-bottom: 0.55rem;
+}
+
+.text-side .photo-title {
+  font-size: clamp(3rem, 5.4vw, 4.2rem);
+  font-family: 'The Seasons', serif;
+  font-weight: 400;
+  color: #003256;
+  margin: 0;
+  line-height: 1.02;
+  letter-spacing: 0.015em;
+}
+
+.text-side .photo-date {
+  font-size: 1.25rem;
+  font-family: 'The Seasons', serif;
+  font-weight: 400;
+  color: #003256;
+  margin: 0;
+  letter-spacing: 0.06em;
+}
+
+.text-side .photo-time {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  margin: 0;
 }
 
 .text-side .photo-on {
   font-size: 2rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  color: #ADD8E6;
+  color: #003256;
   line-height: 1;
+}
+
+.photo-info-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  border-top: 1px solid rgba(0, 50, 86, 0.16);
+  padding-top: 1.15rem;
+}
+
+.photo-info-divider {
+  width: 28px;
+  height: 1px;
+  background: #6c8b19;
+  margin: 0.15rem 0;
+}
+
+.photo-location {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  color: #415b6b;
+  margin: 0;
+  line-height: 1.8;
+  width: 100%;
+  max-width: 360px;
+  padding-top: 1.15rem;
 }
 
 .details-section {
   background-image: url('../assets/images/lemans/lemans.JPG');
   background-size: cover;
-  background-position: center 92%;
+  background-repeat: no-repeat;
+  background-position: center 84%;
+  background-color: #003256;
   position: relative;
 }
 
 .details-section::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.85);
+  inset: 0;
+  background: rgba(0, 50, 86, 0.6);
   z-index: 0;
 }
 
 .section-title,
-.details-content {
+.details-inner {
   position: relative;
   z-index: 1;
 }
@@ -198,79 +268,139 @@
 .section-title {
   font-size: 3rem;
   font-family: 'Pinyon Script', cursive;
-  color: #ADD8E6;
+  color: #003256;
   margin-bottom: 3rem;
 }
 
-.details-content {
-  max-width: 48rem;
-  text-align: center;
-}
-
-.detail-item {
-  margin-bottom: 2rem;
+.details-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .details-section-title {
-  font-size: 3rem;
-  font-family: 'The Seasons', serif;
-  color: #ADD8E6;
-  margin-bottom: 3rem;
+  font-size: 0.8rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 2.5rem;
+}
+
+.details-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.detail-item {
+  flex: 1;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.detail-divider {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+}
+
+.detail-label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  margin-bottom: 0.75rem;
 }
 
 .detail-heading {
   font-size: 2rem;
   font-family: 'Pinyon Script', cursive;
   font-weight: 400;
-  color: #ADD8E6;
+  color: #003256;
   margin-bottom: 0.5rem;
 }
 
 .detail-text {
-  font-size: 1.25rem;
-  font-family: 'Montserrat', sans-serif;
-  color: #374151;
-  margin-bottom: 0.25rem;
+  font-size: 1.3rem;
+  font-family: 'The Seasons', serif;
+  font-weight: 400;
+  color: #fff;
+  margin: 0 0 0.25rem 0;
 }
 
 .detail-subtext {
-  font-size: 1.125rem;
+  font-size: 0.9rem;
   font-family: 'Montserrat', sans-serif;
-  color: #4b5563;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  line-height: 1.5;
 }
 
 .more-section {
-  background: #ADD8E6;
+  background: #003256;
 }
 
 .more-section-title {
-  font-size: 3rem;
-  font-family: 'The Seasons', serif;
-  color: white;
+  font-size: 0.8rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 3rem;
 }
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  max-width: 64rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 860px;
   width: 100%;
 }
 
 .card {
-  background: white;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem 2rem;
+  border-radius: 4px;
+  text-align: left;
   text-decoration: none;
   color: inherit;
-  transition: box-shadow 0.3s;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-accent {
+  display: block;
+  width: 30px;
+  height: 2px;
+  background: #6c8b19;
+  margin-bottom: 1rem;
+  transition: width 0.3s ease;
 }
 
 .card:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(108, 139, 25, 0.4);
+}
+
+.card:hover .card-accent {
+  width: 50px;
 }
 
 .card-icon {
@@ -279,31 +409,111 @@
 }
 
 .card-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #ADD8E6;
-  margin-bottom: 0.5rem;
-  transition: color 0.3s;
+  font-size: 1.3rem;
+  font-family: 'The Seasons', serif;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
 }
 
 .card:hover .card-title {
-  color: #ADD8E6;
+  color: #fff;
 }
 
 .card-description {
-  color: #4b5563;
-  margin-top: 0.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.card-arrow {
+  font-size: 1.4rem;
+  color: #6c8b19;
+  margin-top: auto;
+  padding-top: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-arrow {
+  transform: translateX(4px);
+}
+
+.home-footer-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 2.5rem 0 0 0;
 }
 
 @media (max-width: 768px) {
   .title-name {
     font-size: 4rem;
   }
-  
+
+  .title-eyebrow {
+    font-size: 0.75rem;
+  }
+
+  .photo-text-container {
+    grid-template-columns: 1fr;
+    gap: 2.6rem;
+  }
+
+  .section-image {
+    max-width: 100%;
+    height: 390px;
+  }
+
+  .photo-side::after {
+    width: 89%;
+    max-width: 89%;
+    height: 88%;
+    transform: translate(10px, 10px);
+  }
+
+  .text-side {
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.5rem;
+    gap: 0.95rem;
+  }
+
+  .text-label {
+    align-self: center;
+  }
+
+  .text-side .photo-title {
+    font-size: 2.7rem;
+  }
+
+  .photo-location {
+    max-width: 100%;
+  }
+
+  .details-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .detail-divider {
+    width: 40px;
+    height: 1px;
+    align-self: auto;
+  }
+
+  .detail-item {
+    padding: 1.5rem 0;
+  }
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .cards-grid {
     grid-template-columns: 1fr;
   }

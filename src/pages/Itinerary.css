@@ -1,0 +1,176 @@
+.itinerary-container {
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.page-hero {
+  background: #003256;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+}
+
+.page-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  margin: 0 0 1rem 0;
+  display: block;
+}
+
+.page-hero-title {
+  font-family: 'The Seasons', serif;
+  font-size: 4rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.page-hero-divider {
+  width: 50px;
+  height: 1px;
+  background: rgba(101, 184, 212, 0.5);
+  margin: 1.25rem auto 0;
+}
+
+.itinerary-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.timeline {
+  position: relative;
+  padding: 1rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: rgba(0, 50, 86, 0.15);
+}
+
+.timeline-item {
+  margin-bottom: 2.5rem;
+  position: relative;
+  width: 50%;
+}
+
+.timeline-item:nth-child(odd) {
+  margin-left: 0;
+  margin-right: auto;
+  padding-right: 3rem;
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+  margin-left: auto;
+  margin-right: 0;
+  padding-left: 3rem;
+  text-align: left;
+}
+
+.timeline-time {
+  position: absolute;
+  top: 0.25rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #6c8b19;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.timeline-item:nth-child(odd) .timeline-time {
+  right: 0;
+  transform: translateX(calc(100% + 1rem));
+  text-align: left;
+}
+
+.timeline-item:nth-child(even) .timeline-time {
+  left: 0;
+  transform: translateX(calc(-100% - 1rem));
+  text-align: right;
+}
+
+.timeline-content {
+  background: #fff;
+  border-top: 2px solid #6c8b19;
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 8px rgba(0, 50, 86, 0.06);
+}
+
+.timeline-content h3 {
+  font-family: 'The Seasons', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #003256;
+  margin: 0 0 0.4rem 0;
+}
+
+.timeline-content p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #6c8b19;
+  border-radius: 50%;
+  top: 8px;
+}
+
+.timeline-item:nth-child(odd)::before {
+  right: 0;
+  transform: translateX(50%);
+}
+
+.timeline-item:nth-child(even)::before {
+  left: 0;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 768px) {
+  .page-hero-title { font-size: 2.5rem; }
+  .timeline::before { left: 16px; }
+  .timeline-item,
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    width: 100%;
+    padding-left: 48px;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+  .timeline-item::before,
+  .timeline-item:nth-child(odd)::before,
+  .timeline-item:nth-child(even)::before {
+    left: 16px;
+    right: auto;
+    transform: translateX(-50%);
+  }
+  .timeline-item:nth-child(odd) .timeline-time,
+  .timeline-item:nth-child(even) .timeline-time {
+    position: static;
+    transform: none;
+    display: block;
+    margin-bottom: 0.4rem;
+    text-align: left;
+  }
+}

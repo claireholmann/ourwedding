@@ -1,0 +1,121 @@
+.attire-container {
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.page-hero {
+  background: #003256;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+}
+
+.page-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  margin: 0 0 1rem 0;
+  display: block;
+}
+
+.page-hero-title {
+  font-family: 'The Seasons', serif;
+  font-size: 4rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.page-hero-subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 1rem 0 0 0;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.page-hero-divider {
+  width: 50px;
+  height: 1px;
+  background: rgba(101, 184, 212, 0.5);
+  margin: 1.25rem auto 0;
+}
+
+.attire-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.attire-section {
+  background-color: #fff;
+  border-top: 2px solid #6c8b19;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 8px rgba(0, 50, 86, 0.05);
+}
+
+.section-heading {
+  font-family: 'The Seasons', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #003256;
+  margin: 0 0 1rem 0;
+}
+
+.section-description {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  margin: 0 0 1rem 0;
+}
+
+.section-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  color: #6b7280;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.attire-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.attire-list li {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  color: #6b7280;
+  padding: 0.6rem 0 0.6rem 2rem;
+  position: relative;
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(0, 50, 86, 0.05);
+}
+
+.attire-list li:last-child {
+  border-bottom: none;
+}
+
+.attire-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: #65b8d4;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .page-hero-title { font-size: 2.5rem; }
+  .attire-content { padding: 2rem 1rem; }
+  .attire-section { padding: 1.5rem; }
+}
