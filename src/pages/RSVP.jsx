@@ -238,7 +238,7 @@ function filterMatchesByQuery(matches, query) {
   });
 }
 
-function mergeUniqueMatches(primary, secondary, query) {
+function mergeUniqueMatches(primary, secondary) {
   const merged = [];
   const seen = new Set();
 
@@ -250,7 +250,7 @@ function mergeUniqueMatches(primary, secondary, query) {
     }
   }
 
-  return filterMatchesByQuery(merged, query);
+  return merged;
 }
 
 function RSVP() {
@@ -304,7 +304,7 @@ function RSVP() {
       const allMatchLists = await Promise.all(uniqueCandidates.map((candidate) => lookup(candidate)));
       let finalMatches = [];
       for (const matches of allMatchLists) {
-        finalMatches = mergeUniqueMatches(finalMatches, matches, query);
+        finalMatches = mergeUniqueMatches(finalMatches, matches);
       }
 
       // If a matched row references a guest name, resolve that guest too and then
@@ -320,11 +320,12 @@ function RSVP() {
       if (guestQueries.length > 0) {
         const guestMatchLists = await Promise.all(guestQueries.slice(0, 8).map((guest) => lookup(guest)));
         for (const guestMatches of guestMatchLists) {
-          finalMatches = mergeUniqueMatches(finalMatches, guestMatches, query);
+          finalMatches = mergeUniqueMatches(finalMatches, guestMatches);
         }
       }
 
       finalMatches = linkRelatedMatches(finalMatches);
+      finalMatches = filterMatchesByQuery(finalMatches, query);
 
       setSearchResults(finalMatches.length > 0 ? finalMatches : []);
     } catch {
