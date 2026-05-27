@@ -20,6 +20,15 @@
   display: block;
 }
 
+.amp-symbol {
+  font-family: Baskerville, 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 1.15em;
+  letter-spacing: 0.02em;
+  display: inline-block;
+}
+
 .page-hero-title {
   font-family: 'The Seasons', serif;
   font-size: 4rem;
@@ -232,4 +241,372 @@
 @media (max-width: 768px) {
   .page-hero-title { font-size: 2.5rem; }
   .rsvp-content { padding: 2rem 1rem; }
+}
+
+/* ── Search input row ──────────────────────────────────────── */
+.search-input-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.search-input-row input {
+  flex: 1;
+}
+
+.search-button {
+  padding: 0.75rem 1.4rem;
+  background: #003256;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.search-button:hover:not(:disabled) { background: #6c8b19; }
+.search-button:disabled { opacity: 0.5; cursor: default; }
+
+.search-loading {
+  margin-top: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  color: #003256;
+}
+
+.loading-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(0, 50, 86, 0.2);
+  border-top-color: #003256;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── Search results list ───────────────────────────────────── */
+.search-results {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.search-results-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #003256;
+  margin: 0 0 0.25rem 0;
+}
+
+.result-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: #fafafa;
+  border: 1px solid rgba(0, 50, 86, 0.12);
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  flex-wrap: wrap;
+}
+
+.result-card:hover {
+  border-color: #6c8b19;
+  background: #fff;
+}
+
+.result-name {
+  font-family: 'The Seasons', serif;
+  font-size: 1.15rem;
+  color: #003256;
+}
+
+.result-guest {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  color: #65b8d4;
+  font-weight: 500;
+}
+
+.result-badge {
+  margin-left: auto;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6c8b19;
+  border: 1px solid #6c8b19;
+  border-radius: 20px;
+  padding: 0.2rem 0.6rem;
+}
+
+/* ── Event section cards ───────────────────────────────────── */
+.event-section {
+  border: 1px solid rgba(0, 50, 86, 0.08);
+  border-radius: 6px;
+  padding: 1.25rem 1.25rem 1rem;
+  background: #fafafa;
+  margin-bottom: 1rem;
+}
+
+.event-section-header {
+  margin-bottom: 1rem;
+}
+
+.event-section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #003256;
+  margin: 0 0 0.25rem 0;
+}
+
+.event-section-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ── Per-attendee row ──────────────────────────────────────── */
+.event-attendees {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.attendee-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.attendee-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  color: #374151;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Yes / No toggle ───────────────────────────────────────── */
+.yes-no-group {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.yes-no-group input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.yn-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  padding: 0.35rem 0.85rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  border: 1px solid rgba(0, 50, 86, 0.18);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.yn-option:hover { border-color: #003256; color: #003256; }
+
+.yn-selected {
+  background: #003256;
+  border-color: #003256;
+  color: #fff;
+}
+
+/* ── Meal group ────────────────────────────────────────────── */
+.meal-group {
+  margin-bottom: 0.75rem;
+}
+
+.meal-group:last-child {
+  margin-bottom: 0;
+}
+
+.meal-selections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.allergies-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* ── Invite summary bar ────────────────────────────────────── */
+.invite-summary {
+  border: 1px solid rgba(0, 50, 86, 0.08);
+  background-color: rgba(0, 50, 86, 0.02);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.invite-summary p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: #003256;
+  margin: 0;
+}
+
+.change-name-btn {
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.change-name-btn:hover { color: #003256; }
+
+.form-group label.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+
+.form-group label.checkbox-label input[type='checkbox'] {
+  width: auto;
+  margin: 0;
+  accent-color: #003256;
+  flex-shrink: 0;
+}
+
+.checkbox-label-text {
+  display: inline-block;
+  margin-left: 0.1rem;
+  line-height: 1.35;
+}
+
+/* ── Success screen ────────────────────────────────────────── */
+.success-message {
+  background-color: rgba(0, 50, 86, 0.04);
+  border: 1px solid rgba(0, 50, 86, 0.15);
+  border-top: 2px solid #6c8b19;
+  border-radius: 0 0 8px 8px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 1.25rem;
+  border-radius: 50%;
+  background: #6c8b19;
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.success-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.success-icon svg path {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.success-icon-fallback {
+  display: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.success-message h2 {
+  font-family: 'The Seasons', serif;
+  font-weight: 400;
+  color: #003256;
+  margin: 0 0 0.75rem 0;
+  font-size: 2rem;
+}
+
+.success-message p {
+  font-family: 'Montserrat', sans-serif;
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .attendee-row { flex-wrap: wrap; }
+  .result-badge { margin-left: 0; }
+  .invite-summary { flex-direction: column; align-items: flex-start; }
 }

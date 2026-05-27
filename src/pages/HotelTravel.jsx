@@ -25,7 +25,7 @@ function HotelTravel() {
             <div className="hotel-card">
               <h3 className="hotel-name">Aloft at Notre Dame</h3>
               <a
-                href="https://app.marriott.com/reslink?id=1778598509881&key=GRP&app=resvlink"
+                href="https://app.marriott.com/reslink?id=1778598509881&key=GRP&app=resvlink" target="_blank"
                 className="hotel-book-link"
               >
                 Reserve Your Room
@@ -48,7 +48,7 @@ function HotelTravel() {
             <div className="hotel-card">
               <h3 className="hotel-name">Marriott South Bend</h3>
               <a
-                href="https://app.marriott.com/reslink?id=1778598509881&key=GRP&app=resvlink"
+                href="https://app.marriott.com/reslink?id=1779122616923&key=GRP&app=resvlink" target="_blank"
                 className="hotel-book-link"
               >
                 Reserve Your Room

@@ -18,9 +18,9 @@
   background-size: cover;
   background-position: center;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   position: relative;
-  padding: 4rem 4rem 3rem;
+  padding: 4rem;
 }
 
 .hero-overlay {
@@ -35,10 +35,7 @@
 }
 
 .title-content {
-  position: absolute;
-  bottom: 3rem;
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 1;
   text-align: center;
   display: flex;
