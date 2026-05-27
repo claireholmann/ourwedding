@@ -147,7 +147,85 @@ function getMatchKey(match) {
     .map((m) => String(m.rowIndex))
     .sort()
     .join('|');
-  return `${normalizeText(match.matchedName)}::${memberKey}`;
+  return memberKey || normalizeText(match.matchedName);
+}
+
+function splitGuestNames(guestName) {
+  return String(guestName || '')
+    .split(',')
+    .map((name) => name.trim())
+    .filter(Boolean);
+}
+
+function chooseSharedData(matches) {
+  for (const match of matches) {
+    const songRequests = String(match?.shared?.songRequests || '').trim();
+    const message = String(match?.shared?.message || '').trim();
+    if (songRequests || message) {
+      return { songRequests, message };
+    }
+  }
+  return { songRequests: '', message: '' };
+}
+
+function linkRelatedMatches(matches) {
+  if (!Array.isArray(matches) || matches.length === 0) return [];
+
+  const byMatchedName = new Map();
+  matches.forEach((match, idx) => {
+    const key = normalizeText(match.matchedName);
+    if (!key) return;
+    const existing = byMatchedName.get(key) || [];
+    existing.push(idx);
+    byMatchedName.set(key, existing);
+  });
+
+  const seen = new Set();
+  const linked = [];
+
+  for (let i = 0; i < matches.length; i += 1) {
+    if (seen.has(i)) continue;
+
+    const queue = [i];
+    const group = [];
+
+    while (queue.length > 0) {
+      const currentIdx = queue.shift();
+      if (seen.has(currentIdx)) continue;
+      seen.add(currentIdx);
+      group.push(matches[currentIdx]);
+
+      const guestNames = splitGuestNames(matches[currentIdx].guestName);
+      for (const guest of guestNames) {
+        const guestKey = normalizeText(guest);
+        const linkedIndices = byMatchedName.get(guestKey) || [];
+        for (const linkedIdx of linkedIndices) {
+          if (!seen.has(linkedIdx)) queue.push(linkedIdx);
+        }
+      }
+    }
+
+    const mergedMembers = [];
+    const memberSeen = new Set();
+    for (const match of group) {
+      for (const member of match.members || []) {
+        const memberKey = String(member.rowIndex);
+        if (memberSeen.has(memberKey)) continue;
+        memberSeen.add(memberKey);
+        mergedMembers.push(member);
+      }
+    }
+
+    const shared = chooseSharedData(group);
+    const primary = group[0];
+    linked.push({
+      ...primary,
+      members: mergedMembers,
+      shared,
+    });
+  }
+
+  return linked;
 }
 
 function filterMatchesByQuery(matches, query) {
@@ -228,6 +306,25 @@ function RSVP() {
       for (const matches of allMatchLists) {
         finalMatches = mergeUniqueMatches(finalMatches, matches, query);
       }
+
+      // If a matched row references a guest name, resolve that guest too and then
+      // merge linked households so plus-ones appear in the same invitation card.
+      const knownQueries = new Set(uniqueCandidates.map((q) => normalizeText(q)));
+      const guestQueries = [...new Set(
+        finalMatches
+          .flatMap((match) => splitGuestNames(match.guestName))
+          .map((name) => name.trim())
+          .filter((name) => name && !knownQueries.has(normalizeText(name)))
+      )];
+
+      if (guestQueries.length > 0) {
+        const guestMatchLists = await Promise.all(guestQueries.slice(0, 8).map((guest) => lookup(guest)));
+        for (const guestMatches of guestMatchLists) {
+          finalMatches = mergeUniqueMatches(finalMatches, guestMatches, query);
+        }
+      }
+
+      finalMatches = linkRelatedMatches(finalMatches);
 
       setSearchResults(finalMatches.length > 0 ? finalMatches : []);
     } catch {
