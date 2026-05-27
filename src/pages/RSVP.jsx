@@ -230,7 +230,7 @@ function linkRelatedMatches(matches) {
 
 function filterMatchesByQuery(matches, query) {
   const queryWords = normalizeText(query).split(/\s+/).filter(Boolean);
-  if (queryWords.length < 2) return matches;
+  if (queryWords.length === 0) return matches;
 
   return matches.filter((match) => {
     if (includesAllQueryWords(match.matchedName, queryWords)) return true;
