@@ -24,20 +24,20 @@ function BridalParty() {
 
   const bridesmaids = [
     { name: 'Caitlyn Holman', role: 'Sister of the Bride', image: getProfileImage('caitlyn', brideSideAvatar) },
-    { name: 'Megan Holman', role: 'Sister-in-law of the Bride', image: getProfileImage('megan', brideSideAvatar) },
+    { name: 'Megan Holman', role: 'Sister-in-law of the Bride', image: getProfileImage('pattymegan', brideSideAvatar) },
     { name: 'Shannon Kosch', role: 'Sister of the Groom', image: getProfileImage('shannon', brideSideAvatar) },
     { name: 'Samantha Ray', role: 'Childhood Neighbor', image: getProfileImage('sam', brideSideAvatar) },
-    { name: 'Emily Cripe', role: 'Childhood Neighbor', image: getProfileImage('emily', brideSideAvatar) },
-    { name: 'Claire Schutta', role: 'College Roommate', image: getProfileImage('hannylook', brideSideAvatar) },
+    { name: 'Emily Cripe', role: 'Childhood Neighbor', image: getProfileImage('emily1', brideSideAvatar) },
+    { name: 'Claire Schutta', role: 'College Roommate', image: getProfileImage('hanny', brideSideAvatar) },
     { name: 'Kelsey Kavanagh', role: 'College Roommate', image: getProfileImage('kelsey', brideSideAvatar) },
     { name: 'Anna Zappa', role: 'College Roommate', image: getProfileImage('anna', brideSideAvatar) },
   ];
 
   const groomsmen = [
     { name: 'Tyler Gillespie', role: 'College Roommate', image: getProfileImage('tyler', groomSideAvatar) },
-    { name: 'Patrick Holman', role: 'Brother of the Bride', image: getProfileImage('patrick', groomSideAvatar) },
+    { name: 'Patrick Holman', role: 'Brother of the Bride', image: getProfileImage('pattymegan', groomSideAvatar) },
     { name: 'Danny Freitag', role: 'Brother-in-law of the Groom', image: getProfileImage('danny', groomSideAvatar) },
-    { name: 'Joseph Roscetti', role: 'Childhood Friend', image: getProfileImage('joey', groomSideAvatar) },
+    { name: 'Joseph Roscetti', role: 'Childhood Friend', image: getProfileImage('boys', groomSideAvatar) },
     { name: 'Michael Mullan', role: 'Childhood Friend', image: getProfileImage('mike', groomSideAvatar) },
     { name: 'Christopher Prattos', role: 'Coworker of Bride and Groom', image: getProfileImage('chris', groomSideAvatar) },
     { name: 'Austin Straley', role: 'Coworker of Bride and Groom', image: getProfileImage('austin', groomSideAvatar) },
@@ -45,10 +45,10 @@ function BridalParty() {
   ];
 
   const ushers = [
-    { name: 'Griffin Holman', role: 'Cousin of the Bride', image: getProfileImage('griffin', groomSideAvatar) },
-    { name: 'Ryan Morgan', role: 'Childhood Friend of the Groom', image: getProfileImage('ryan', groomSideAvatar) },
-    { name: 'Joe Alberts', role: 'Childhood Friend of the Groom', image: getProfileImage('joe', groomSideAvatar) },
-    { name: 'Billy Jacoby', role: 'Childhood Friend of the Groom', image: getProfileImage('billy', groomSideAvatar) },
+    { name: 'Griffin Holman', role: 'Cousin of the Bride', image: getProfileImage('griff', groomSideAvatar) },
+    { name: 'Ryan Morgan', role: 'Childhood Friend of the Groom', image: getProfileImage('boys', groomSideAvatar) },
+    { name: 'Joe Alberts', role: 'Childhood Friend of the Groom', image: getProfileImage('boys', groomSideAvatar) },
+    { name: 'Billy Jacoby', role: 'Childhood Friend of the Groom', image: getProfileImage('billy2', groomSideAvatar) },
   ];
 
   const ringBearer = [

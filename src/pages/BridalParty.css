@@ -1,4 +1,4 @@
-.bridal-party-page {
+﻿.bridal-party-page {
   --party-card-width: 250px;
   min-height: 100vh;
   background-color: #fafafa;
@@ -143,48 +143,88 @@
 }
 
 .caitlyn-holman .member-avatar img {
-  transform: scale(1.25) translate(10px, 0);
+  transform: scale(3.95) translate(1px, 9px);
 }
 
 .megan-holman .member-avatar img {
-  transform: scale(1.46) translate(20px, 28px);
+  transform: scale(2.46) translate(27px, 15px);
 }
 
 .shannon-kosch .member-avatar img {
-  transform: scale(1.35) translate(0, 20px);
+  transform: scale(1.85) translate(-20px, 10px);
 }
 
 .emily-cripe .member-avatar img {
-  transform: scale(1.5) translate(0, 0);
+  transform: scale(1.0) translate(2px, 0px);
+}
+
+.sam-ray .member-avatar img {
+  transform: scale(1.35) translate(0, 20px);
+}
+
+.claire-schutta .member-avatar img {
+  transform: scale(1.35) translate(-22px, 20px);
+}
+
+.anna-zappa .member-avatar img {
+  transform: scale(1.75) translate(24px, 33px);
 }
 
 .kelsey-kavanagh .member-avatar img {
-  transform: scale(3.25) translate(-22px, -10px);
+  transform: scale(2.55) translate(-22px, 49px);
 }
 
 .tyler-gillespie .member-avatar img {
-  transform: scale(1.2) translate(4px, 15px)
+  transform: scale(1.52) translate(25px, 10px);
+}
+
+.patrick-holman .member-avatar img {
+  transform: scale(1.75) translate(-35px, 11px);
+}
+
+.danny-freitag .member-avatar img {
+  transform: scale(1.7) translate(30px, 8px);
 }
 
 .joseph-roscetti .member-avatar img {
-  transform: scale(1.45) translate(4px, -9px);
+  transform: scale(2.75) translate(52px, -5px) rotate(-29deg);
+}
+
+.michael-mullan .member-avatar img {
+  transform: scale(4.5) translate(10px, -9px);
 }
 
 .christopher-prattos .member-avatar img {
-  transform: scale(1.2) translate(-15px, 5px);
+  transform: scale(1.7) translate(11px, 30px);
+}
+
+.austin-straley .member-avatar img {
+  transform: scale(1.5) translate(14px, 61px);
+}
+
+.dan-broderick .member-avatar img {
+  transform: scale(2.75) translate(-4px, 20px);
 }
 
 .griffin-holman .member-avatar img {
-  transform: scale(2.75) translate(25px, 26px);
+  transform: scale(3.75) translate(-5px, 59px);
 }
 
 .billy-jacoby .member-avatar img {
-  transform: scale(2) translate(26px, 5px);
+  transform: scale(2.25) translate(-8px, -20px) rotate(18deg);
 }
 
-.member-avatar img.ring-bearer-avatar {
-  transform: scale(1.5) translate(0, 8px);
+.joe-alberts .member-avatar img {
+  transform: scale(2.5) translate(15px, -26px) rotate(-29deg);
 }
+
+.ryan-morgan .member-avatar img {
+  transform: scale(2.75) translate(-14px, -21px);
+}
+
+/* .member-avatar img.ring-bearer-avatar {
+  transform: scale(1.5) translate(0, 8px);
+} */
 
 .member-name {
   font-family: "The Seasons", serif;
