@@ -82,9 +82,14 @@
 .party-grid-three {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1.5rem;
   width: 100%;
+}
+
+/* Center only the final row when exactly two cards remain in a 3-up layout. */
+.party-grid-three .party-member:nth-last-child(2):nth-child(3n + 1) {
+  margin-left: calc((var(--party-card-width) + 1.5rem) / 2);
 }
 
 .party-grid-three .party-member {
@@ -93,8 +98,8 @@
 }
 
 .party-grid-two {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, var(--party-card-width));
   justify-content: center;
   gap: 1.5rem;
   width: 100%;
@@ -106,8 +111,13 @@
 }
 
 .party-grid-single {
-  grid-template-columns: var(--party-card-width);
-  justify-content: center;
+  grid-template-columns: 250px;
+  justify-content: start;
+}
+
+.party-grid-single .party-member {
+  width: 250px;
+  max-width: 250px;
 }
 
 .party-member {
@@ -143,7 +153,7 @@
 }
 
 .caitlyn-holman .member-avatar img {
-  transform: scale(3.95) translate(1px, 9px);
+  transform: scale(3.5) translate(3px, 16px);
 }
 
 .megan-holman .member-avatar img {
@@ -155,7 +165,7 @@
 }
 
 .emily-cripe .member-avatar img {
-  transform: scale(1.0) translate(2px, 0px);
+  transform: scale(2.1) translate(-35px, 6px);
 }
 
 .sam-ray .member-avatar img {
@@ -199,7 +209,7 @@
 }
 
 .austin-straley .member-avatar img {
-  transform: scale(1.5) translate(14px, 61px);
+  transform: scale(5.5) translate(48px, 16px);
 }
 
 .dan-broderick .member-avatar img {
@@ -256,10 +266,16 @@
     grid-template-columns: repeat(2, var(--party-card-width));
   }
   .party-grid-single {
-    grid-template-columns: var(--party-card-width);
+    grid-template-columns: 250px;
+    justify-content: start;
   }
   .party-grid-three {
     max-width: 100%;
+    justify-content: center;
+  }
+
+  .party-grid-three .party-member:nth-last-child(2):nth-child(3n + 1) {
+    margin-left: 0;
   }
 
   .party-grid-three .party-member {

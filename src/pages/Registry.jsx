@@ -18,20 +18,12 @@ function Registry() {
           <div className="registry-list">
             <a href="#" className="registry-link">
               <div>
-                <h3 className="registry-title">Amazon</h3>
-                <p className="registry-description">View our Amazon registry</p>
+                <h3 className="registry-title">Anthropologie</h3>
+                <p className="registry-description">View our Anthropologie registry</p>
               </div>
               <span className="registry-arrow">→</span>
             </a>
-            
-            <a href="#" className="registry-link">
-              <div>
-                <h3 className="registry-title">Target</h3>
-                <p className="registry-description">View our Target registry</p>
-              </div>
-              <span className="registry-arrow">→</span>
-            </a>
-            
+
             <a href="#" className="registry-link">
               <div>
                 <h3 className="registry-title">Crate <span className="page-hero-and">&</span> Barrel</h3>
@@ -39,6 +31,15 @@ function Registry() {
               </div>
               <span className="registry-arrow">→</span>
             </a>
+            
+            <a href="#" className="registry-link">
+              <div>
+                <h3 className="registry-title">Pottery Barn</h3>
+                <p className="registry-description">View our Pottery Barn registry</p>
+              </div>
+              <span className="registry-arrow">→</span>
+            </a>
+          
           </div>
       </div>
     </div>

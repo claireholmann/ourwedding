@@ -17,7 +17,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
-          C<span className="page-hero-and">&</span>B
+          C<span className="page-hero-and symbol-fallback">&</span>B
         </Link>
 
         <button
@@ -53,7 +53,7 @@ function Navbar() {
           </li>
           <li className="nav-item">
             <Link to="/hotel-travel" className="nav-link" onClick={closeMenu}>
-              Hotel & Travel
+              Hotel <span className="symbol-fallback">&</span> Travel
             </Link>
           </li>
           <li className="nav-item">

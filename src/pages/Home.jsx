@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import './Home.css';
-import walk from '../assets/images/engagement/walk.JPG';
 
 function Home() {
 
@@ -22,42 +21,29 @@ function Home() {
       {/* Photo and Text Section */}
       <section id="photo-text" className="home-section photo-text-section">
         <div className="photo-text-container">
-          <div className="photo-side">
-            <img src={walk} alt="Claire and Brian" className="section-image" />
-          </div>
           <div className="text-side">
             <span className="text-label">Save the Date</span>
             <h1 className="photo-title">Meet Us on<br />The Avenue</h1>
-            <div className="photo-info-block">
-              <p className="photo-date">June 26th, 2027</p>
-              <div className="photo-info-divider" />
-              <p className="photo-time">1:30 PM EST</p>
-              <p className="photo-location">Le Mans Chapel · Saint Mary's College</p>
+            <p className="photo-intro">Wedding Ceremony</p>
+            <div className="event-detail-grid" role="list" aria-label="Wedding details">
+              <div className="event-detail" role="listitem">
+                <span className="event-detail-label">Date</span>
+                <p className="event-detail-value">Saturday, June 26th, 2027</p>
+              </div>
+              <div className="event-detail" role="listitem">
+                <span className="event-detail-label">Time</span>
+                <p className="event-detail-value">1:30 PM EST</p>
+              </div>
+              <div className="event-detail" role="listitem">
+                <span className="event-detail-label">Location</span>
+                <p className="event-detail-value">Le Mans Chapel<br />Saint Mary's College</p>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Details Section */}
-      <section id="details" className="home-section details-section">
-        <div className="details-inner">
-          <h2 className="details-section-title">The Details</h2>
-          <div className="details-content">
-            <div className="detail-item">
-              <span className="detail-label">Date</span>
-              <p className="detail-text">Saturday, June 26th, 2027</p>
-            </div>
-            <div className="detail-divider" />
-            <div className="detail-item">
-              <span className="detail-label">Ceremony</span>
-              <p className="detail-text">Le Mans Chapel</p>
-              <p className="detail-subtext">Saint Mary's College, Notre Dame, Indiana</p>
-            </div>
-            <div className="detail-divider" />
-            <div className="detail-item">
-              <span className="detail-label">Time</span>
-              <p className="detail-text">1:30 PM</p>
-              <p className="detail-subtext">Reception to follow</p>
+            <div className="event-actions">
+              <Link to="/itinerary" className="event-action-link">View Itinerary</Link>
+              {/* RSVP button hidden for now
+              <Link to="/rsvp" className="event-action-link event-action-link-primary">RSVP</Link>
+              */}
             </div>
           </div>
         </div>
@@ -73,16 +59,16 @@ function Home() {
             <p className="card-description">View our gift registry</p>
             <span className="card-arrow">→</span>
           </Link>
-          <Link to="/photos" className="card">
+          <Link to="/itinerary" className="card">
             <span className="card-accent" />
-            <h3 className="card-title">Photos</h3>
-            <p className="card-description">See our story</p>
+            <h3 className="card-title">Itinerary</h3>
+            <p className="card-description">View the schedule of events</p>
             <span className="card-arrow">→</span>
           </Link>
-          <Link to="/bridal-party" className="card">
+          <Link to="/hotel-travel" className="card">
             <span className="card-accent" />
-            <h3 className="card-title">Bridal Party</h3>
-            <p className="card-description">Meet the crew</p>
+            <h3 className="card-title">Hotel <span className="symbol-fallback">&amp;</span> Travel</h3>
+            <p className="card-description">View accommodation and travel details</p>
             <span className="card-arrow">→</span>
           </Link>
         </div>

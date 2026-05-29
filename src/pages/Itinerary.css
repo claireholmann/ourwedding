@@ -2,9 +2,9 @@
   min-height: 100vh;
   background-color: #fafafa;
 }
-
 .page-hero {
   background: #003256;
+ 
   padding: 5rem 2rem 4rem;
   text-align: center;
 }
@@ -47,30 +47,59 @@
   padding: 1rem 0;
 }
 
+.timeline-day-label {
+  position: relative;
+  z-index: 2;
+  font-family: 'The Seasons', serif;
+  font-size: 2.2rem;
+  color: #65b8d4;
+  text-align: center;
+  margin: 2.5rem 0 1.5rem 0;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.timeline-day-label::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2.5em;
+  height: 2.5em;
+  background: #fafafa;
+  z-index: -1;
+  border-radius: 1.25em;
+}
+
 .timeline::before {
   content: '';
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 1px;
-  height: 100%;
   background: rgba(0, 50, 86, 0.15);
+  /* Start the line after the first day label */
+  top: 5.5rem;
+  height: calc(100% - 5.5rem);
 }
 
+
+
+/* Alternate left/right for each card, not just by section */
 .timeline-item {
   margin-bottom: 2.5rem;
   position: relative;
   width: 50%;
 }
-
-.timeline-item:nth-child(odd) {
+.timeline-item.left {
   margin-left: 0;
   margin-right: auto;
   padding-right: 3rem;
   text-align: right;
 }
-
-.timeline-item:nth-child(even) {
+.timeline-item.right {
   margin-left: auto;
   margin-right: 0;
   padding-left: 3rem;
@@ -88,18 +117,18 @@
   text-transform: uppercase;
   white-space: nowrap;
 }
-
-.timeline-item:nth-child(odd) .timeline-time {
+.timeline-item.left .timeline-time {
   right: 0;
   transform: translateX(calc(100% + 1rem));
   text-align: left;
 }
-
-.timeline-item:nth-child(even) .timeline-time {
+.timeline-item.right .timeline-time {
   left: 0;
   transform: translateX(calc(-100% - 1rem));
   text-align: right;
 }
+
+
 
 .timeline-content {
   background: #fff;
@@ -134,13 +163,11 @@
   border-radius: 50%;
   top: 8px;
 }
-
-.timeline-item:nth-child(odd)::before {
+.timeline-item.left::before {
   right: 0;
   transform: translateX(50%);
 }
-
-.timeline-item:nth-child(even)::before {
+.timeline-item.right::before {
   left: 0;
   transform: translateX(-50%);
 }

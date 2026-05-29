@@ -68,3 +68,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.symbol-fallback {
+  font-family: Baskerville, 'EB Garamond', Georgia, serif;
+  font-weight: 500;
+}
+

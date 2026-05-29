@@ -27,7 +27,7 @@ function BridalParty() {
     { name: 'Megan Holman', role: 'Sister-in-law of the Bride', image: getProfileImage('pattymegan', brideSideAvatar) },
     { name: 'Shannon Kosch', role: 'Sister of the Groom', image: getProfileImage('shannon', brideSideAvatar) },
     { name: 'Samantha Ray', role: 'Childhood Neighbor', image: getProfileImage('sam', brideSideAvatar) },
-    { name: 'Emily Cripe', role: 'Childhood Neighbor', image: getProfileImage('emily1', brideSideAvatar) },
+    { name: 'Emily Cripe', role: 'Childhood Neighbor', image: getProfileImage('emily', brideSideAvatar) },
     { name: 'Claire Schutta', role: 'College Roommate', image: getProfileImage('hanny', brideSideAvatar) },
     { name: 'Kelsey Kavanagh', role: 'College Roommate', image: getProfileImage('kelsey', brideSideAvatar) },
     { name: 'Anna Zappa', role: 'College Roommate', image: getProfileImage('anna', brideSideAvatar) },
@@ -45,7 +45,7 @@ function BridalParty() {
   ];
 
   const ushers = [
-    { name: 'Griffin Holman', role: 'Cousin of the Bride', image: getProfileImage('griff', groomSideAvatar) },
+    { name: 'Griffin Holman', role: 'Cousin of the Bride', image: getProfileImage('griffin', groomSideAvatar) },
     { name: 'Ryan Morgan', role: 'Childhood Friend of the Groom', image: getProfileImage('boys', groomSideAvatar) },
     { name: 'Joe Alberts', role: 'Childhood Friend of the Groom', image: getProfileImage('boys', groomSideAvatar) },
     { name: 'Billy Jacoby', role: 'Childhood Friend of the Groom', image: getProfileImage('billy2', groomSideAvatar) },

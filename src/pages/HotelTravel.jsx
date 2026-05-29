@@ -6,7 +6,7 @@ function HotelTravel() {
       <div className="page-hero">
         <span className="page-eyebrow">Notre Dame, Indiana · June 2027</span>
         <h1 className="page-hero-title">
-          Hotel <span className="page-hero-and">&</span> Travel
+          Hotel <span className="page-hero-and symbol-fallback">&</span> Travel
         </h1>
         <div className="page-hero-divider" />
       </div>
@@ -74,7 +74,7 @@ function HotelTravel() {
 
         <section className="travel-section">
           <span className="section-eyebrow">Getting Here</span>
-          <h2 className="section-heading">Directions <span className="page-hero-and">&</span> Transport</h2>
+          <h2 className="section-heading">Directions <span className="page-hero-and symbol-fallback">&</span> Transport</h2>
           <div className="travel-grid">
             <div className="travel-info">
               <h3>Planes</h3>
