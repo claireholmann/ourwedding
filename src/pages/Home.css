@@ -366,14 +366,12 @@
 
   .home-section {
     height: auto;
-    min-height: 100vh;
-    padding: 2rem 1rem;
+    min-height: auto;
+    padding: 5.5rem 1rem;
   }
 
   .title-section {
-    background-size: auto 100%;
-    background-position-x: 75%;
-    background-position-y: 197%;
+    background-position: 78% 100%;
   }
 
   .more-section {
