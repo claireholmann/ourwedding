@@ -18,7 +18,7 @@
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: #65b8d4;
-  margin: 0 0 1rem 0;
+  margin: 0.35rem 0 1.25rem 0;
   display: block;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .party-section {
-  margin-bottom: 3.5rem;
+  margin-bottom: .5rem;
 }
 
 .section-eyebrow {
@@ -191,7 +191,7 @@
 }
 
 .patrick-holman .member-avatar img {
-  transform: scale(1.75) translate(-35px, 11px);
+  transform: scale(2) translate(-31px, 14px);
 }
 
 .danny-freitag .member-avatar img {

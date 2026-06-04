@@ -58,7 +58,7 @@ function BridalParty() {
   return (
     <div className="bridal-party-page">
       <div className="page-hero">
-        <span className="page-eyebrow">Claire & Brian · June 2027</span>
+        <span className="page-eyebrow">Claire & Brian · June 26th, 2027</span>
         <h1 className="page-hero-title">Our Bridal Party</h1>
         <div className="page-hero-divider" />
       </div>

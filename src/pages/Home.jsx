@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
-import './Home.css';
+import { Link } from "react-router-dom";
+import "./Home.css";
 
 function Home() {
-
   return (
     <div className="home-container">
       {/* Hero Section */}
@@ -23,24 +22,50 @@ function Home() {
         <div className="photo-text-container">
           <div className="text-side">
             <span className="text-label">Save the Date</span>
-            <h1 className="photo-title">Meet Us on<br />The Avenue</h1>
-            <p className="photo-intro">Wedding Ceremony</p>
-            <div className="event-detail-grid" role="list" aria-label="Wedding details">
-              <div className="event-detail" role="listitem">
-                <span className="event-detail-label">Date</span>
-                <p className="event-detail-value">Saturday, June 26th, 2027</p>
+            <h1 className="photo-title">
+              Meet Us on <br />
+              The Avenue
+            </h1>
+
+            <p className="events-date">Saturday, June 26th, 2027</p>
+
+            <div className="events-timeline">
+              {/* Ceremony */}
+              <div className="timeline-event">
+                <div className="timeline-time">2:00 PM EST</div>
+                <div className="timeline-event-content">
+                  <h3 className="timeline-event-title">Ceremony</h3>
+                  <p className="timeline-event-location">
+                    <strong>Holy Spirit Chapel</strong>
+                  </p>
+                  <p className="timeline-event-address">
+                    Le Mans Hall, Third Floor<br />
+                    Saint Mary's College<br />
+                    Notre Dame, Indiana 46556
+                  </p>
+                </div>
               </div>
-              <div className="event-detail" role="listitem">
-                <span className="event-detail-label">Time</span>
-                <p className="event-detail-value">1:30 PM EST</p>
-              </div>
-              <div className="event-detail" role="listitem">
-                <span className="event-detail-label">Location</span>
-                <p className="event-detail-value">Le Mans Chapel<br />Saint Mary's College</p>
+
+              {/* Reception */}
+              <div className="timeline-event">
+                <div className="timeline-time">5:30 PM EST</div>
+                <div className="timeline-event-content">
+                  <h3 className="timeline-event-title">Reception</h3>
+                  <p className="timeline-event-location">
+                    <strong>Palais Royale</strong>
+                  </p>
+                  <p className="timeline-event-address">
+                    105 W Colfax Ave<br />
+                    South Bend, Indiana 46601
+                  </p>
+                </div>
               </div>
             </div>
+
             <div className="event-actions">
-              <Link to="/itinerary" className="event-action-link">View Itinerary</Link>
+              <Link to="/itinerary" className="event-action-link">
+                View Full Itinerary
+              </Link>
               {/* RSVP button hidden for now
               <Link to="/rsvp" className="event-action-link event-action-link-primary">RSVP</Link>
               */}
@@ -59,16 +84,20 @@ function Home() {
             <p className="card-description">View our gift registry</p>
             <span className="card-arrow">→</span>
           </Link>
-          <Link to="/itinerary" className="card">
-            <span className="card-accent" />
-            <h3 className="card-title">Itinerary</h3>
-            <p className="card-description">View the schedule of events</p>
-            <span className="card-arrow">→</span>
-          </Link>
           <Link to="/hotel-travel" className="card">
             <span className="card-accent" />
-            <h3 className="card-title">Hotel <span className="symbol-fallback">&amp;</span> Travel</h3>
-            <p className="card-description">View accommodation and travel details</p>
+            <h3 className="card-title">
+              Hotel <span className="symbol-fallback">&amp;</span> Travel
+            </h3>
+            <p className="card-description">
+              View accommodation and travel details
+            </p>
+            <span className="card-arrow">→</span>
+          </Link>
+          <Link to="/things-to-do" className="card">
+            <span className="card-accent" />
+            <h3 className="card-title">Things to Do</h3>
+            <p className="card-description">View South Bend's finest</p>
             <span className="card-arrow">→</span>
           </Link>
         </div>

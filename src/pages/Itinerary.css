@@ -39,12 +39,11 @@
 .itinerary-content {
   max-width: 800px;
   margin: 0 auto;
-  padding: 3rem 2rem;
+  padding: 0 2rem;
 }
 
 .timeline {
   position: relative;
-  padding: 1rem 0;
 }
 
 .timeline-day-label {
@@ -167,6 +166,25 @@
   color: #6b7280;
   margin: 0;
   line-height: 1.6;
+}
+
+.timeline-description {
+  margin: 0;
+}
+
+.timeline-detail {
+  margin-top: 0.75rem !important;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(0, 50, 86, 0.1);
+  font-size: 0.84rem !important;
+  line-height: 1.45 !important;
+}
+
+.timeline-detail strong {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #003256;
 }
 
 .timeline-item::before {

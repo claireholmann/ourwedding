@@ -3,6 +3,9 @@ import './RSVP.css';
 
 // Google Apps Script deployment
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBjMME5HxmYM1Vf0URJe1ZL6_TAW23nJI3w5NsP1MtxRojnIv4b-DRlKA9xdY0o-Cc/exec';
+const ITINERARY_RSVP_STORAGE_KEY = 'bck_rsvp_itinerary';
+const RSVP_LOOKUP_CACHE = new Map();
+const RSVP_SESSION_CACHE_KEY = 'bck_rsvp_lookup_cache_v1';
 
 const MEAL_OPTIONS = [
   { value: '',           label: 'Select a meal…' },
@@ -18,34 +21,84 @@ const EVENTS = [
   {
     key: 'rehearsalRsvp',
     title: 'Rehearsal Dinner',
-    description: 'Friday, June 25th, 2027',
+    date: 'Friday, June 25th, 2027',
+    time: '6:00 PM EST',
+    location: "Macri's Italian",
     conditional: (member) => member.invitedToRehearsal,
   },
   {
     key: 'welcomeRsvp',
     title: 'Welcome Party',
-    description: 'Friday, June 25th, 2027 · Following the rehearsal dinner',
+    date: 'Friday, June 25th, 2027',
+    time: '8:00 PM EST',
+    location: 'Howard Park Public House',
     conditional: () => true,
   },
   {
     key: 'ceremonyRsvp',
     title: 'Ceremony',
-    description: 'Saturday, June 26th, 2027 · 1:30 PM · Le Mans Chapel, Saint Mary\'s College',
+    date: 'Saturday, June 26th, 2027',
+    time: '2:00 PM EST',
+    location: "Holy Spirit Chapel, Saint Mary's College",
     conditional: () => true,
   },
   {
     key: 'receptionRsvp',
     title: 'Reception',
-    description: 'Saturday, June 26th, 2027 · Following the ceremony',
+    date: 'Saturday, June 26th, 2027',
+    time: '5:30 PM EST',
+    location: 'Palais Royale, South Bend',
     conditional: () => true,
   },
   {
     key: 'brunchRsvp',
     title: 'Sunday Brunch',
-    description: 'Sunday, June 27th, 2027',
+    date: 'Sunday, June 27th, 2027',
+    time: '10:00 AM EST',
+    location: 'Aloft South Bend',
     conditional: (member) => member.invitedToBrunch,
   },
 ];
+
+async function lookupInvitations(query) {
+  const normalized = normalizeText(query);
+  if (!normalized) return [];
+
+  if (RSVP_LOOKUP_CACHE.size === 0) {
+    try {
+      const rawCache = sessionStorage.getItem(RSVP_SESSION_CACHE_KEY);
+      if (rawCache) {
+        const parsed = JSON.parse(rawCache);
+        if (parsed && typeof parsed === 'object') {
+          Object.entries(parsed).forEach(([key, value]) => {
+            if (Array.isArray(value)) RSVP_LOOKUP_CACHE.set(key, value);
+          });
+        }
+      }
+    } catch {
+      // Ignore cache hydration errors.
+    }
+  }
+
+  if (RSVP_LOOKUP_CACHE.has(normalized)) {
+    return RSVP_LOOKUP_CACHE.get(normalized);
+  }
+
+  const url = `${SCRIPT_URL}?action=lookup&q=${encodeURIComponent(query)}`;
+  const res = await fetch(url, { redirect: 'follow' });
+  const data = await res.json();
+  const matches = Array.isArray(data.matches) ? data.matches : [];
+  RSVP_LOOKUP_CACHE.set(normalized, matches);
+
+  try {
+    const serialized = Object.fromEntries(RSVP_LOOKUP_CACHE.entries());
+    sessionStorage.setItem(RSVP_SESSION_CACHE_KEY, JSON.stringify(serialized));
+  } catch {
+    // Ignore cache persistence errors.
+  }
+
+  return matches;
+}
 
 // ── Reusable Yes / No toggle ──────────────────────────────────
 function YesNo({ value, onChange }) {
@@ -69,7 +122,11 @@ function EventCard({ event, members, setMemberField }) {
     <div className="event-section">
       <div className="event-section-header">
         <h3 className="event-section-title">{event.title}</h3>
-        {event.description && <p className="event-section-desc">{event.description}</p>}
+        <div className="event-section-meta">
+          {event.date && <p className="event-section-desc"><strong>Date:</strong> {event.date}</p>}
+          {event.time && <p className="event-section-desc"><strong>Time:</strong> {event.time}</p>}
+          {event.location && <p className="event-section-desc"><strong>Location:</strong> {event.location}</p>}
+        </div>
       </div>
       <div className="event-attendees">
         {members.map((member) => (
@@ -274,53 +331,22 @@ function RSVP() {
     setSearching(true);
     setSearchResults(null);
 
-    const lookup = async (q) => {
-      const url = `${SCRIPT_URL}?action=lookup&q=${encodeURIComponent(q)}`;
-      const res = await fetch(url, { redirect: 'follow' });
-      const data = await res.json();
-      return Array.isArray(data.matches) ? data.matches : [];
-    };
-
     try {
       const queryWords = normalizeText(query).split(/\s+/).filter(Boolean);
 
-      // Frontend-only fallback strategy:
-      // 1) full query, 2) first token, 3) last token, 4) first+last
-      // then dedupe and filter back down to intended full-name matches.
-      const candidateQueries = [query];
-      if (queryWords.length >= 2) {
-        candidateQueries.push(queryWords[0]);
-        candidateQueries.push(queryWords[queryWords.length - 1]);
-        candidateQueries.push(`${queryWords[0]} ${queryWords[queryWords.length - 1]}`);
+      // Phase 1: exact lookup first for fastest perceived response.
+      let finalMatches = await lookupInvitations(query);
 
-        const baseName = `${queryWords[0]} ${queryWords[1]}`;
-        for (const suffix of NAME_SUFFIX_TERMS) {
-          candidateQueries.push(`${baseName} ${suffix}`);
-        }
-      }
+      // Phase 2: fallback lookups only when exact lookup returns no matches.
+      if (finalMatches.length === 0 && queryWords.length >= 2) {
+        const fallbackQueries = [`${queryWords[0]} ${queryWords[queryWords.length - 1]}`];
 
-      const uniqueCandidates = [...new Set(candidateQueries.map(q => q.trim()).filter(Boolean))];
+        const uniqueFallbacks = [...new Set(fallbackQueries.map((q) => q.trim()).filter(Boolean))]
+          .filter((q) => normalizeText(q) !== normalizeText(query));
 
-      const allMatchLists = await Promise.all(uniqueCandidates.map((candidate) => lookup(candidate)));
-      let finalMatches = [];
-      for (const matches of allMatchLists) {
-        finalMatches = mergeUniqueMatches(finalMatches, matches);
-      }
-
-      // If a matched row references a guest name, resolve that guest too and then
-      // merge linked households so plus-ones appear in the same invitation card.
-      const knownQueries = new Set(uniqueCandidates.map((q) => normalizeText(q)));
-      const guestQueries = [...new Set(
-        finalMatches
-          .flatMap((match) => splitGuestNames(match.guestName))
-          .map((name) => name.trim())
-          .filter((name) => name && !knownQueries.has(normalizeText(name)))
-      )];
-
-      if (guestQueries.length > 0) {
-        const guestMatchLists = await Promise.all(guestQueries.slice(0, 8).map((guest) => lookup(guest)));
-        for (const guestMatches of guestMatchLists) {
-          finalMatches = mergeUniqueMatches(finalMatches, guestMatches);
+        const fallbackMatchesLists = await Promise.all(uniqueFallbacks.map((candidate) => lookupInvitations(candidate)));
+        for (const matches of fallbackMatchesLists) {
+          finalMatches = mergeUniqueMatches(finalMatches, matches);
         }
       }
 
@@ -448,6 +474,24 @@ function RSVP() {
       const res  = await fetch(`${SCRIPT_URL}?${params.toString()}`, { redirect: 'follow' });
       const data = await res.json();
       if (data.success) {
+        const attendingRehearsalDinner = form.members.some(
+          (member) => member.invitedToRehearsal && member.form.rehearsalRsvp === 'Yes'
+        );
+        const householdName = formatHouseholdNames(form.members.map((member) => ({ name: member.name })));
+
+        try {
+          localStorage.setItem(
+            ITINERARY_RSVP_STORAGE_KEY,
+            JSON.stringify({
+              attendingRehearsalDinner,
+              householdName,
+              updatedAt: new Date().toISOString(),
+            })
+          );
+        } catch {
+          // Ignore storage errors (for example, private browsing restrictions).
+        }
+
         setSubmitted(true);
       } else {
         setFormError('Something went wrong. Please try again or contact us directly.');
@@ -464,7 +508,7 @@ function RSVP() {
     return (
       <div className="rsvp-container">
         <div className="page-hero">
-          <span className="page-eyebrow">Claire <span className="amp-symbol">&</span> Brian · June 2027</span>
+          <span className="page-eyebrow">Claire <span className="amp-symbol">&</span> Brian · June 26th, 2027</span>
           <h1 className="page-hero-title">RSVP</h1>
           <div className="page-hero-divider" />
         </div>
@@ -477,7 +521,7 @@ function RSVP() {
               <span className="success-icon-fallback">✓</span>
             </div>
             <h2>Thank You!</h2>
-            <p>We've received your RSVP and can't wait to celebrate with you all.</p>
+            <p>Your RSVP is in. We cannot wait to celebrate with you in South Bend.</p>
           </div>
         </div>
       </div>
@@ -490,14 +534,14 @@ function RSVP() {
   return (
     <div className="rsvp-container">
       <div className="page-hero">
-        <span className="page-eyebrow">Claire <span className="amp-symbol">&</span> Brian · June 2027</span>
+        <span className="page-eyebrow">Claire & Brian · June 26th, 2027</span>
         <h1 className="page-hero-title">RSVP</h1>
         <div className="page-hero-divider" />
       </div>
 
       <div className="rsvp-content">
         <p className="rsvp-intro">
-          Please RSVP by <strong>June 1st, 2027</strong>. Enter any family member's name to find your invitation.
+          Please reply by <strong>June 1st, 2027</strong>. Enter any household member name to find your invitation and submit your selections.
         </p>
 
         {/* ── Step 1: Search ── */}
@@ -512,7 +556,7 @@ function RSVP() {
                     id="searchQuery"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="First and last name"
+                    placeholder="Enter first and last name"
                     autoComplete="off"
                   />
                   <button type="submit" className="search-button" disabled={searching}>
@@ -564,14 +608,14 @@ function RSVP() {
           <form className="rsvp-form" onSubmit={handleSubmit}>
             <div className="invite-summary">
               <p>
-                Welcome, <strong>{householdNames}</strong>!
+                Welcome, <strong>{householdNames}</strong>.
               </p>
               <button
                 type="button"
                 className="change-name-btn"
                 onClick={() => { setHousehold(null); setForm(null); setSearchQuery(''); }}
               >
-                Not your group?
+                Search Again
               </button>
             </div>
 

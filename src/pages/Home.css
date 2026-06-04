@@ -14,7 +14,7 @@
 }
 
 .title-section {
-  background-image: url('../assets/images/engagement/bw-laugh-lift.JPG');
+  background-image: url("../assets/images/engagement/bw-laugh-lift.JPG");
   background-size: cover;
   background-position: center;
   align-items: center;
@@ -45,18 +45,18 @@
 }
 
 .title-eyebrow {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.75);
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 .5rem 0;
 }
 
 .title-name {
   font-size: 7rem;
-  font-family: 'The Seasons', serif;
+  font-family: "The Seasons", serif;
   font-weight: 400;
   color: #fff;
   margin: 0;
@@ -66,7 +66,7 @@
 
 .title-and {
   font-size: 4rem;
-  font-family: 'Pinyon Script', cursive;
+  font-family: "Pinyon Script", cursive;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.85);
   margin: 0.25rem 0;
@@ -82,7 +82,7 @@
 
 .title-subtitle {
   font-size: 1.2rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: rgba(255, 255, 255, 0.75);
   font-weight: 400;
   letter-spacing: 0.3em;
@@ -92,9 +92,15 @@
 
 .photo-text-section {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.75),
+      rgba(255, 255, 255, 0.75)
+    ),
     linear-gradient(120deg, rgba(101, 184, 212, 0.08), rgba(108, 139, 25, 0.05));
   padding: 5.5rem 3rem;
+  height: auto;
+  min-height: 100vh;
 }
 
 .photo-text-container {
@@ -107,23 +113,18 @@
 }
 
 .text-side {
-  max-width: 760px;
+  width: 60%;
+  max-width: 1000px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  padding: 2.4rem 2.2rem;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 50, 86, 0.11);
-  border-radius: 14px;
-  box-shadow: 0 18px 36px rgba(0, 50, 86, 0.11);
-  backdrop-filter: none;
 }
 
 .text-label {
   align-self: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.66rem;
   font-weight: 600;
   letter-spacing: 0.32em;
@@ -139,7 +140,7 @@
 
 .text-side .photo-title {
   font-size: clamp(3rem, 5.4vw, 4.2rem);
-  font-family: 'The Seasons', serif;
+  font-family: "The Seasons", serif;
   font-weight: 400;
   color: #003256;
   margin: 0;
@@ -148,13 +149,103 @@
 }
 
 .photo-intro {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #65b8d4;
   margin: 0;
+}
+
+.events-date {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.events-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.events-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: .5rem;
+  align-items: center;
+}
+
+.timeline-event {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0;
+  background: transparent;
+  border-left: none;
+  border-radius: 0;
+  text-align: left;
+  width: 100%;
+  max-width: 600px;
+}
+
+.timeline-time {
+  flex-shrink: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #6c8b19;
+  padding-top: 0;
+  min-width: 110px;
+}
+
+.timeline-event-content {
+  flex: 1;
+}
+
+.timeline-event-title {
+  font-family: "The Seasons", serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #6c8b19;
+  margin: 0 0 0.3rem 0;
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline-event-location {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  color: #003256;
+  line-height: 1.4;
+  margin: 0.4rem 0 0 0;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.timeline-event-address {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 .event-detail-grid {
@@ -166,15 +257,12 @@
 }
 
 .event-detail {
-  background: rgba(0, 50, 86, 0.03);
-  border: 1px solid rgba(0, 50, 86, 0.08);
-  border-radius: 8px;
   padding: 0.9rem 0.8rem;
 }
 
 .event-detail-label {
   display: block;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.64rem;
   font-weight: 600;
   letter-spacing: 0.2em;
@@ -184,7 +272,7 @@
 }
 
 .event-detail-value {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.88rem;
   color: #003256;
   line-height: 1.45;
@@ -208,7 +296,7 @@
   border-radius: 4px;
   border: none;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.15em;
@@ -241,17 +329,22 @@
   padding-bottom: 2rem;
   background-image:
     linear-gradient(180deg, rgba(0, 50, 86, 0.82), rgba(0, 50, 86, 0.88)),
-    url('../assets/images/lemans/lemans.JPG');
+    url("../assets/images/lemans/lemans.JPG");
   background-size: cover;
   background-position: center 78%;
   background-repeat: no-repeat;
+  height: 75vh;
 }
 
 .more-section::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 16% 22%, rgba(101, 184, 212, 0.14), transparent 42%);
+  background: radial-gradient(
+    circle at 16% 22%,
+    rgba(101, 184, 212, 0.14),
+    transparent 42%
+  );
   pointer-events: none;
 }
 
@@ -262,7 +355,7 @@
 
 .more-section-title {
   font-size: 0.8rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -286,7 +379,9 @@
   text-align: left;
   text-decoration: none;
   color: inherit;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -319,7 +414,7 @@
 
 .card-title {
   font-size: 1.3rem;
-  font-family: 'The Seasons', serif;
+  font-family: "The Seasons", serif;
   font-weight: 400;
   color: #fff;
   margin: 0;
@@ -330,7 +425,7 @@
 }
 
 .card-description {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.5);
   margin: 0;
@@ -339,8 +434,6 @@
 .card-arrow {
   font-size: 1.4rem;
   color: #6c8b19;
-  margin-top: auto;
-  padding-top: 1rem;
   transition: transform 0.3s ease;
 }
 
@@ -349,7 +442,7 @@
 }
 
 .home-footer-note {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.2em;
@@ -368,6 +461,13 @@
     height: auto;
     min-height: auto;
     padding: 5.5rem 1rem;
+
+    .home-section:first-of-type {
+      min-height: 100vh;
+      height: 100vh;
+      padding: 0 2rem;
+      justify-content: center;
+    }
   }
 
   .title-section {
@@ -408,9 +508,18 @@
     font-size: 2.7rem;
   }
 
-  .event-detail-grid {
-    grid-template-columns: 1fr;
-    gap: 0.65rem;
+  .events-timeline {
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .timeline-event {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .timeline-time {
+    min-width: auto;
   }
 
   .event-actions {

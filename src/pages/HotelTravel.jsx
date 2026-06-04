@@ -4,7 +4,7 @@ function HotelTravel() {
   return (
     <div className="hotel-travel-container">
       <div className="page-hero">
-        <span className="page-eyebrow">Notre Dame, Indiana · June 2027</span>
+        <span className="page-eyebrow">Notre Dame, Indiana · June 26th, 2027</span>
         <h1 className="page-hero-title">
           Hotel <span className="page-hero-and symbol-fallback">&</span> Travel
         </h1>
@@ -16,14 +16,11 @@ function HotelTravel() {
           <span className="section-eyebrow">Where to Stay</span>
           <h2 className="section-heading">Accommodations</h2>
           <p className="hotel-intro">
-            We’ve reserved rooms at our favorite local hotels so you can relax,
-            celebrate, and make the most of our wedding weekend. Each spot is
-            close to the festivities and full of charm—choose the one that feels
-            right for your stay!
+            We’ve reserved rooms at nearby hotels to make your stay easy. Each option is close to the wedding events—choose what works best for you!
           </p>
           <div className="hotel-list">
             <div className="hotel-card">
-              <h3 className="hotel-name">Aloft at Notre Dame</h3>
+              <h3 className="hotel-name">Aloft by Marriott South Bend</h3>
               <a
                 href="https://app.marriott.com/reslink?id=1778598509881&key=GRP&app=resvlink" target="_blank"
                 className="hotel-book-link"
@@ -31,22 +28,20 @@ function HotelTravel() {
                 Reserve Your Room
               </a>
               <p className="hotel-info">
-                <strong>Phone:</strong> (574) 631-4000
+                <strong>Phone:</strong> (574) 288-8000
                 <br />
-                <strong>Address:</strong> 1330 E. Ewing Ave, Notre Dame, IN
-                46556
+                <strong>Address:</strong> 111 N. Main St, South Bend, IN 46601
                 <br />
-                <strong>Distance:</strong> Steps from the celebration—and even
-                closer to late-night snacks at NEWFS!
+                <strong>Distance:</strong> Short walk from the celebration—and even
+                closer to the after party at NEWFS!
               </p>
               <p className="hotel-description">
-                $149/night. Modern, playful vibes with vibrant decor, a lively
-                bar, and an inviting indoor pool. On-site parking available
-                ($25/night).
+                <strong>$149/night.</strong> Modern vibes with vibrant decor, a lively
+                bar, a 24-hour cafe, and an indoor pool. On-site parking available for $25/night.
               </p>
             </div>
             <div className="hotel-card">
-              <h3 className="hotel-name">Marriott South Bend</h3>
+              <h3 className="hotel-name">Courtyard by Marriott South Bend</h3>
               <a
                 href="https://app.marriott.com/reslink?id=1779122616923&key=GRP&app=resvlink" target="_blank"
                 className="hotel-book-link"
@@ -54,19 +49,17 @@ function HotelTravel() {
                 Reserve Your Room
               </a>
               <p className="hotel-info">
-                <strong>Phone:</strong> (574) 234-2000
+                <strong>Phone:</strong> (574) 237-7777
                 <br />
-                <strong>Address:</strong> 123 W. Jefferson Blvd, South Bend, IN
-                46601
+                <strong>Address:</strong> 121 S. Doctor M.L.K. Jr Blvd, South Bend, IN 46601
                 <br />
                 <strong>Distance:</strong> Just a short stroll from our
                 reception—perfect for a quick walk home after dancing the night
                 away!
               </p>
               <p className="hotel-description">
-                $169/night. Classic comfort in the heart of downtown, with a
-                cozy bar and sparkling indoor pool. On-site parking available
-                ($25/night).
+                <strong>$169/night.</strong> Classic comfort in the heart of downtown, with a
+                gym and indoor pool. On-site parking available for $25/night.
               </p>
             </div>
           </div>
@@ -82,7 +75,11 @@ function HotelTravel() {
                 <strong>South Bend International Airport (SBN)</strong> is the
                 closest airport, approximately 15-20 minutes from the venue. You
                 can arrange ground transportation via taxi, rideshare, or rental
-                car.
+                car. Five airlines currently fly into SBN: American, United, Delta, 
+                Allegiant and Breeze. You can also fly into <strong>Chicago O'Hare (ORD) </strong> 
+                or <strong>Chicago Midway (MDW)</strong>, which are about a 2 - 2.5 
+                hour drive from South Bend. Please keep in mind that South Bend 
+                is in Eastern Time, so plan accordingly!
               </p>
             </div>
 
@@ -90,9 +87,9 @@ function HotelTravel() {
               <h3>Trains</h3>
               <p>
                 The <strong>South Shore Line</strong> offers a convenient train
-                service from Chicago to South Bend. The station is approximately
-                15-20 minutes from the venue. You can arrange ground
-                transportation via taxi, rideshare, or rental car.
+                service from Chicago to South Bend. The station is also at the South Bend 
+                International Airport, so approximately 15-20 minutes from the venue. 
+                You can arrange ground transportation via taxi, rideshare, or rental car.
               </p>
             </div>
 
@@ -107,19 +104,32 @@ function HotelTravel() {
             </div>
 
             <div className="travel-info">
-              <h3>Parking at Saint Mary's</h3>
-              <p>
-                Free parking at Saint Mary's College will also be available.
-                Detailed parking lot information is available below and will be
-                provided with your invitation.
-              </p>
-            </div>
-
-            <div className="travel-info">
               <h3>Parking at Hotels</h3>
               <p>
                 Parking is available at both hotels for $25 per night. There is
                 limited street parking that is free.
+              </p>
+            </div>
+
+            <div className="travel-info">
+              <h3>Parking at Saint Mary's</h3>
+              <p>
+                Free parking at Saint Mary's College will also be available at the  
+                <strong> Regina Lot</strong> or <strong>Student Center lot</strong>. Detailed parking lot information 
+                will be provided with your invitation. For those with accessibility 
+                needs, there will be designated parking spots available in the 
+                lot in front of Le Mans Hall and O'Laughlin Theatre. Please let us 
+                know if you require accessible parking when you RSVP 
+                so we can ensure accommodations are made for you. 
+              </p>
+            </div>
+
+            <div className="travel-info">
+              <h3>Parking at Howard Park Public House</h3>
+              <p>
+                There is free street parking available around Howard Park Public House,
+                but it can be limited during busy times. We recommend arriving early 
+                to secure a spot, or consider using a rideshare service for convenience.
               </p>
             </div>
           </div>

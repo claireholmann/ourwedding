@@ -16,7 +16,7 @@
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: #65b8d4;
-  margin: 0 0 1rem 0;
+  margin: 0.35rem 0 1.25rem 0;
   display: block;
 }
 
@@ -50,7 +50,7 @@
 
 .activities-section,
 .dining-section {
-  margin-bottom: 3.5rem;
+  margin-bottom: .5rem;
 }
 
 .section-eyebrow {
@@ -87,26 +87,8 @@
   border-radius: 0 0 8px 8px;
   box-shadow: 0 2px 8px rgba(0, 50, 86, 0.06);
   transition: transform 0.3s ease;
-}
-
-.restaurant-card-link,
-.activity-card-link {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  cursor: pointer;
-  border-top-color: #6c8b19;
-}
-
-.restaurant-card-link:focus-visible,
-.activity-card-link:focus-visible {
-  outline: 2px solid #65b8d4;
-  outline-offset: 3px;
-}
-
-.restaurant-card-link:hover,
-.activity-card-link:hover {
-  box-shadow: 0 8px 24px rgba(0, 50, 86, 0.18);
 }
 
 .activity-card:hover,
@@ -126,13 +108,49 @@
 
 .activity-name::after,
 .restaurant-name::after {
-  content: '→';
+  content: '';
+  margin-left: 0;
+  font-size: 0;
+}
+
+.card-links {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid rgba(0, 50, 86, 0.18);
+  border-radius: 999px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #003256;
+  transition: all 0.2s ease;
+}
+
+.card-link:hover {
+  border-color: #6c8b19;
+  color: #6c8b19;
+}
+
+.card-link::after {
+  content: ' \2192';
   margin-left: 0.4rem;
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.05rem;
+  font-size: 0.85rem;
   font-weight: 700;
   line-height: 1;
-  color: #65b8d4;
+  color: inherit;
 }
 
 .activity-location,

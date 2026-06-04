@@ -1,5 +1,8 @@
 .rsvp-container {
+  min-height: 100vh;
   background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
 }
 
 .page-hero {
@@ -383,6 +386,11 @@
   margin-bottom: 1rem;
 }
 
+.event-section-meta {
+  display: grid;
+  gap: 0.2rem;
+}
+
 .event-section-title {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.78rem;
@@ -398,6 +406,11 @@
   font-size: 0.82rem;
   color: #6b7280;
   margin: 0;
+}
+
+.event-section-desc strong {
+  color: #003256;
+  font-weight: 600;
 }
 
 /* ── Per-attendee row ──────────────────────────────────────── */

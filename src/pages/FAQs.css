@@ -73,6 +73,35 @@
   margin: 0;
 }
 
+.faq-inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: #003256;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.faq-inline-link:hover {
+  color: #6c8b19;
+}
+
+.faq-inline-link::after {
+  content: '→';
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.faq-inline-link:hover::after {
+  transform: translateX(2px);
+}
+
 @media (max-width: 768px) {
   .page-hero-title { font-size: 2.5rem; }
   .faqs-content { padding: 2rem 1rem; }

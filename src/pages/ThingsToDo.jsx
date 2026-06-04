@@ -1,10 +1,128 @@
 import './ThingsToDo.css';
 
+function SymbolSafeText({ text }) {
+  const parts = String(text).split(/([&'])/g);
+  return (
+    <>
+      {parts.map((part, idx) => (
+        part === '&' || part === '\''
+          ? <span key={`${part}-${idx}`} className="page-hero-apostrophe">{part}</span>
+          : <span key={`${part}-${idx}`}>{part}</span>
+      ))}
+    </>
+  );
+}
+
+const ATTRACTIONS = [
+  {
+    name: "Saint Mary's College Campus",
+    location: 'Notre Dame, IN',
+    description: 'Historic campus grounds with walking paths, landmark architecture, and scenic lake views.',
+    website: 'https://www.saintmarys.edu/',
+  },
+  {
+    name: 'University of Notre Dame Campus',
+    location: 'Notre Dame, IN',
+    description: 'Iconic collegiate campus with public landmarks, museums, and easy self-guided walking routes.',
+    website: 'https://www.nd.edu/',
+  },
+  {
+    name: 'Golden Dome',
+    location: 'Notre Dame, IN',
+    description: 'The university’s most recognizable landmark and a quick stop while exploring campus.',
+    website: 'https://www.nd.edu/golden-dome',
+  },
+  {
+    name: 'The Grotto',
+    location: 'Notre Dame, IN',
+    description: 'A quiet prayer and reflection space with candles, gardens, and nearby walking paths.',
+    website: 'https://www.nd.edu/grotto',
+  },
+  {
+    name: 'Potawatomi Zoo',
+    location: 'South Bend, IN',
+    description: 'Small, walkable zoo with family-friendly exhibits and seasonal programming.',
+    website: 'https://www.potawatomizoo.org/',
+  },
+  {
+    name: 'Howard Park',
+    location: 'South Bend, IN',
+    description: 'Downtown riverfront park with trails, open green space, and weekend activity areas.',
+    website: 'https://visitsouthbend.com/listing/howard-park/',
+  },
+];
+
+const DINING = [
+  {
+    name: 'The Exchange',
+    cuisine: 'Whiskey Bar',
+    description: 'Downtown cocktail bar known for a deep whiskey list and polished classics.',
+    website: 'https://theexchangebars.com/',
+    menu: 'https://theexchangebars.com/menu/',
+  },
+  {
+    name: "Fiddler's Hearth",
+    cuisine: 'Irish Pub',
+    description: 'Lively pub with Irish fare, pints, and regular live music nights.',
+    website: 'https://fiddlershearth.com/',
+    menu: 'https://fiddlershearth.com/menu',
+  },
+  {
+    name: "O'Rourke's",
+    cuisine: 'Irish Pub',
+    description: 'Casual Eddy Street pub with comfort food, TVs, and easy pre-game energy.',
+    website: 'https://orourkes.com/',
+    menu: 'https://orourkes.com/menu/',
+  },
+  {
+    name: 'Café Capri',
+    cuisine: 'Italian',
+    description: 'Neighborhood Italian spot with pasta, house specialties, and classic desserts.',
+    website: 'https://cafecapri.com/',
+    menu: 'https://cafecapri.com/menu/',
+  },
+  {
+    name: 'The Lauber',
+    cuisine: 'Pizza & American',
+    description: 'Historic downtown space serving pizza, shareable starters, and cocktails.',
+    website: 'https://thelauber.com/',
+    menu: 'https://thelauber.com/',
+  },
+  {
+    name: 'Jesus Latin Grill',
+    cuisine: 'Mexican',
+    description: 'Local favorite for tacos, burritos, and quick casual meals near downtown.',
+    website: 'https://jesusmexican.com/',
+    menu: 'https://jesusmexican.com/menu/',
+  },
+  {
+    name: 'Simply Pressed',
+    cuisine: 'Juice & Bowls',
+    description: 'Light breakfast and lunch option with smoothies, juices, and acai bowls.',
+    website: 'https://simplypressed.com/',
+    menu: 'https://simplypressed.com/',
+  },
+  {
+    name: 'PEGGS',
+    cuisine: 'Breakfast',
+    description: 'Classic brunch stop with omelets, skillets, and house-made breakfast staples.',
+    website: 'https://peggs.com/',
+    menu: 'https://peggs.com/',
+  },
+  {
+    name: 'Uptown Kitchen',
+    cuisine: 'Breakfast',
+    description: 'Modern brunch menu with coffee, scratch-made plates, and weekend favorites.',
+    website: 'https://uptownkitchen.com/',
+    menu: 'https://uptownkitchen.com/',
+  },
+];
+
 function ThingsToDo() {
   return (
     <div className="things-to-do-container">
       <div className="page-hero">
-        <span className="page-eyebrow">South Bend & Notre Dame</span>
+        <span className="page-eyebrow"><SymbolSafeText text="South Bend & Notre Dame" /></span>
         <h1 className="page-hero-title">Things To Do</h1>
         <div className="page-hero-divider" />
       </div>
@@ -14,119 +132,33 @@ function ThingsToDo() {
           <span className="section-eyebrow">Explore the Area</span>
           <h2 className="section-heading">Nearby Attractions</h2>
           <div className="activities-grid">
-            <a className="activity-card activity-card-link" href="https://www.saintmarys.edu/" target="_blank" rel="noopener noreferrer" aria-label="Open Saint Mary's College website in a new tab">
-              <h3 className="activity-name">Saint Mary<span className="page-hero-apostrophe">'</span>s College Campus</h3>
-              <p className="activity-location">Notre Dame, IN</p>
-              <p className="activity-description">
-                Explore THE most beautiful college campus in America. Le Mans Hall is officially 150 years old!
-              </p>
-            </a>
-
-            <a className="activity-card activity-card-link" href="https://www.nd.edu/" target="_blank" rel="noopener noreferrer" aria-label="Open University of Notre Dame website in a new tab">
-              <h3 className="activity-name">University of Notre Dame Stadium Tour</h3>
-              <p className="activity-location">Notre Dame, IN</p>
-              <p className="activity-description">
-                Explore the second most beautiful college campus in America. The Golden Dome is iconic and light a candle at the Grotto.
-              </p>
-            </a>
-
-            <a className="activity-card activity-card-link" href="https://www.nd.edu/golden-dome" target="_blank" rel="noopener noreferrer" aria-label="Open Golden Dome website in a new tab">
-              <h3 className="activity-name">Golden Dome</h3>
-              <p className="activity-location">Notre Dame, IN</p>
-              <p className="activity-description">
-                Iconic landmark of the University of Notre Dame. Visitors can admire its stunning architecture and learn about its history.
-              </p>
-            </a>
-
-            <a className="activity-card activity-card-link" href="https://www.nd.edu/grotto" target="_blank" rel="noopener noreferrer" aria-label="Open The Grotto website in a new tab">
-              <h3 className="activity-name">The Grotto</h3>
-              <p className="activity-location">Notre Dame, IN</p>
-              <p className="activity-description">
-                Iconic landmark of the University of Notre Dame. Visitors can light a candle and enjoy the peaceful atmosphere of this sacred site.
-              </p>
-            </a>
-
-            <a className="activity-card activity-card-link" href="https://www.potawatomizoo.org/" target="_blank" rel="noopener noreferrer" aria-label="Open Potawatomi Zoo website in a new tab">
-              <h3 className="activity-name">Potawatomi Zoo</h3>
-              <p className="activity-location">South Bend, IN</p>
-              <p className="activity-description">
-                Home to over 500 animals from around the world. Perfect for families visiting the area.
-              </p>
-            </a>
-
-            <a className="activity-card activity-card-link" href="https://www.hudsongardens.org/" target="_blank" rel="noopener noreferrer" aria-label="Open Hudson Gardens website in a new tab">
-              <h3 className="activity-name">Hudson Gardens</h3>
-              <p className="activity-location">South Bend, IN</p>
-              <p className="activity-description">
-                Beautiful lakeside gardens perfect for peaceful walks and nature photography.
-              </p>
-            </a>
+            {ATTRACTIONS.map((item) => (
+              <article key={item.name} className="activity-card">
+                <h3 className="activity-name"><SymbolSafeText text={item.name} /></h3>
+                <p className="activity-location">{item.location}</p>
+                <p className="activity-description">{item.description}</p>
+                <div className="card-links">
+                  <a className="card-link" href={item.website} target="_blank" rel="noopener noreferrer">Website</a>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
         <section className="dining-section">
           <span className="section-eyebrow">Local Favorites</span>
-          <h2 className="section-heading">Where to Eat & Drink</h2>
+          <h2 className="section-heading">Where to Eat <span className="symbol-fallback">&amp;</span> Drink</h2>
           <div className="restaurants-grid">
-            <a
-              className="restaurant-card restaurant-card-link"
-              href="https://theexchangebars.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open The Exchange website in a new tab"
-            >
-              <h3 className="restaurant-name">The Exchange</h3>
-              <p className="restaurant-cuisine">Whiskey Bar</p>
-              <p className="restaurant-info">Enjoy a wide selection of whiskeys and craft cocktails in a cozy, upscale setting.</p>
-            </a>
-
-            <a className="restaurant-card restaurant-card-link" href="https://fiddlershearth.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Fiddler's Hearth website in a new tab">
-              <h3 className="restaurant-name">Fiddler<span className="page-hero-apostrophe">'</span>s Hearth</h3>
-              <p className="restaurant-cuisine">Irish Pub</p>
-              <p className="restaurant-info">Cozy Irish pub with traditional dishes and a wide selection of beers.</p>
-            </a>
-
-            <a className="restaurant-card restaurant-card-link" href="https://orourkes.com/" target="_blank" rel="noopener noreferrer" aria-label="Open O'Rourke's website in a new tab">
-              <h3 className="restaurant-name">O<span className="page-hero-apostrophe">'</span>Rourke<span className="page-hero-apostrophe">'</span>s</h3>
-              <p className="restaurant-cuisine">Irish Pub</p>
-              <p className="restaurant-info">Cozy Irish pub with traditional dishes and a wide selection of beers located on Eddy Street next to other bars, fast food and the Notre Dame Bookstore.</p>
-            </a>
-
-            <a className="restaurant-card restaurant-card-link" href="https://cafecapri.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Café Capri website in a new tab">
-              <h3 className="restaurant-name">Café Capri</h3>
-              <p className="restaurant-cuisine">Italian</p>
-              <p className="restaurant-info">Charming café offering a variety of Italian dishes and desserts.</p>
-            </a>
-
-            <a className="restaurant-card restaurant-card-link" href="https://thelauber.com/" target="_blank" rel="noopener noreferrer" aria-label="Open The Lauber website in a new tab">
-              <h3 className="restaurant-name">The Lauber</h3>
-              <p className="restaurant-cuisine">Italian/Pizza</p>
-              <p className="restaurant-info">Charming café offering a variety of Italian dishes and desserts.</p>
-            </a>
-
-            <a className="restaurant-card restaurant-card-link" href="https://jesusmexican.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Jesus Mexican website in a new tab">
-              <h3 className="restaurant-name">Jesus</h3>
-              <p className="restaurant-cuisine">Mexican</p>
-              <p className="restaurant-info">Charming café offering a variety of Italian dishes and desserts.</p>
-            </a>
-
-            <a className="restaurant-card restaurant-card-link" href="https://simplypressed.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Simply Pressed website in a new tab">
-              <h3 className="restaurant-name">Simply Pressed</h3>
-              <p className="restaurant-cuisine">Acai Bowls</p>
-              <p className="restaurant-info">Fresh and healthy acai bowls with a variety of toppings.</p>
-            </a>
-
-            <a className="restaurant-card restaurant-card-link" href="https://peggs.com/" target="_blank" rel="noopener noreferrer" aria-label="Open PEGGS website in a new tab">
-              <h3 className="restaurant-name">PEGGS</h3>
-              <p className="restaurant-cuisine">Breakfast</p>
-              <p className="restaurant-info">Delicious breakfast options with a variety of fresh ingredients.</p>
-            </a>
-
-            <a className="restaurant-card restaurant-card-link" href="https://uptownkitchen.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Uptown Kitchen website in a new tab">
-              <h3 className="restaurant-name">Uptown Kitchen</h3>
-              <p className="restaurant-cuisine">Breakfast</p>
-              <p className="restaurant-info">Delicious breakfast options with a variety of fresh ingredients.</p>
-            </a>
+            {DINING.map((item) => (
+              <article key={item.name} className="restaurant-card">
+                <h3 className="restaurant-name"><SymbolSafeText text={item.name} /></h3>
+                <p className="restaurant-cuisine"><SymbolSafeText text={item.cuisine} /></p>
+                <p className="restaurant-info">{item.description}</p>
+                <div className="card-links">
+                  <a className="card-link" href={item.menu} target="_blank" rel="noopener noreferrer">Menu</a>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
       </div>

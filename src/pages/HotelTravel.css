@@ -17,7 +17,7 @@
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: #65b8d4;
-  margin: 0 0 1rem 0;
+  margin: 0.35rem 0 1.25rem 0;
   display: block;
 }
 
@@ -49,12 +49,12 @@
 .hotel-travel-content {
   max-width: 900px;
   margin: 0 auto;
-  padding: 3rem 2rem;
+  padding: 1rem 2rem;
 }
 
 .hotel-section,
 .travel-section {
-  margin-bottom: 3.5rem;
+  margin-bottom: .5rem;
 }
 
 .section-eyebrow {
@@ -65,7 +65,7 @@
   text-transform: uppercase;
   color: #65b8d4;
   display: block;
-  margin-bottom: 0.5rem;
+  margin: 2.5rem 0 .5rem 0;
 }
 
 .section-heading {
@@ -196,7 +196,7 @@
   }
 
   .hotel-travel-content {
-    padding: 2rem 1rem;
+    padding: 1rem 2rem;
   }
 
   .section-heading {

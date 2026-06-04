@@ -11,11 +11,16 @@ function Attire() {
       </div>
       
       <div className="attire-content">
-        <section className="attire-section">
-          <h2 className="section-heading">Dress Code</h2>
+        <section className="attire-section attire-priority-card">
+          <h2 className="section-heading">Dress Code At a Glance</h2>
           <p className="section-text">
-            We'd love for you to dress up for this special occasion! Here is some inspiration to help you find the perfect outfit!
+            Black tie optional. Think elevated wedding attire that feels polished and comfortable for an evening celebration.
           </p>
+          <ul className="attire-key-points">
+            <li>Ceremony, cocktail hour, and reception are indoors.</li>
+            <li>There is a brief outdoor champagne toast on grass.</li>
+            <li>Flip flops will be provided for dancing later in the evening.</li>
+          </ul>
         </section>
 
         <section className="attire-section">
@@ -24,7 +29,7 @@ function Attire() {
             <li>Evening gown or longer cocktail dress</li>
             <li>Elegant separates</li>
             <li>Dressy pantsuit</li>
-            <li>Avoid white (#whatclairewears)</li>
+            <li>Please avoid white or ivory (#whatclairewears)</li>
             <li>Comfortable heels or dressy flats</li>
           </ul>
         </section>
@@ -35,18 +40,10 @@ function Attire() {
             <li>Tuxedo or dark suit</li>
             <li>Dress shirt and tie</li>
             <li>Leather dress shoes</li>
-            <li>Avoid jeans and gym shoes</li>
+            <li>Please avoid jeans and athletic shoes</li>
           </ul>
         </section>
 
-        <section className="attire-section">
-          <h2 className="section-heading">Additional Notes</h2>
-          <ul className="attire-list">
-            <li>The ceremony, cocktail hour and reception will be held indoors, so plan accordingly</li>
-            <li>There is a brief champagne toast located in a more grassy area.</li>
-            <li>Flip flops will be provided for dancing!</li>
-          </ul>
-        </section>
       </div>
     </div>
   );
