@@ -60,6 +60,21 @@
   text-transform: uppercase;
 }
 
+.timeline-day-week,
+.timeline-day-date {
+  display: block;
+}
+
+.timeline-day-week {
+  font-size: 0.62em;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.2rem;
+}
+
+.timeline-day-date {
+  font-size: 1em;
+}
+
 .timeline-day-label::before {
   content: '';
   position: absolute;
@@ -174,6 +189,7 @@
 
 @media (max-width: 768px) {
   .page-hero-title { font-size: 2.5rem; }
+  .timeline-day-label { font-size: 1.75rem; }
   .timeline::before { left: 16px; }
   .timeline-item,
   .timeline-item:nth-child(odd),

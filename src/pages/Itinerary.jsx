@@ -10,7 +10,7 @@ function Itinerary() {
       </div>
       <div className="itinerary-content">
         <div className="timeline">
-          <div className="timeline-day-label">Friday, June 25th</div>
+          <div className="timeline-day-label"><span className="timeline-day-week">Friday</span><span className="timeline-day-date">June 25th</span></div>
           <div className="timeline-item left">
             <div className="timeline-time">8:00 PM EST</div>
             <div className="timeline-content">
@@ -20,7 +20,7 @@ function Itinerary() {
           </div>
 
           <div className="timeline-line-break" />
-          <div className="timeline-day-label">Saturday, June 26th</div>
+          <div className="timeline-day-label"><span className="timeline-day-week">Saturday</span><span className="timeline-day-date">June 26th</span></div>
           <div className="timeline-line-break" />
           <div className="timeline-item right">
             <div className="timeline-time">12:30 PM EST</div>
@@ -73,7 +73,7 @@ function Itinerary() {
           </div>
 
           <div className="timeline-line-break" />
-          <div className="timeline-day-label">Sunday, June 27th</div>
+          <div className="timeline-day-label"><span className="timeline-day-week">Sunday</span><span className="timeline-day-date">June 27th</span></div>
           <div className="timeline-line-break" />
           <div className="timeline-item left">
             <div className="timeline-time">10:00 AM EST</div>
