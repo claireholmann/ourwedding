@@ -1,5 +1,5 @@
 .rsvp-container {
-  min-height: 100vh;
+  min-height: auto;
   background-color: #fafafa;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@
 .rsvp-content {
   max-width: 600px;
   margin: 0 auto;
-  padding: 3rem 2rem;
+  padding: 2.2rem 2rem 3.25rem;
 }
 
 .rsvp-intro {
@@ -58,7 +58,7 @@
   font-size: 1rem;
   color: #6b7280;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
   line-height: 1.7;
 }
 
@@ -242,7 +242,7 @@
 
 @media (max-width: 768px) {
   .page-hero-title { font-size: 2.5rem; }
-  .rsvp-content { padding: 2rem 1rem; }
+  .rsvp-content { padding: 1.2rem 1rem 0.8rem; }
 
   .search-input-row {
     flex-direction: column;
@@ -371,6 +371,27 @@
   border: 1px solid #6c8b19;
   border-radius: 20px;
   padding: 0.2rem 0.6rem;
+}
+
+.result-more-button {
+  margin-top: 0.35rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(0, 50, 86, 0.2);
+  border-radius: 4px;
+  background: #fff;
+  color: #003256;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.result-more-button:hover {
+  border-color: #6c8b19;
+  color: #6c8b19;
 }
 
 /* ── Event section cards ───────────────────────────────────── */

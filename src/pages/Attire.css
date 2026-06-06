@@ -48,7 +48,7 @@
 .attire-content {
   max-width: 800px;
   margin: 0 auto;
-  padding: 3rem 2rem;
+  padding: 3rem 2rem 0;
 }
 
 .attire-section {
@@ -102,7 +102,7 @@
   font-size: 0.92rem;
   color: #4b5563;
   line-height: 1.55;
-  padding: 0.5rem 0 0.5rem 1.2rem;
+  padding: 0.25rem 0 0.25rem 1.2rem;
   position: relative;
 }
 
@@ -126,7 +126,7 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 0.95rem;
   color: #6b7280;
-  padding: 0.6rem 0 0.6rem 1.2rem;
+  padding: 0.3rem 0 0.3rem 1.2rem;
   position: relative;
   line-height: 1.6;
   border-bottom: 1px solid rgba(0, 50, 86, 0.05);
@@ -147,8 +147,46 @@
   line-height: 1;
 }
 
+.attire-guidelines-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem 3rem 2rem;
+}
+
+.attire-guidelines-wrapper .attire-content {
+  padding: 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+.attire-inspo-image-container {
+  background-color: #fff;
+  border-top: 2px solid #6c8b19;
+  overflow: hidden;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 8px rgba(0, 50, 86, 0.05);
+  height: fit-content;
+}
+
+.attire-inspo-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
 @media (max-width: 768px) {
   .page-hero-title { font-size: 2.5rem; }
   .attire-content { padding: 2rem 1rem; }
   .attire-section { padding: 1.5rem; }
+  .attire-guidelines-wrapper {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2rem 1rem 2rem 1rem;
+  }
 }

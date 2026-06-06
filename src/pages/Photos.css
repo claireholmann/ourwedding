@@ -66,23 +66,38 @@
   gap: 1rem;
 }
 
-.photo-placeholder {
-  aspect-ratio: 1;
+.photo-card {
   background: rgba(0, 50, 86, 0.05);
-  border-top: 2px solid #6c8b19;
+  /* border: 2px solid #6c8b19; */
   border-radius: 0 0 8px 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 50, 86, 0.08);
 }
 
-.photo-placeholder p {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.8rem;
-  color: #65b8d4;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.photo-image-wrap {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.story-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-caption {
   margin: 0;
+  padding: 0.7rem 0.8rem 0.8rem;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  color: #003256;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 250, 250, 0.96));
 }
 
 @media (max-width: 768px) {

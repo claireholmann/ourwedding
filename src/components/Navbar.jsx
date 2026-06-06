@@ -78,7 +78,7 @@ function Navbar() {
           </li>
           <li className="nav-item">
             <Link to="/photos" className="nav-link" onClick={closeMenu}>
-              Photos
+              Our Story
             </Link>
           </li>
         </ul>

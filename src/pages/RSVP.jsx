@@ -6,6 +6,9 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBjMME5HxmYM1Vf0URJ
 const ITINERARY_RSVP_STORAGE_KEY = 'bck_rsvp_itinerary';
 const RSVP_LOOKUP_CACHE = new Map();
 const RSVP_SESSION_CACHE_KEY = 'bck_rsvp_lookup_cache_v1';
+const SEARCH_RESULTS_PAGE_SIZE = 6;
+const MAX_GUEST_LOOKUPS = 24;
+const GUEST_LOOKUP_BATCH_SIZE = 6;
 
 const MEAL_OPTIONS = [
   { value: '',           label: 'Select a meal…' },
@@ -310,9 +313,62 @@ function mergeUniqueMatches(primary, secondary) {
   return merged;
 }
 
+async function expandMatchesWithGuests(initialMatches) {
+  if (!Array.isArray(initialMatches) || initialMatches.length === 0) return [];
+
+  let expanded = [...initialMatches];
+  const queriedGuestNames = new Set();
+
+  const pendingGuestNames = [...new Set(
+    expanded
+      .flatMap((match) => splitGuestNames(match.guestName))
+      .map((name) => normalizeText(name))
+      .filter(Boolean)
+  )];
+
+  while (pendingGuestNames.length > 0 && queriedGuestNames.size < MAX_GUEST_LOOKUPS) {
+    const batch = [];
+    while (
+      pendingGuestNames.length > 0
+      && batch.length < GUEST_LOOKUP_BATCH_SIZE
+      && queriedGuestNames.size + batch.length < MAX_GUEST_LOOKUPS
+    ) {
+      const candidate = pendingGuestNames.shift();
+      if (!candidate || queriedGuestNames.has(candidate) || batch.includes(candidate)) continue;
+      batch.push(candidate);
+    }
+
+    if (batch.length === 0) break;
+    batch.forEach((name) => queriedGuestNames.add(name));
+
+    const guestMatchLists = await Promise.all(batch.map((name) => lookupInvitations(name)));
+    for (const guestMatches of guestMatchLists) {
+      if (guestMatches.length > 0) {
+        expanded = mergeUniqueMatches(expanded, guestMatches);
+      }
+    }
+
+    const discoveredGuestNames = [...new Set(
+      expanded
+        .flatMap((match) => splitGuestNames(match.guestName))
+        .map((name) => normalizeText(name))
+        .filter(Boolean)
+    )];
+
+    for (const name of discoveredGuestNames) {
+      if (!queriedGuestNames.has(name) && !pendingGuestNames.includes(name)) {
+        pendingGuestNames.push(name);
+      }
+    }
+  }
+
+  return expanded;
+}
+
 function RSVP() {
   const [searchQuery,   setSearchQuery]   = useState('');
   const [searchResults, setSearchResults] = useState(null);
+  const [visibleResultsCount, setVisibleResultsCount] = useState(SEARCH_RESULTS_PAGE_SIZE);
   const [searching,     setSearching]     = useState(false);
   const [household,     setHousehold]     = useState(null);
   const [submitting,    setSubmitting]    = useState(false);
@@ -330,6 +386,7 @@ function RSVP() {
 
     setSearching(true);
     setSearchResults(null);
+    setVisibleResultsCount(SEARCH_RESULTS_PAGE_SIZE);
 
     try {
       const queryWords = normalizeText(query).split(/\s+/).filter(Boolean);
@@ -339,7 +396,16 @@ function RSVP() {
 
       // Phase 2: fallback lookups only when exact lookup returns no matches.
       if (finalMatches.length === 0 && queryWords.length >= 2) {
-        const fallbackQueries = [`${queryWords[0]} ${queryWords[queryWords.length - 1]}`];
+        const fallbackQueries = [
+          queryWords[0],
+          queryWords[queryWords.length - 1],
+          `${queryWords[0]} ${queryWords[queryWords.length - 1]}`,
+        ];
+
+        const baseName = `${queryWords[0]} ${queryWords[1]}`;
+        for (const suffix of NAME_SUFFIX_TERMS) {
+          fallbackQueries.push(`${baseName} ${suffix}`);
+        }
 
         const uniqueFallbacks = [...new Set(fallbackQueries.map((q) => q.trim()).filter(Boolean))]
           .filter((q) => normalizeText(q) !== normalizeText(query));
@@ -349,6 +415,9 @@ function RSVP() {
           finalMatches = mergeUniqueMatches(finalMatches, matches);
         }
       }
+
+      // Ensure every result can bring in its associated guests, including paged "Show More" results.
+      finalMatches = await expandMatchesWithGuests(finalMatches);
 
       finalMatches = linkRelatedMatches(finalMatches);
       finalMatches = filterMatchesByQuery(finalMatches, query);
@@ -582,7 +651,7 @@ function RSVP() {
             {searchResults && searchResults.length > 0 && (
               <div className="search-results">
                 <p className="search-results-label">Select your invitation:</p>
-                {searchResults.map((result, idx) => {
+                {searchResults.slice(0, visibleResultsCount).map((result, idx) => {
                   const displayName = formatHouseholdNames(result.members) || result.matchedName;
                   return (
                     <button
@@ -592,12 +661,18 @@ function RSVP() {
                       type="button"
                     >
                       <span className="result-name">{displayName}</span>
-                      {result.members?.some(m => m.alreadySubmitted) && (
-                        <span className="result-badge">Already submitted - click to update</span>
-                      )}
                     </button>
                   );
                 })}
+                {searchResults.length > visibleResultsCount && (
+                  <button
+                    type="button"
+                    className="result-more-button"
+                    onClick={() => setVisibleResultsCount((count) => count + SEARCH_RESULTS_PAGE_SIZE)}
+                  >
+                    Show More Results
+                  </button>
+                )}
               </div>
             )}
           </div>
@@ -613,7 +688,12 @@ function RSVP() {
               <button
                 type="button"
                 className="change-name-btn"
-                onClick={() => { setHousehold(null); setForm(null); setSearchQuery(''); }}
+                onClick={() => {
+                  setHousehold(null);
+                  setForm(null);
+                  setSearchQuery('');
+                  setVisibleResultsCount(SEARCH_RESULTS_PAGE_SIZE);
+                }}
               >
                 Search Again
               </button>

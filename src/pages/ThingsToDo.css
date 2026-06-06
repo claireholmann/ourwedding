@@ -20,6 +20,8 @@
   display: block;
 }
 
+
+
 .page-hero-title {
   font-family: 'The Seasons', serif;
   font-size: 4rem;
@@ -62,6 +64,8 @@
   color: #65b8d4;
   display: block;
   margin-bottom: 0.5rem;
+  text-align: left;
+  width: 100%;
 }
 
 .section-heading {
@@ -177,4 +181,5 @@
   .page-hero-title { font-size: 2.5rem; }
   .things-to-do-content { padding: 2rem 1rem; }
   .activities-grid, .restaurants-grid { grid-template-columns: 1fr; }
+  .section-eyebrow { text-align: left; }
 }

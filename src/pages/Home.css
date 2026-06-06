@@ -51,7 +51,7 @@
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.75);
-  margin: 0 0 .5rem 0;
+  margin: 0 0 1.5rem 0;
 }
 
 .title-name {
@@ -461,17 +461,17 @@
     height: auto;
     min-height: auto;
     padding: 5.5rem 1rem;
-
-    .home-section:first-of-type {
-      min-height: 100vh;
-      height: 100vh;
-      padding: 0 2rem;
-      justify-content: center;
-    }
   }
 
   .title-section {
-    background-position: 78% 100%;
+    min-height: 100vh;
+    height: 100vh;
+    padding: 0 2rem;
+    justify-content: center;
+  }
+
+  .title-section {
+    background-position: 72% 100%;
   }
 
   .more-section {

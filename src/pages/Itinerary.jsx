@@ -30,27 +30,6 @@ function Itinerary() {
       <div className="itinerary-content">
         <div className="timeline">
           <div className="timeline-day-label"><span className="timeline-day-week">Friday</span><span className="timeline-day-date">June 25th</span></div>
-          <div className="timeline-item left">
-            <div className="timeline-time">4:30 PM EST</div>
-            <div className="timeline-content">
-              <h3>Ceremony Rehearsal</h3>
-              <p className="timeline-description">
-                Time to practice for the big day! Meet at Holy Spirit Chapel in Le Mans Hall at Saint Mary's College for a run-through of the ceremony.
-              </p>
-              <p className="timeline-detail"><strong>Address</strong><br />Le Mans Hall, Third Floor<br />Saint Mary's College<br />Notre Dame, IN 46556</p>
-            </div>
-          </div>
-
-          <div className="timeline-item right">
-            <div className="timeline-time">6:00 PM EST</div>
-            <div className="timeline-content">
-              <h3>Rehearsal Dinner</h3>
-              <p className="timeline-description">
-                Let's enjoy a meal together and celebrate the upcoming wedding at Macri's Italian!
-              </p>
-              <p className="timeline-detail"><strong>Address</strong><br />214 N Niles Ave<br />South Bend, IN 46617</p>
-            </div>
-          </div>
 
           {showRehearsalDetails && (
             <div className="timeline-item left">
