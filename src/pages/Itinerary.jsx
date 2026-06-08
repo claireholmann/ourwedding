@@ -1,24 +1,24 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import './Itinerary.css';
 
 const ITINERARY_RSVP_STORAGE_KEY = 'bck_rsvp_itinerary';
 
 function Itinerary() {
-  const [{ showRehearsalDetails, householdName }] = useState(() => {
-    try {
-      const raw = localStorage.getItem(ITINERARY_RSVP_STORAGE_KEY);
-      if (!raw) return { showRehearsalDetails: false, householdName: '' };
+  // const [{ showRehearsalDetails, householdName }] = useState(() => {
+  //   try {
+  //     const raw = localStorage.getItem(ITINERARY_RSVP_STORAGE_KEY);
+  //     if (!raw) return { showRehearsalDetails: false, householdName: '' };
 
-      const parsed = JSON.parse(raw);
-      return {
-        showRehearsalDetails: !!parsed?.attendingRehearsalDinner,
-        householdName: String(parsed?.householdName || '').trim(),
-      };
-    } catch {
-      // Ignore storage/parse errors and keep default itinerary view.
-      return { showRehearsalDetails: false, householdName: '' };
-    }
-  });
+  //     const parsed = JSON.parse(raw);
+  //     return {
+  //       showRehearsalDetails: !!parsed?.attendingRehearsalDinner,
+  //       householdName: String(parsed?.householdName || '').trim(),
+  //     };
+  //   } catch {
+  //     // Ignore storage/parse errors and keep default itinerary view.
+  //     return { showRehearsalDetails: false, householdName: '' };
+  //   }
+  // });
 
   return (
     <div className="itinerary-container">
