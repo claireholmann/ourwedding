@@ -1,14 +1,12 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import './RSVP.css';
 
 // Google Apps Script deployment
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBjMME5HxmYM1Vf0URJe1ZL6_TAW23nJI3w5NsP1MtxRojnIv4b-DRlKA9xdY0o-Cc/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbws1dIH4rJjXmJ3cf3aMj2doO6GPhnANN3xzVqsnr5SzMZgfdUqlGmSciuRlRqJiUUvBg/exec';
 const ITINERARY_RSVP_STORAGE_KEY = 'bck_rsvp_itinerary';
 const RSVP_LOOKUP_CACHE = new Map();
-const RSVP_SESSION_CACHE_KEY = 'bck_rsvp_lookup_cache_v1';
-const SEARCH_RESULTS_PAGE_SIZE = 6;
-const MAX_GUEST_LOOKUPS = 24;
-const GUEST_LOOKUP_BATCH_SIZE = 6;
+const RSVP_SESSION_CACHE_KEY = 'bck_rsvp_lookup_cache_v2';
+const SEARCH_RESULTS_PAGE_SIZE = 3;
 
 const MEAL_OPTIONS = [
   { value: '',           label: 'Select a meal…' },
@@ -89,9 +87,24 @@ async function lookupInvitations(query) {
 
   const url = `${SCRIPT_URL}?action=lookup&q=${encodeURIComponent(query)}`;
   const res = await fetch(url, { redirect: 'follow' });
+  if (!res.ok) {
+    throw new Error(`Lookup failed (${res.status}).`);
+  }
+
+  const contentType = res.headers.get('content-type') || '';
+  if (!contentType.toLowerCase().includes('application/json')) {
+    throw new Error('Lookup endpoint did not return JSON. Check Apps Script deployment URL and access settings.');
+  }
+
   const data = await res.json();
+  if (data?.error) {
+    throw new Error(String(data.error));
+  }
+
   const matches = Array.isArray(data.matches) ? data.matches : [];
-  RSVP_LOOKUP_CACHE.set(normalized, matches);
+  if (matches.length > 0) {
+    RSVP_LOOKUP_CACHE.set(normalized, matches);
+  }
 
   try {
     const serialized = Object.fromEntries(RSVP_LOOKUP_CACHE.entries());
@@ -198,8 +211,8 @@ function normalizeText(value) {
 }
 
 function includesAllQueryWords(name, queryWords) {
-  const target = normalizeText(name);
-  return queryWords.every((word) => target.includes(word));
+  const targetWords = normalizeText(name).split(/\s+/).filter(Boolean);
+  return queryWords.every((word) => targetWords.some((candidate) => candidate.startsWith(word)));
 }
 
 function getMatchKey(match) {
@@ -212,7 +225,7 @@ function getMatchKey(match) {
 
 function splitGuestNames(guestName) {
   return String(guestName || '')
-    .split(',')
+    .split(/\s*(?:,|;|\band\b|&|\+)\s*/i)
     .map((name) => name.trim())
     .filter(Boolean);
 }
@@ -231,13 +244,19 @@ function chooseSharedData(matches) {
 function linkRelatedMatches(matches) {
   if (!Array.isArray(matches) || matches.length === 0) return [];
 
-  const byMatchedName = new Map();
+  const byName = new Map();
   matches.forEach((match, idx) => {
-    const key = normalizeText(match.matchedName);
-    if (!key) return;
-    const existing = byMatchedName.get(key) || [];
-    existing.push(idx);
-    byMatchedName.set(key, existing);
+    const candidateNames = [
+      match.matchedName,
+      ...(match.members || []).map((m) => m.name),
+    ];
+    for (const candidate of candidateNames) {
+      const key = normalizeText(candidate);
+      if (!key) continue;
+      const existing = byName.get(key) || [];
+      existing.push(idx);
+      byName.set(key, existing);
+    }
   });
 
   const seen = new Set();
@@ -258,7 +277,7 @@ function linkRelatedMatches(matches) {
       const guestNames = splitGuestNames(matches[currentIdx].guestName);
       for (const guest of guestNames) {
         const guestKey = normalizeText(guest);
-        const linkedIndices = byMatchedName.get(guestKey) || [];
+        const linkedIndices = byName.get(guestKey) || [];
         for (const linkedIdx of linkedIndices) {
           if (!seen.has(linkedIdx)) queue.push(linkedIdx);
         }
@@ -294,8 +313,15 @@ function filterMatchesByQuery(matches, query) {
 
   return matches.filter((match) => {
     if (includesAllQueryWords(match.matchedName, queryWords)) return true;
+    if (includesAllQueryWords(match.guestName, queryWords)) return true;
     return (match.members || []).some((m) => includesAllQueryWords(m.name, queryWords));
   });
+}
+
+function preferFilteredMatches(matches, query) {
+  const filtered = filterMatchesByQuery(matches, query);
+  // Keep backend-ranked results when client-side filtering is too strict (e.g., alias-only searches).
+  return filtered.length > 0 ? filtered : matches;
 }
 
 function mergeUniqueMatches(primary, secondary) {
@@ -313,58 +339,6 @@ function mergeUniqueMatches(primary, secondary) {
   return merged;
 }
 
-async function expandMatchesWithGuests(initialMatches) {
-  if (!Array.isArray(initialMatches) || initialMatches.length === 0) return [];
-
-  let expanded = [...initialMatches];
-  const queriedGuestNames = new Set();
-
-  const pendingGuestNames = [...new Set(
-    expanded
-      .flatMap((match) => splitGuestNames(match.guestName))
-      .map((name) => normalizeText(name))
-      .filter(Boolean)
-  )];
-
-  while (pendingGuestNames.length > 0 && queriedGuestNames.size < MAX_GUEST_LOOKUPS) {
-    const batch = [];
-    while (
-      pendingGuestNames.length > 0
-      && batch.length < GUEST_LOOKUP_BATCH_SIZE
-      && queriedGuestNames.size + batch.length < MAX_GUEST_LOOKUPS
-    ) {
-      const candidate = pendingGuestNames.shift();
-      if (!candidate || queriedGuestNames.has(candidate) || batch.includes(candidate)) continue;
-      batch.push(candidate);
-    }
-
-    if (batch.length === 0) break;
-    batch.forEach((name) => queriedGuestNames.add(name));
-
-    const guestMatchLists = await Promise.all(batch.map((name) => lookupInvitations(name)));
-    for (const guestMatches of guestMatchLists) {
-      if (guestMatches.length > 0) {
-        expanded = mergeUniqueMatches(expanded, guestMatches);
-      }
-    }
-
-    const discoveredGuestNames = [...new Set(
-      expanded
-        .flatMap((match) => splitGuestNames(match.guestName))
-        .map((name) => normalizeText(name))
-        .filter(Boolean)
-    )];
-
-    for (const name of discoveredGuestNames) {
-      if (!queriedGuestNames.has(name) && !pendingGuestNames.includes(name)) {
-        pendingGuestNames.push(name);
-      }
-    }
-  }
-
-  return expanded;
-}
-
 function RSVP() {
   const [searchQuery,   setSearchQuery]   = useState('');
   const [searchResults, setSearchResults] = useState(null);
@@ -374,6 +348,8 @@ function RSVP() {
   const [submitting,    setSubmitting]    = useState(false);
   const [submitted,     setSubmitted]     = useState(false);
   const [formError,     setFormError]     = useState('');
+  const [lookupError,   setLookupError]   = useState('');
+  const latestSearchRequestRef = useRef(0);
 
   // Form state: { members: [{ rowIndex, name, ..., form: { rehearsalRsvp, ..., meal, foodAllergies } }], shared: { songRequests, message } }
   const [form, setForm] = useState(null);
@@ -384,7 +360,11 @@ function RSVP() {
     const query = searchQuery.trim();
     if (!query) return;
 
+    const requestId = latestSearchRequestRef.current + 1;
+    latestSearchRequestRef.current = requestId;
+
     setSearching(true);
+    setLookupError('');
     setSearchResults(null);
     setVisibleResultsCount(SEARCH_RESULTS_PAGE_SIZE);
 
@@ -397,8 +377,6 @@ function RSVP() {
       // Phase 2: fallback lookups only when exact lookup returns no matches.
       if (finalMatches.length === 0 && queryWords.length >= 2) {
         const fallbackQueries = [
-          queryWords[0],
-          queryWords[queryWords.length - 1],
           `${queryWords[0]} ${queryWords[queryWords.length - 1]}`,
         ];
 
@@ -416,17 +394,19 @@ function RSVP() {
         }
       }
 
-      // Ensure every result can bring in its associated guests, including paged "Show More" results.
-      finalMatches = await expandMatchesWithGuests(finalMatches);
+      const initialMatches = preferFilteredMatches(linkRelatedMatches(finalMatches), query);
 
-      finalMatches = linkRelatedMatches(finalMatches);
-      finalMatches = filterMatchesByQuery(finalMatches, query);
-
-      setSearchResults(finalMatches.length > 0 ? finalMatches : []);
-    } catch {
+      // Render immediately from sheet-backed household data.
+      if (latestSearchRequestRef.current === requestId) {
+        setSearchResults(initialMatches.length > 0 ? initialMatches : []);
+      }
+    } catch (error) {
+      setLookupError(error instanceof Error ? error.message : 'Lookup failed. Please try again.');
       setSearchResults([]);
     } finally {
-      setSearching(false);
+      if (latestSearchRequestRef.current === requestId) {
+        setSearching(false);
+      }
     }
   };
 
@@ -589,8 +569,8 @@ function RSVP() {
               </svg>
               <span className="success-icon-fallback">✓</span>
             </div>
-            <h2>Thank You!</h2>
-            <p>Your RSVP is in. We cannot wait to celebrate with you in South Bend.</p>
+            <h2>Thank You<span className="success-message-character">!</span></h2>
+            <p>Your RSVP is in. We cannot wait to celebrate with you in South Bend!</p>
           </div>
         </div>
       </div>
@@ -644,7 +624,7 @@ function RSVP() {
 
             {searchResults !== null && searchResults.length === 0 && (
               <p className="lookup-error">
-                We couldn't find that name. Please double-check your spelling or contact us directly.
+                {lookupError || "We couldn't find that name. Please double-check your spelling or contact us directly."}
               </p>
             )}
 

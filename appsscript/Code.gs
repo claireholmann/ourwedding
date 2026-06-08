@@ -85,6 +85,12 @@ function lookup(query) {
   const q = query.trim().toLowerCase();
   if (q.length < 2) return { matches: [] };
 
+  const normalizeNameKey = (value) => String(value || '')
+    .toLowerCase()
+    .replace(/[.,]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
   const isInvited = (value) => {
     const normalized = String(value || '').trim().toLowerCase();
     return normalized === 'yes' || normalized === 'true' || normalized === 'y' || normalized === '1';
@@ -92,6 +98,14 @@ function lookup(query) {
 
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
   const rows  = sheet.getDataRange().getValues();
+
+  // Build a fast name -> row index lookup once per request.
+  const rowIndexByName = new Map();
+  for (let i = 1; i < rows.length; i++) {
+    const nameKey = normalizeNameKey(rows[i][C.NAME]);
+    if (!nameKey || rowIndexByName.has(nameKey)) continue;
+    rowIndexByName.set(nameKey, i);
+  }
 
   // Find matching people by name/aliases
   const rankedMatches = [];
@@ -167,8 +181,8 @@ function lookup(query) {
       .map(a => a.trim())
       .filter(Boolean);
 
-    // Prefer Guest when it looks like a real household list, otherwise fallback to Aliases.
-    const householdMembers = guestMembers.length >= 2 ? guestMembers : aliasMembers;
+    // Prefer Guest whenever present (including a single plus-one), otherwise fallback to Aliases.
+    const householdMembers = guestMembers.length > 0 ? guestMembers : aliasMembers;
 
     const familyMembers = [];
     const seenRowIndices = new Set();
@@ -194,32 +208,29 @@ function lookup(query) {
 
     // Add household members from primary grouping source (Guest or Aliases fallback)
     for (const householdName of householdMembers) {
-      const familyNameLower = householdName.toLowerCase();
-      for (let i = 1; i < rows.length; i++) {
-        if (seenRowIndices.has(i)) continue;
-        const row = rows[i];
-        if (!row[C.NAME]) continue;
-        if (String(row[C.NAME]).toLowerCase() === familyNameLower) {
-          familyMembers.push({
-            rowIndex:           i,
-            name:               String(row[C.NAME]),
-            invitedToRehearsal: isInvited(row[C.INVITED_REHEARSAL]),
-            invitedToBrunch:    isInvited(row[C.INVITED_BRUNCH]),
-            alreadySubmitted:   !!row[C.SUBMITTED_AT],
-            existing: {
-              rehearsalRsvp: String(row[C.REHEARSAL_RSVP] || ''),
-              welcomeRsvp:   String(row[C.WELCOME_RSVP] || ''),
-              ceremonyRsvp:  String(row[C.CEREMONY_RSVP] || ''),
-              receptionRsvp: String(row[C.RECEPTION_RSVP] || ''),
-              meal:          String(row[C.MEAL] || ''),
-              foodAllergies: String(row[C.FOOD_ALLERGIES] || ''),
-              brunchRsvp:    String(row[C.BRUNCH_RSVP] || ''),
-            },
-          });
-          seenRowIndices.add(i);
-          break;
-        }
-      }
+      const householdRowIndex = rowIndexByName.get(normalizeNameKey(householdName));
+      if (householdRowIndex == null || seenRowIndices.has(householdRowIndex)) continue;
+
+      const row = rows[householdRowIndex];
+      if (!row || !row[C.NAME]) continue;
+
+      familyMembers.push({
+        rowIndex:           householdRowIndex,
+        name:               String(row[C.NAME]),
+        invitedToRehearsal: isInvited(row[C.INVITED_REHEARSAL]),
+        invitedToBrunch:    isInvited(row[C.INVITED_BRUNCH]),
+        alreadySubmitted:   !!row[C.SUBMITTED_AT],
+        existing: {
+          rehearsalRsvp: String(row[C.REHEARSAL_RSVP] || ''),
+          welcomeRsvp:   String(row[C.WELCOME_RSVP] || ''),
+          ceremonyRsvp:  String(row[C.CEREMONY_RSVP] || ''),
+          receptionRsvp: String(row[C.RECEPTION_RSVP] || ''),
+          meal:          String(row[C.MEAL] || ''),
+          foodAllergies: String(row[C.FOOD_ALLERGIES] || ''),
+          brunchRsvp:    String(row[C.BRUNCH_RSVP] || ''),
+        },
+      });
+      seenRowIndices.add(householdRowIndex);
     }
 
     let sharedSongRequests = '';
