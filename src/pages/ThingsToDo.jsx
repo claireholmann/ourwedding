@@ -66,7 +66,7 @@ const ATTRACTIONS = [
       "Small, walkable zoo with family-friendly exhibits and seasonal programming.",
     website: "https://www.potawatomizoo.org/",
   },
-    {
+  {
     name: "South Bend Farmer's Market",
     location: "South Bend, IN",
     description:
@@ -89,37 +89,39 @@ const DINING = [
     description:
       "Lively pub with Irish food, pints, and regular live music nights.",
     menu: "https://fiddlershearth.com/kitchen/",
-    reserve: "https://tables.toasttab.com/restaurants/a619ed6b-6b8a-476e-9418-92e165407510/reserve",
+    reserve:
+      "https://tables.toasttab.com/restaurants/a619ed6b-6b8a-476e-9418-92e165407510/reserve",
   },
   {
     name: "Legends of Notre Dame",
     cuisine: "Irish Pub",
     description:
       "Famous bar and restaurant located on Notre Dame's campus next to the football stadium.",
-    menu: "https://www.legends.nd.edu/660674/legends_full_menu_52226_web.pdf/",
+    menu: "https://www.legends.nd.edu/assets/660674/legends_full_menu_52226_web.pdf/",
   },
   {
     name: "O'Rourke's",
     cuisine: "Irish Pub",
-    description:
-      "Casual Eddy Street pub with comfort food and game watching.",
+    description: "Casual Eddy Street pub with comfort food and game watching.",
     menu: "https://www.orourkessouthbend.com/menus",
-    reserve: "https://www.opentable.com/orourkes-south-bend/reserve",
+    reserve:
+      "https://www.opentable.com/r/orourkes-public-house-south-bend?avt=eyJ2ljoyLCJtljoxLCJwljowLCJzl-jowlLCJuljowfQ&corrid=36da376e-3eee-4ded-8ae6-a464970a86d9&originId=36da376e-3eee-4ded-8ae6-a464970a86d9",
   },
-    {
+  {
     name: "The Exchange",
     cuisine: "Whiskey Bar",
     description:
       "Moody downtown cocktail bar known for a deep whiskey list and polished classics.",
     menu: "https://theexchangebars.com/menu/",
   },
-    {
+  {
     name: "The Lauber",
     cuisine: "American",
     description:
       "Historic downtown space serving pizza, shareable starters, and cocktails.",
     menu: "https://thelauber.com/menu",
-    reserve: "https://tables.toasttab.com/restaurants/c04d2d43-e0fb-4c05-a153-3171109a33a4/reserve",
+    reserve:
+      "https://tables.toasttab.com/restaurants/c04d2d43-e0fb-4c05-a153-3171109a33a4/reserve",
   },
   {
     name: "Jesus Latin Grill",
@@ -156,7 +158,7 @@ const DINING = [
     cuisine: "Juice & Bowls",
     description:
       "Light breakfast and lunch option with smoothies, juices, and acai bowls.",
-    menu: "https://www.purelypressedorganic.com/menu",
+    menu: "https://www.purelypressedorganic.com/",
   },
   {
     name: "PEGGS",
