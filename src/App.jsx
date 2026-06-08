@@ -41,7 +41,7 @@ function App() {
       </main>
       {location.pathname !== '/' && (
         <footer className="site-footer">
-          <p className="site-footer-text">Designed &amp; built by Claire</p>
+          <p className="site-footer-text">Designed &amp; developed by Claire</p>
         </footer>
       )}
     </div>

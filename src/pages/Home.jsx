@@ -101,7 +101,7 @@ function Home() {
             <span className="card-arrow">→</span>
           </Link>
         </div>
-        <p className="home-footer-note">Designed &amp; built by Claire</p>
+        <p className="home-footer-note">Designed &amp; developed by Claire</p>
       </section>
     </div>
   );
