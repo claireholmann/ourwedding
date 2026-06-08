@@ -43,7 +43,7 @@ function HotelTravel() {
               <p className="hotel-description">
                 <strong>$149/night.</strong> Modern vibes with vibrant decor, a
                 lively bar, a 24-hour cafe, and an indoor pool. On-site parking
-                available for $25/night. <strong>Last day to book: May 25th, 2027.</strong>
+                available is complimentary. <br /> <strong>Last day to book: May 25th, 2027.</strong>
               </p>
             </div>
             <div className="hotel-card">
@@ -68,7 +68,7 @@ function HotelTravel() {
               <p className="hotel-description">
                 <strong>$169/night.</strong> Classic comfort in the heart of
                 downtown, with a gym and indoor pool. On-site parking available
-                for $25/night. <strong>Last day to book: May 25th, 2027.</strong>
+                for $25/night. <br /> <strong>Last day to book: May 25th, 2027.</strong>
               </p>
             </div>
           </div>
@@ -122,7 +122,7 @@ function HotelTravel() {
             <div className="travel-info">
               <h3>Parking at Hotels</h3>
               <p>
-                Parking is available at both hotels for $25 per night. There is
+                Parking is complimentary at the Aloft and available at the Mariott for $25 per night. There is
                 limited street parking that is free.
               </p>
             </div>

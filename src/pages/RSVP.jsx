@@ -541,6 +541,10 @@ function RSVP() {
           // Ignore storage errors (for example, private browsing restrictions).
         }
 
+        // Clear lookup cache so returning guests see their fresh submitted responses.
+        RSVP_LOOKUP_CACHE.clear();
+        try { sessionStorage.removeItem(RSVP_SESSION_CACHE_KEY); } catch { /* ignore */ }
+
         setSubmitted(true);
       } else {
         setFormError('Something went wrong. Please try again or contact us directly.');

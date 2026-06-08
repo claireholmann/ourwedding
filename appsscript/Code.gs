@@ -367,17 +367,65 @@ function validateSheetHeaders(sheet) {
   return { ok: true };
 }
 
+// ─── Household name formatter ────────────────────────────────
+
+function formatHouseholdNames(members) {
+  if (!members || members.length === 0) return '';
+  if (members.length === 1) return members[0].name;
+
+  const suffixes = new Set(['jr', 'jr.', 'sr', 'sr.', 'ii', 'iii', 'iv', 'v']);
+
+  const getFamilyLastName = (fullName) => {
+    const parts = String(fullName || '').trim().split(/\s+/).filter(Boolean);
+    if (parts.length < 2) return '';
+    const tail = parts[parts.length - 1].toLowerCase();
+    const lastIdx = suffixes.has(tail) ? parts.length - 2 : parts.length - 1;
+    return (parts[lastIdx] || '').toLowerCase();
+  };
+
+  const parsed = members.map(m => {
+    const parts = m.name.trim().split(/\s+/);
+    return {
+      name: m.name,
+      first: parts[0],
+      familyLast: getFamilyLastName(m.name),
+    };
+  });
+
+  const familyLastNames = parsed.map(p => p.familyLast).filter(Boolean);
+  const allSameLastName = familyLastNames.length === parsed.length
+    && familyLastNames.every(ln => ln === familyLastNames[0]);
+
+  if (allSameLastName && familyLastNames[0]) {
+    const displayLast = familyLastNames[0].charAt(0).toUpperCase() + familyLastNames[0].slice(1);
+    if (parsed.length >= 3) return `The ${displayLast} Family`;
+    const firstNames = parsed.map(p => p.first).join(' and ');
+    return `${firstNames} ${displayLast}`;
+  }
+
+  return members.map(m => m.name).join(' and ');
+}
+
 // ─── Email Notification ──────────────────────────────────────
 
 function sendNotificationEmail(p, members) {
-  const householdNames = members.map(m => m.name).join(' & ');
+  const householdNames = formatHouseholdNames(members);
   const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
-  const body = buildRsvpSummaryBody('New RSVP', householdNames, timestamp, p, members);
+  const htmlBody = buildRsvpHtmlEmail({
+    headerLabel: 'New RSVP Received',
+    subLabel: null,
+    householdNames,
+    timestamp,
+    p,
+    members,
+    isGuestCopy: false,
+  });
 
   MailApp.sendEmail({
-    to:      NOTIFICATION_EMAIL,
-    subject: `RSVP: ${householdNames}`,
-    body,
+    to:       NOTIFICATION_EMAIL,
+    subject:  `RSVP: ${householdNames}`,
+    body:     buildRsvpPlainText(householdNames, timestamp, p, members),
+    htmlBody,
   });
 }
 
@@ -389,18 +437,29 @@ function sendGuestCopyEmail(p, members) {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(guestEmail)) return;
 
-  const householdNames = members.map(m => m.name).join(' & ');
+  const householdNames = formatHouseholdNames(members);
   const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
-  const body = buildRsvpSummaryBody('Your RSVP responses', householdNames, timestamp, p, members);
+  const htmlBody = buildRsvpHtmlEmail({
+    headerLabel: 'Your RSVP is confirmed',
+    subLabel: 'We can\'t wait to celebrate with you in South Bend.',
+    householdNames,
+    timestamp,
+    p,
+    members,
+    isGuestCopy: true,
+  });
 
   MailApp.sendEmail({
-    to: guestEmail,
-    subject: `Your RSVP: ${householdNames}`,
-    body,
+    to:       guestEmail,
+    subject:  `Your RSVP — Claire & Brian`,
+    body:     buildRsvpPlainText(householdNames, timestamp, p, members),
+    htmlBody,
   });
 }
 
-function buildRsvpSummaryBody(headerLabel, householdNames, timestamp, p, members) {
+// ── Plain-text fallback ───────────────────────────────────────
+
+function buildRsvpPlainText(householdNames, timestamp, p, members) {
   let eventDetails = '';
   for (const member of members) {
     const mKey = `member_${member.rowIndex}`;
@@ -408,7 +467,6 @@ function buildRsvpSummaryBody(headerLabel, householdNames, timestamp, p, members
       ? `  Rehearsal Dinner: ${p[`${mKey}_rehearsalRsvp`] || '—'}\n` : '';
     const brunchLine = member.invitedToBrunch
       ? `  Sunday Brunch: ${p[`${mKey}_brunchRsvp`] || '—'}\n` : '';
-
     eventDetails += `${member.name}:\n`;
     eventDetails += `${rehearsalLine}  Welcome Party: ${p[`${mKey}_welcomeRsvp`] || '—'}\n`;
     eventDetails += `  Ceremony: ${p[`${mKey}_ceremonyRsvp`] || '—'}\n`;
@@ -418,13 +476,98 @@ function buildRsvpSummaryBody(headerLabel, householdNames, timestamp, p, members
     if (p[`${mKey}_foodAllergies`]) eventDetails += `  Allergies: ${p[`${mKey}_foodAllergies`]}\n`;
     eventDetails += '\n';
   }
+  return `RSVP from ${householdNames}\nSubmitted: ${timestamp}\n\n${eventDetails}\nSong Requests: ${p.songRequests || 'None'}\nMessage: ${p.message || 'None'}`;
+}
 
-  return `${headerLabel} from ${householdNames}
-Submitted: ${timestamp}
+// ── HTML email builder ────────────────────────────────────────
 
-─── Events & Meals ───────────────────
-${eventDetails}
-─── Notes ─────────────────────────────
-Song Requests: ${p.songRequests || 'None'}
-Message:       ${p.message || 'None'}`;
+function buildRsvpHtmlEmail({ headerLabel, subLabel, householdNames, timestamp, p, members, isGuestCopy }) {
+  const rsvpBadge = (val) => {
+    if (!val || val === '—') return '<span style="color:#9ca3af;">—</span>';
+    const yes = val === 'Yes';
+    const color = yes ? '#6c8b19' : '#b00020';
+    const bg    = yes ? '#f0f5e8' : '#fdf2f2';
+    return `<span style="display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:0.05em;background:${bg};color:${color};">${val}</span>`;
+  };
+
+  const esc = (s) => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  let memberRows = '';
+  for (const member of members) {
+    const mKey = `member_${member.rowIndex}`;
+    const rehearsalRow = member.invitedToRehearsal
+      ? `<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Rehearsal Dinner</td><td style="padding:6px 0;text-align:right;">${rsvpBadge(p[`${mKey}_rehearsalRsvp`])}</td></tr>` : '';
+    const brunchRow = member.invitedToBrunch
+      ? `<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Sunday Brunch</td><td style="padding:6px 0;text-align:right;">${rsvpBadge(p[`${mKey}_brunchRsvp`])}</td></tr>` : '';
+    const mealRow = p[`${mKey}_meal`]
+      ? `<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Meal</td><td style="padding:6px 0;text-align:right;color:#003256;font-size:13px;">${esc(p[`${mKey}_meal`])}</td></tr>` : '';
+    const allergyRow = p[`${mKey}_foodAllergies`]
+      ? `<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Allergies</td><td style="padding:6px 0;text-align:right;color:#003256;font-size:13px;">${esc(p[`${mKey}_foodAllergies`])}</td></tr>` : '';
+
+    memberRows += `
+      <div style="margin-bottom:20px;">
+        <div style="font-family:Georgia,serif;font-size:15px;font-weight:600;color:#003256;border-bottom:1px solid #e5e7eb;padding-bottom:6px;margin-bottom:8px;">${esc(member.name)}</div>
+        <table width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;">
+          ${rehearsalRow}
+          <tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Welcome Party</td><td style="padding:6px 0;text-align:right;">${rsvpBadge(p[`${mKey}_welcomeRsvp`])}</td></tr>
+          <tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Ceremony</td><td style="padding:6px 0;text-align:right;">${rsvpBadge(p[`${mKey}_ceremonyRsvp`])}</td></tr>
+          <tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Reception</td><td style="padding:6px 0;text-align:right;">${rsvpBadge(p[`${mKey}_receptionRsvp`])}</td></tr>
+          ${brunchRow}${mealRow}${allergyRow}
+        </table>
+      </div>`;
+  }
+
+  const notesSection = (p.songRequests || p.message) ? `
+      <div style="margin-bottom:20px;">
+        <div style="font-family:Georgia,serif;font-size:15px;font-weight:600;color:#003256;border-bottom:1px solid #e5e7eb;padding-bottom:6px;margin-bottom:8px;">Notes</div>
+        <table width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;">
+          ${p.songRequests ? `<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Song Request</td><td style="padding:6px 0;text-align:right;color:#003256;font-size:13px;">${esc(p.songRequests)}</td></tr>` : ''}
+          ${p.message ? `<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Message</td><td style="padding:6px 0;text-align:right;color:#003256;font-size:13px;">${esc(p.message)}</td></tr>` : ''}
+        </table>
+      </div>` : '';
+
+  const subLabelHtml = subLabel
+    ? `<p style="margin:8px 0 0;font-family:Arial,sans-serif;font-size:14px;color:#65b8d4;">${esc(subLabel)}</p>`
+    : `<p style="margin:8px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#9ca3af;">Submitted ${esc(timestamp)}</p>`;
+
+  const footerNote = isGuestCopy
+    ? 'Questions? Reach us at <a href="mailto:thekoschs@gmail.com" style="color:#65b8d4;">thekoschs@gmail.com</a>'
+    : `Submitted: ${esc(timestamp)}`;
+
+  return `<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f3f4f6;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:32px 16px;">
+    <tr><td align="center">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 2px 16px rgba(0,50,86,0.10);">
+
+        <!-- Header -->
+        <tr><td style="background:#003256;padding:32px 32px 24px;text-align:center;">
+          <p style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#65b8d4;">Claire &amp; Brian · June 26th, 2027</p>
+          <h1 style="margin:0;font-family:Georgia,serif;font-size:26px;font-weight:400;color:#ffffff;letter-spacing:0.05em;">${esc(headerLabel)}</h1>
+          ${subLabelHtml}
+        </td></tr>
+
+        <!-- Household name band -->
+        <tr><td style="background:#6c8b19;padding:10px 32px;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#ffffff;">${esc(householdNames)}</p>
+        </td></tr>
+
+        <!-- Body -->
+        <tr><td style="padding:28px 32px 8px;">
+          ${memberRows}
+          ${notesSection}
+        </td></tr>
+
+        <!-- Footer -->
+        <tr><td style="padding:20px 32px 28px;border-top:1px solid #e5e7eb;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#9ca3af;text-align:center;">${footerNote}</p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
 }
