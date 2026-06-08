@@ -50,14 +50,14 @@ const ATTRACTIONS = [
     location: "Notre Dame, IN",
     description:
       "Campus bookstore offering a wide selection of Notre Dame merchandise, textbooks, and gifts.",
-    website: "https://www.nd.edu/hammes-notre-dame-bookstore",
+    website: "https://www.nd.bncollege.com/",
   },
   {
     name: "Eddy Street Commons",
     location: "South Bend, IN",
     description:
       "Main street with shops, restaurants, ice cream and bar options. The second Notre Dame bookstore is located here.  Across the street from Notre Dame's main entrance.",
-    website: "https://www.eddystreetcommons.com/",
+    website: "https://www.eddycommons.com/",
   },
   {
     name: "Potawatomi Zoo",
@@ -77,7 +77,7 @@ const ATTRACTIONS = [
     name: "New Buffalo",
     location: "New Buffalo, MI",
     description:
-      "Beach town on Lake Michigan with shops, restaurants, and wineries. About a 40 minute drive from South Bend.",
+      "Beach town on Lake Michigan with shops, restaurants like The Stray Dog, and wineries. About a 40 minute drive from South Bend.",
     website: "https://www.newbuffalo.com/",
   },
 ];
@@ -87,33 +87,31 @@ const DINING = [
     name: "Fiddler's Hearth",
     cuisine: "Irish Pub",
     description:
-      "Lively pub with Irish fare, pints, and regular live music nights.",
+      "Lively pub with Irish food, pints, and regular live music nights.",
     menu: "https://fiddlershearth.com/kitchen/",
-    reserve: "https://fiddlershearth.com/reservations/",
+    reserve: "https://tables.toasttab.com/restaurants/a619ed6b-6b8a-476e-9418-92e165407510/reserve",
   },
   {
     name: "Legends of Notre Dame",
     cuisine: "Irish Pub",
     description:
-      "Famous bar and restaurant located on Notre Dame's campus next to Notre Dame Stadium.",
-    menu: "https://www.legendsnd.com/kitchen/",
-    reserve: "https://www.legendsnd.com/reservations/",
+      "Famous bar and restaurant located on Notre Dame's campus next to the football stadium.",
+    menu: "https://www.legends.nd.edu/660674/legends_full_menu_52226_web.pdf/",
   },
   {
     name: "O'Rourke's",
     cuisine: "Irish Pub",
     description:
-      "Casual Eddy Street pub with comfort food, TVs, and easy pre-game energy.",
+      "Casual Eddy Street pub with comfort food and game watching.",
     menu: "https://www.orourkessouthbend.com/menus",
-    reserve: "https://www.orourkessouthbend.com/reservations",
+    reserve: "https://www.opentable.com/orourkes-south-bend/reserve",
   },
     {
     name: "The Exchange",
     cuisine: "Whiskey Bar",
     description:
-      "Downtown cocktail bar known for a deep whiskey list and polished classics.",
+      "Moody downtown cocktail bar known for a deep whiskey list and polished classics.",
     menu: "https://theexchangebars.com/menu/",
-    reserve: "https://theexchangebars.com/reservations/",
   },
     {
     name: "The Lauber",
@@ -121,39 +119,37 @@ const DINING = [
     description:
       "Historic downtown space serving pizza, shareable starters, and cocktails.",
     menu: "https://thelauber.com/menu",
-    reserve: "https://thelauber.com/reservations",
+    reserve: "https://tables.toasttab.com/restaurants/c04d2d43-e0fb-4c05-a153-3171109a33a4/reserve",
   },
   {
     name: "Jesus Latin Grill",
-    cuisine: "Mexican",
+    cuisine: "Latin",
     description:
-      "Local favorite for tacos, burritos, and quick casual meals near downtown.",
+      "Blend of Latin American flavors with tacos, enchiladas, and margaritas.",
     menu: "https://jesus-latin-grill.com/menu/",
-    reserve: "https://www.jesus-latin-grill.com/reservations/",
   },
   {
     name: "Carmela's",
     cuisine: "Italian",
     description:
-      "Neighborhood Italian spot with pasta, house specialties, and classic desserts.",
+      "Family-owned Italian spot with pasta, house specialties, and classic desserts.",
     menu: "https://www.carmelassouthbend.com/s/order",
-    reserve: "https://www.carmelassouthbend.com/s/reservations",
+    reserve: "https://www.carmelassouthbend.com/reservations",
   },
   {
-    name: "Parisi's",
+    name: "Cafe Navarre",
     cuisine: "Italian",
     description:
-      "Neighborhood Italian spot with pasta, house specialties, and classic desserts.",
-    menu: "https://www.parisissouthbend.com/s/order",
-    reserve: "https://www.parisissouthbend.com/s/reservations",
+      "Modern Italian spot with pasta, fresh seafood, and romantic atmosphere.",
+    menu: "https://www.cafenavarre.co/eat",
+    reserve: "https://www.cafenavarre.co/visit",
   },
   {
     name: "Ritter's Frozen Custard",
     cuisine: "Dessert",
     description:
-      "Local favorite for frozen custard and sweet treats near downtown.",
-    menu: "https://www.rittersfrozencustard.com/menu/",
-    reserve: "https://www.rittersfrozencustard.com/reservations/",
+      "Local favorite for frozen custard and sweet treats in Mishawaka.",
+    menu: "https://www.ritters.com/menu.php",
   },
   {
     name: "Purely Pressed",
@@ -168,14 +164,13 @@ const DINING = [
     description:
       "Classic brunch stop with omelets, skillets, and house-made breakfast staples.",
     menu: "https://www.peggssouthbend.com/menu",
-    reserve: "https://www.peggssouthbend.com/reservations",
   },
   {
     name: "Uptown Kitchen",
     cuisine: "Brunch",
     description:
       "Modern brunch menu with coffee, scratch-made plates, and weekend favorites.",
-    menu: "https://www.theuptownkitchen.com/uploads/1/2/6/0/126073318/uk-breakfast-menu_f26p8-web.pdf",
+    menu: "https://www.theuptownkitchen.com/menu.html",
     reserve: "https://www.theuptownkitchen.com/reservations.html",
   },
 ];
@@ -247,6 +242,7 @@ function ThingsToDo() {
                     href={item.reserve}
                     target="_blank"
                     rel="noopener noreferrer"
+                    style={{ display: item.reserve ? "inline" : "none" }}
                   >
                     Reserve
                   </a>
