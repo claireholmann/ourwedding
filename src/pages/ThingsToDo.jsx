@@ -97,7 +97,7 @@ const DINING = [
     cuisine: "Irish Pub",
     description:
       "Famous bar and restaurant located on Notre Dame's campus next to the football stadium.",
-    menu: "https://www.legends.nd.edu/assets/660674/legends_full_menu_52226_web.pdf/",
+    menu: "https://legends.nd.edu/menu/",
   },
   {
     name: "O'Rourke's",
