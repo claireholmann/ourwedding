@@ -39,9 +39,9 @@ const PHOTO_ORDER = [
   "goggles",
   "covid",
 
-  "work",
-  "avanade",
   "workfirst",
+  "avanade",
+  "work",
 ];
 
 const PHOTO_CAPTIONS = {
@@ -93,7 +93,7 @@ const PHOTO_CAPTIONS = {
   // ── Avanade / How We Met ──
   work: "Last Day at Avanade Together",
   avanade: "Internship Trip to LA",
-  workfirst: "First Day at Avanade Together",
+  workfirst: "First Day at Avanade",
 };
 
 function Photos() {
@@ -142,7 +142,7 @@ function Photos() {
             Claire and Brian met in May 2019 on the first day of their
             internship at Avanade: Brian, a data engineer and Claire, a software
             engineer. They became best friends almost immediately, and it
-            continued that way for their senior years.
+            continued that way for their senior years of college.
           </p>
           <p className="story-text">
             They graduated in the sadness of 2020, Claire from Saint Mary's
@@ -155,7 +155,7 @@ function Photos() {
           <p className="story-text">
             Since that day, they worked together for 4 more years, attended 42
             concerts, 31 weddings, visited 19 states, enjoyed 6 rodeos, traveled
-            to 2 countries, lived in a Lincoln Park apartment they loved, and
+            to 5 countries, lived in a Lincoln Park apartment they loved, and
             now have a house in the burbs.
           </p>
           <p className="story-text">

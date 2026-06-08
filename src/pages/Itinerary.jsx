@@ -55,7 +55,7 @@ function Itinerary() {
             </div>
           </div>
 
-          <div className="timeline-line-break" />
+          {/* <div className="timeline-line-break" />
           <div className="timeline-day-label"><span className="timeline-day-week">Saturday</span><span className="timeline-day-date">June 26th</span></div>
           <div className="timeline-line-break" />
           <div className="timeline-item right">
@@ -74,7 +74,7 @@ function Itinerary() {
               <h3>Please Be Seated</h3>
               <p>Guests should be in their seats and ready for the ceremony to begin. The chapel is located on the 3rd floor of Le Mans Hall. There are elevators available for those who need them. Please plan accordingly.</p>
             </div>
-          </div>
+          </div> */}
           <div className="timeline-item right">
             <div className="timeline-time">2:00 PM EST</div>
             <div className="timeline-content">
@@ -86,7 +86,7 @@ function Itinerary() {
             <div className="timeline-time">3:30 PM EST</div>
             <div className="timeline-content">
               <h3>Champagne Toast on The Island</h3>
-              <p>Cheers the happy couple with a champagne toast on The Island located on the southeast side of Le Mans Hall.</p>
+              <p>Cheers to the happy couple with a champagne toast on The Island located on the southeast side of Le Mans Hall.</p>
             </div>
           </div>
           <div className="timeline-item right">
@@ -100,7 +100,7 @@ function Itinerary() {
             </div>
           </div>
           <div className="timeline-item left">
-            <div className="timeline-time">7:00 PM EST</div>
+            <div className="timeline-time">6:30 PM EST</div>
             <div className="timeline-content">
               <h3>Dinner <span className="symbol-fallback">&</span> Dancing</h3>
               <p className="timeline-description">
