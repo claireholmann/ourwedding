@@ -59,6 +59,17 @@
   text-transform: uppercase;
 }
 
+.time-notice {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #65b8d4;
+  margin-top: 2rem;
+  text-align: center;
+}
+
 .timeline-day-week,
 .timeline-day-date {
   display: block;

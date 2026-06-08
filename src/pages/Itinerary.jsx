@@ -29,9 +29,10 @@ function Itinerary() {
       </div>
       <div className="itinerary-content">
         <div className="timeline">
+          <p className="time-notice">Please keep in mind that South Bend is in Eastern Time Zone (EST).</p>
           <div className="timeline-day-label"><span className="timeline-day-week">Friday</span><span className="timeline-day-date">June 25th</span></div>
 
-          {showRehearsalDetails && (
+          {/* {showRehearsalDetails && (
             <div className="timeline-item left">
               <div className="timeline-time">For Your Group</div>
               <div className="timeline-content">
@@ -42,7 +43,7 @@ function Itinerary() {
                 </p>
               </div>
             </div>
-          )}
+          )} */}
 
           <div className="timeline-item left">
             <div className="timeline-time">8:00 PM EST</div>
@@ -55,10 +56,10 @@ function Itinerary() {
             </div>
           </div>
 
-          {/* <div className="timeline-line-break" />
+          <div className="timeline-line-break" />
           <div className="timeline-day-label"><span className="timeline-day-week">Saturday</span><span className="timeline-day-date">June 26th</span></div>
           <div className="timeline-line-break" />
-          <div className="timeline-item right">
+          {/* <div className="timeline-item right">
             <div className="timeline-time">1:00 PM EST</div>
             <div className="timeline-content">
               <h3>Venue Opens</h3>
