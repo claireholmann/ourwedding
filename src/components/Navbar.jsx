@@ -4,6 +4,7 @@ import "./Navbar.css";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -12,6 +13,8 @@ function Navbar() {
   const closeMenu = () => {
     setIsOpen(false);
   };
+
+  
 
   return (
     <nav className="navbar">
@@ -24,6 +27,7 @@ function Navbar() {
           className="hamburger"
           onClick={toggleMenu}
           aria-label="Toggle menu"
+          aria-expanded={isOpen}
         >
           <span className={`hamburger-line ${isOpen ? "open" : ""}`}></span>
           <span className={`hamburger-line ${isOpen ? "open" : ""}`}></span>
@@ -34,6 +38,11 @@ function Navbar() {
           <li className="nav-item">
             <Link to="/" className="nav-link" onClick={closeMenu}>
               Home
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/photos" className="nav-link" onClick={closeMenu}>
+              Our Story
             </Link>
           </li>
           <li className="nav-item">
@@ -53,7 +62,7 @@ function Navbar() {
           </li>
           <li className="nav-item">
             <Link to="/hotel-travel" className="nav-link" onClick={closeMenu}>
-              Hotel <span className="symbol-fallback">&</span> Travel
+              Hotel&nbsp;<span className="symbol-fallback">&</span> Travel
             </Link>
           </li>
           <li className="nav-item">
@@ -67,18 +76,13 @@ function Navbar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/faqs" className="nav-link" onClick={closeMenu}>
-              FAQs
-            </Link>
-          </li>
-          <li className="nav-item">
             <Link to="/attire" className="nav-link" onClick={closeMenu}>
               Attire
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/photos" className="nav-link" onClick={closeMenu}>
-              Our Story
+            <Link to="/faqs" className="nav-link" onClick={closeMenu}>
+              FAQs
             </Link>
           </li>
         </ul>

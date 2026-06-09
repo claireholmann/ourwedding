@@ -5,7 +5,7 @@ function HotelTravel() {
     <div className="hotel-travel-container">
       <div className="page-hero">
         <span className="page-eyebrow">
-          Notre Dame, Indiana · June 26th, 2027
+          Notre Dame, Indiana · June&nbsp;26th&nbsp;2027
         </span>
         <h1 className="page-hero-title">
           Hotel <span className="page-hero-and symbol-fallback">&</span> Travel

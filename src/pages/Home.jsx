@@ -8,7 +8,7 @@ function Home() {
       <section id="title" className="home-section title-section">
         <div className="hero-overlay" />
         <div className="title-content">
-          <p className="title-eyebrow">June 26th, 2027 · Notre Dame, Indiana</p>
+          <p className="title-eyebrow">June 26th, 2027 · Notre&nbsp;Dame,&nbsp;Indiana</p>
           <h1 className="title-name">CLAIRE HOLMAN</h1>
           <h3 className="title-and">and</h3>
           <h1 className="title-name">BRIAN KOSCH</h1>

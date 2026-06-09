@@ -23,6 +23,7 @@
   text-decoration: none;
   font-family: 'The Seasons', serif;
   letter-spacing: 2px;
+  margin-right: 1rem;
 }
 
 .navbar-logo:hover {
@@ -47,6 +48,8 @@
   padding: 0;
   gap: 6px;
 }
+
+/* (No JS-driven hamburger display) */
 
 .hamburger-line {
   width: 25px;
@@ -83,6 +86,7 @@
 
 .nav-item {
   margin: 0;
+  text-align: center;
 }
 
 .nav-link {
@@ -100,8 +104,8 @@
   color: #65b8d4;
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
+/* Mobile / Tablet Responsive: switch to hamburger under 1020px */
+@media (max-width: 1020px) {
   .hamburger {
     display: flex;
   }
@@ -147,3 +151,5 @@
     padding: 0 1.5rem;
   }
 }
+
+/* No extra collapsed styles — mobile behavior controlled by media query */

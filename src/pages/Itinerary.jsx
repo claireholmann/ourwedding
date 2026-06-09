@@ -23,7 +23,7 @@ function Itinerary() {
   return (
     <div className="itinerary-container">
       <div className="page-hero">
-        <span className="page-eyebrow">Wedding Weekend · Notre Dame, IN</span>
+        <span className="page-eyebrow">Wedding Weekend · Notre&nbsp;Dame,&nbsp;IN</span>
         <h1 className="page-hero-title">Itinerary</h1>
         <div className="page-hero-divider" />
       </div>
