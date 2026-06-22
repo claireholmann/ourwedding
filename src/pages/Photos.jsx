@@ -155,7 +155,7 @@ function Photos() {
             Claire and Brian met in May 2019 on the first day of their
             internship at Avanade: Brian, a data engineer and Claire, a software
             engineer. They became best friends almost immediately, and it
-            continued that way for their senior years of college.
+            continued that way for their senior year of college.
           </p>
           <p className="story-text">
             They graduated in the sadness of 2020, Claire from Saint Mary's
