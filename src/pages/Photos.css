@@ -86,6 +86,26 @@
   display: block;
 }
 
+.story-photo.lemans-pose {
+  transform: scale(1.1) translate(0px, -67px);
+  overflow: visible;
+}
+
+.story-photo.greenwalk {
+  transform: scale(1.1) translate(0px, -67px);
+  overflow: visible;
+}
+
+.story-photo.bridge {
+  transform: scale(1) translate(2px, 36px);
+  overflow: visible;
+}
+
+.story-photo.armhold {
+  transform: scale(1.2) translate(2px, -24px);
+  overflow: visible;
+}
+
 .photo-caption {
   margin: 0;
   padding: 0.7rem 0.8rem 0.8rem;

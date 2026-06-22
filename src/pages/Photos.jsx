@@ -2,7 +2,14 @@ import "./Photos.css";
 
 // Edit this array to reorder photos. Use the filename without extension (lowercase).
 // Any file not listed here will appear after the listed ones, alphabetically.
+
+const getNameClass = (PHOTO_ORDER) => PHOTO_ORDER.map((p) => p.toLowerCase().replace(/\s+/g, '-'));
+
 const PHOTO_ORDER = [
+  "armhold",
+  "lemans-pose",
+  "bridge",
+
   "proposal",
   "engaged",
   "house",
@@ -15,8 +22,8 @@ const PHOTO_ORDER = [
   "cubbies",
   "bulls",
 
-  "joe",
-  "megan",
+  "joe-geneva",
+  "megan-nd",
   "mary",
 
   "karaoke",
@@ -45,6 +52,11 @@ const PHOTO_ORDER = [
 ];
 
 const PHOTO_CAPTIONS = {
+  // ── Save The Dates ──
+  armhold: "Saint Mary's College",
+  "lemans-pose": "Le Mans Hall",
+  bridge: "Save the Dates",
+
   // ── Engagement ──
   proposal: "The Proposal",
   engaged: "Engagement Party",
@@ -61,8 +73,8 @@ const PHOTO_CAPTIONS = {
   bulls: "Go Bulls",
 
   // ── Weddings ──
-  joe: "Illinois Wedding",
-  megan: "South Bend Wedding",
+  "joe-geneva": "Illinois Wedding",
+  "megan-nd": "South Bend Wedding",
   mary: "Wisconsin Wedding",
 
   // ── Nights Out ──
@@ -99,7 +111,7 @@ const PHOTO_CAPTIONS = {
 function Photos() {
   const ourStoryPhotos = Object.entries(
     import.meta.glob(
-      "../assets/images/ourstory/*.{jpg,JPG,jpeg,JPEG,png,PNG,webp,WEBP}",
+      "../assets/images/{engagement,ourstory}/*.{jpg,JPG,jpeg,JPEG,png,PNG,webp,WEBP}",
       {
         eager: true,
         import: "default",
@@ -119,6 +131,7 @@ function Photos() {
       const caption = PHOTO_CAPTIONS[key] || "A little moment we love";
       return { src, alt: altText, caption, key };
     })
+    .filter((photo) => PHOTO_ORDER.includes(photo.key))
     .sort((a, b) => {
       const ai = PHOTO_ORDER.indexOf(a.key);
       const bi = PHOTO_ORDER.indexOf(b.key);
@@ -171,7 +184,7 @@ function Photos() {
             <div key={`${photo.alt}-${index}`} className="photo-card">
               <div className="photo-image-wrap">
                 <img
-                  className="story-photo"
+                  className={`story-photo ${getNameClass(PHOTO_ORDER).includes(photo.key) ? photo.key : ""}`}
                   src={photo.src}
                   alt={photo.alt}
                   loading="lazy"

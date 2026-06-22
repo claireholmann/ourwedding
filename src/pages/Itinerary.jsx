@@ -30,7 +30,7 @@ function Itinerary() {
       <div className="itinerary-content">
         <div className="timeline">
           <p className="time-notice">Please keep in mind that South Bend is in Eastern Time Zone (EST).</p>
-          <div className="timeline-day-label"><span className="timeline-day-week">Friday</span><span className="timeline-day-date">June 25th</span></div>
+          {/* <div className="timeline-day-label"><span className="timeline-day-week">Friday</span><span className="timeline-day-date">June 25th</span></div> */}
 
           {/* {showRehearsalDetails && (
             <div className="timeline-item left">
@@ -45,7 +45,7 @@ function Itinerary() {
             </div>
           )} */}
 
-          <div className="timeline-item left">
+          {/* <div className="timeline-item left">
             <div className="timeline-time">8:00 PM EST</div>
             <div className="timeline-content">
               <h3>Welcome Party</h3>
@@ -54,7 +54,7 @@ function Itinerary() {
               </p>
               <p className="timeline-detail"><strong>Address</strong><br />602 E Jefferson Blvd<br />South Bend, IN 46617</p>
             </div>
-          </div>
+          </div> */}
 
           <div className="timeline-line-break" />
           <div className="timeline-day-label"><span className="timeline-day-week">Saturday</span><span className="timeline-day-date">June 26th</span></div>
@@ -95,7 +95,7 @@ function Itinerary() {
             <div className="timeline-content">
               <h3>Cocktail Hour</h3>
               <p className="timeline-description">
-                Join us for cocktails and appetizers in the Morris Performing Arts Center Lobby attached to the Palais Royale. Please enter under the Marquee!
+                Join us for cocktails and hors d'oeuvres in the Morris Performing Arts Center Lobby attached to the Palais Royale. Please enter under the Marquee!
               </p>
               <p className="timeline-detail"><strong>Address</strong><br />211 N Michigan St<br />South Bend, IN 46601</p>
             </div>
@@ -121,7 +121,7 @@ function Itinerary() {
             </div>
           </div>
 
-          <div className="timeline-line-break" />
+          {/* <div className="timeline-line-break" />
           <div className="timeline-day-label"><span className="timeline-day-week">Sunday</span><span className="timeline-day-date">June 27th</span></div>
           <div className="timeline-line-break" />
           <div className="timeline-item left">
@@ -133,7 +133,7 @@ function Itinerary() {
               </p>
               <p className="timeline-detail"><strong>Address</strong><br />111 N Main St<br />South Bend, IN 46601</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

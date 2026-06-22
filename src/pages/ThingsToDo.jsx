@@ -49,7 +49,7 @@ const ATTRACTIONS = [
     name: "Hammes Notre Dame Bookstore",
     location: "Notre Dame, IN",
     description:
-      "Campus bookstore offering a wide selection of Notre Dame merchandise, textbooks, and gifts.",
+      "Campus bookstore offering a wide selection of Notre Dame merchandise and gifts.",
     website: "https://www.nd.bncollege.com/",
   },
   {

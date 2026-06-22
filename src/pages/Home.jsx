@@ -20,6 +20,14 @@ function Home() {
       {/* Photo and Text Section */}
       <section id="photo-text" className="home-section photo-text-section">
         <div className="photo-text-container">
+          
+        {/* <div className="image-side">
+          <img
+            src={new URL("../assets/images/engagement/lemans-pose.jpg", import.meta.url).href}
+            alt="Claire and Brian"
+          />
+        </div> */}
+
           <div className="text-side">
             <span className="text-label">Save the Date</span>
             <h1 className="photo-title">

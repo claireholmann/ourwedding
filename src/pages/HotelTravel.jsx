@@ -128,16 +128,16 @@ function HotelTravel() {
             </div>
 
             <div className="travel-info">
-              <h3>Parking at Saint Mary's</h3>
+              <h3>Parking at Saint Mary&rsquo;s</h3>
               <p>
                 There is a circle in front of Le Mans Hall for drop-offs. Free
-                parking at Saint Mary's College will also be available at the
+                parking at Saint Mary's College will be available at the
                 <strong> Regina Lot</strong> or{" "}
                 <strong>Student Center lot</strong>. Detailed parking lot
                 information will be provided with your invitation. For those
                 with accessibility needs, there will be designated parking spots
-                available in the lot in front of Le Mans Hall and O'Laughlin
-                Theatre. Please let us know if you require accessible parking
+                available in the lot in front of O'Laughlin Theatre. Please 
+                let us know if you require accessible parking
                 when you RSVP so we can ensure accommodations are made for you.
               </p>
             </div>
