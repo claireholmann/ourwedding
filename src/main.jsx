@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 
+// ReactGA.initialize("G-Z0FQTFJMP9");
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
@@ -11,3 +13,11 @@ createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </StrictMode>,
 )
+
+
+// npm install react-ga4
+// 
+// import React from "react";
+// import ReactDOM from "react-dom/client";
+// import App from "./App";
+// import ReactGA from "react-ga4";

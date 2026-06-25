@@ -1,26 +1,37 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
-import Home from './pages/Home'
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+// import ReactGA from "react-ga4";
+
+import Home from "./pages/Home";
+import Registry from "./pages/Registry";
+import Photos from "./pages/Photos";
+import BridalParty from "./pages/BridalParty";
+import FAQs from "./pages/FAQs";
+import Attire from "./pages/Attire";
+import Itinerary from "./pages/Itinerary";
+import HotelTravel from "./pages/HotelTravel";
+import ThingsToDo from "./pages/ThingsToDo";
+import RSVP from "./pages/RSVP";
+import Navbar from "./components/Navbar";
+import "./App.css";
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
-  return null
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
 }
-import Registry from './pages/Registry'
-import Photos from './pages/Photos'
-import BridalParty from './pages/BridalParty'
-import FAQs from './pages/FAQs'
-import Attire from './pages/Attire'
- import Itinerary from './pages/Itinerary'
- import HotelTravel from './pages/HotelTravel'
- import ThingsToDo from './pages/ThingsToDo'
- import RSVP from './pages/RSVP'
- import Navbar from './components/Navbar'
-import './App.css'
 
 function App() {
-  const location = useLocation()
+  const location = useLocation();
+  // useEffect(() => {
+  //   ReactGA.send({
+  //     hitType: "pageview",
+  //     page: location.pathname,
+  //   });
+  // }, [location]);
+
   return (
     <div className="App">
       <ScrollToTop />
@@ -39,13 +50,13 @@ function App() {
           <Route path="/rsvp" element={<RSVP />} />
         </Routes>
       </main>
-      {location.pathname !== '/' && (
+      {location.pathname !== "/" && (
         <footer className="site-footer">
           <p className="site-footer-text">Designed &amp; developed by Claire</p>
         </footer>
       )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
