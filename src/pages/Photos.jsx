@@ -8,7 +8,7 @@ const getNameClass = (PHOTO_ORDER) => PHOTO_ORDER.map((p) => p.toLowerCase().rep
 const PHOTO_ORDER = [
   "armhold",
   "lemans-pose",
-  "bridge",
+  "walking",
 
   "proposal",
   "engaged",
@@ -55,7 +55,7 @@ const PHOTO_CAPTIONS = {
   // ── Save The Dates ──
   armhold: "Saint Mary's College",
   "lemans-pose": "Le Mans Hall",
-  bridge: "Save the Dates",
+  walking: "Save the Dates",
 
   // ── Engagement ──
   proposal: "The Proposal",

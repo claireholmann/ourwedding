@@ -142,7 +142,7 @@ function HotelTravel() {
               </p>
             </div>
 
-            <div className="travel-info">
+            {/* <div className="travel-info">
               <h3>Parking at Howard Park Public House</h3>
               <p>
                 There is free street parking available around Howard Park Public
@@ -150,7 +150,7 @@ function HotelTravel() {
                 arriving early to secure a spot, or consider using a rideshare
                 service for convenience.
               </p>
-            </div>
+            </div> */}
           </div>
         </section>
       </div>

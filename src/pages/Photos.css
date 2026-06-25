@@ -96,6 +96,11 @@
   overflow: visible;
 }
 
+.story-photo.walking {
+  transform: scale(1.4) translate(-8px, -10px);
+  overflow: visible;
+}
+
 .story-photo.bridge {
   transform: scale(1) translate(2px, 36px);
   overflow: visible;
