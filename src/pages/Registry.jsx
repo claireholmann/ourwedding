@@ -45,7 +45,6 @@ function Registry() {
         </p>
 
         <div className="registry-feature-card">
-          <div className="registry-feature-badge">Our main registry</div>
           <h2 className="registry-feature-title">Zola</h2>
           <p className="registry-feature-copy">
             Our primary registry where you can find all our gifts in one place. <br></br> 
