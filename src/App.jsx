@@ -41,13 +41,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/registry" element={<Registry />} />
           <Route path="/photos" element={<Photos />} />
-          <Route path="/bridal-party" element={<BridalParty />} />
+          {/* <Route path="/bridal-party" element={<BridalParty />} /> */}
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/attire" element={<Attire />} />
           <Route path="/itinerary" element={<Itinerary />} />
           <Route path="/hotel-travel" element={<HotelTravel />} />
           <Route path="/things-to-do" element={<ThingsToDo />} />
-          <Route path="/rsvp" element={<RSVP />} />
+          {/* <Route path="/rsvp" element={<RSVP />} /> */}
         </Routes>
       </main>
       {location.pathname !== "/" && (

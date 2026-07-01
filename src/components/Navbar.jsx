@@ -50,11 +50,11 @@ function Navbar() {
               Itinerary
             </Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to="/rsvp" className="nav-link rsvp-link" onClick={closeMenu}>
               RSVP
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item">
             <Link to="/registry" className="nav-link" onClick={closeMenu}>
               Registry
@@ -70,11 +70,11 @@ function Navbar() {
               Things to Do
             </Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to="/bridal-party" className="nav-link" onClick={closeMenu}>
               Bridal Party
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item">
             <Link to="/attire" className="nav-link" onClick={closeMenu}>
               Attire

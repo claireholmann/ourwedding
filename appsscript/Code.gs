@@ -81,15 +81,126 @@ function doGet(e) {
 
 // ─── Lookup ──────────────────────────────────────────────────
 
-function lookup(query) {
-  const q = query.trim().toLowerCase();
-  if (q.length < 2) return { matches: [] };
+function normalizeSearchTokens(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean);
+}
 
-  const normalizeNameKey = (value) => String(value || '')
+function normalizeNameKey(value) {
+  return String(value || '')
     .toLowerCase()
     .replace(/[.,]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function isGuestName(value) {
+  return /\bguest\b/i.test(String(value || '').trim());
+}
+
+function getEditDistance(a, b, maxDistance = 2) {
+  const alen = a.length;
+  const blen = b.length;
+  if (Math.abs(alen - blen) > maxDistance) return maxDistance + 1;
+  const matrix = Array.from({ length: alen + 1 }, () => Array(blen + 1).fill(0));
+  for (let i = 0; i <= alen; i += 1) matrix[i][0] = i;
+  for (let j = 0; j <= blen; j += 1) matrix[0][j] = j;
+  for (let i = 1; i <= alen; i += 1) {
+    let rowMin = Infinity;
+    for (let j = 1; j <= blen; j += 1) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost,
+      );
+      rowMin = Math.min(rowMin, matrix[i][j]);
+    }
+    if (rowMin > maxDistance) return maxDistance + 1;
+  }
+  return matrix[alen][blen];
+}
+
+function isSimilarToken(queryToken, targetToken) {
+  if (!queryToken || !targetToken) return false;
+  if (queryToken === targetToken) return true;
+  if (targetToken.startsWith(queryToken) || queryToken.startsWith(targetToken)) return true;
+  if (getEditDistance(queryToken, targetToken, 1) <= 1) return true;
+  return false;
+}
+
+function stripGuestAndInitialTokens(tokens) {
+  return tokens
+    .filter((token) => token.toLowerCase() !== 'guest')
+    .filter((token, index, array) => {
+      if (token.length === 1 && index > 0 && index < array.length - 1) {
+        return false;
+      }
+      return true;
+    });
+}
+
+function getGuestBaseName(value) {
+  const trimmed = String(value || '').trim();
+  if (!trimmed) return '';
+
+  const parts = trimmed.split(/\s+/).filter(Boolean);
+  const guestIndex = parts.findIndex((part) => part.toLowerCase() === 'guest');
+  if (guestIndex > 0) {
+    return parts.slice(0, guestIndex).join(' ');
+  }
+
+  return trimmed;
+}
+
+function getLookupGroupingKey(value) {
+  return normalizeNameKey(getGuestBaseName(value));
+}
+
+function getNameMatchScore(targetValue, queryValue) {
+  const normalizedQuery = normalizeSearchTokens(queryValue);
+  if (normalizedQuery.length === 0) return 0;
+
+  const normalizedTarget = normalizeSearchTokens(targetValue);
+  if (normalizedTarget.length === 0) return 0;
+
+  const targetText = normalizedTarget.join(' ');
+  const queryText = normalizedQuery.join(' ');
+
+  if (targetText === queryText) return 10;
+  if (targetText.startsWith(queryText) || queryText.startsWith(targetText)) return 8;
+
+  if (normalizedQuery.length === 1) {
+    const [queryToken] = normalizedQuery;
+    if (normalizedTarget.some((targetToken) => isSimilarToken(queryToken, targetToken))) return 7;
+    if (normalizedTarget.some((token) => token.startsWith(queryToken))) return 5;
+    return 0;
+  }
+
+  const strippedTarget = stripGuestAndInitialTokens(normalizedTarget);
+  const allQueryTokensPresent = normalizedQuery.every((queryToken) =>
+    strippedTarget.some((targetToken) => isSimilarToken(queryToken, targetToken))
+  );
+
+  if (allQueryTokensPresent) return 6;
+
+  const strippedQuery = stripGuestAndInitialTokens(normalizedQuery);
+  if (strippedQuery.length > 1 && strippedTarget.length > 1) {
+    const queryMatches = strippedQuery.every((queryToken) =>
+      strippedTarget.some((targetToken) => isSimilarToken(queryToken, targetToken))
+    );
+    if (queryMatches) return 5;
+  }
+
+  return 0;
+}
+
+function lookup(query) {
+  const q = query.trim().toLowerCase();
+  if (q.length < 2) return { matches: [] };
 
   const isInvited = (value) => {
     const normalized = String(value || '').trim().toLowerCase();
@@ -99,12 +210,20 @@ function lookup(query) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
   const rows  = sheet.getDataRange().getValues();
 
-  // Build a fast name -> row index lookup once per request.
+  // Build fast lookup maps once per request.
   const rowIndexByName = new Map();
+  const groupingMap = new Map();
+
   for (let i = 1; i < rows.length; i++) {
     const nameKey = normalizeNameKey(rows[i][C.NAME]);
     if (!nameKey || rowIndexByName.has(nameKey)) continue;
     rowIndexByName.set(nameKey, i);
+
+    const groupKey = getLookupGroupingKey(rows[i][C.NAME]);
+    if (!groupingMap.has(groupKey)) {
+      groupingMap.set(groupKey, []);
+    }
+    groupingMap.get(groupKey).push(i);
   }
 
   // Find matching people by name/aliases
@@ -126,16 +245,8 @@ function lookup(query) {
 
     for (const t of targets) {
       if (!t) continue;
-      if (t === q)            { score = Math.max(score, 10); break; }
-      if (t.startsWith(q))   { score = Math.max(score, 7);  }
-      else if (t.includes(q)){ score = Math.max(score, 5);  }
-      else {
-        const tWords = t.split(' ');
-        const qWords = q.split(' ');
-        if (qWords.some(qw => qw.length >= 2 && tWords.some(tw => tw.startsWith(qw)))) {
-          score = Math.max(score, 3);
-        }
-      }
+      score = Math.max(score, getNameMatchScore(t, q));
+      if (score >= 10) break;
     }
 
     if (score > 0) {
@@ -168,17 +279,34 @@ function lookup(query) {
     if (topMatches.length >= 8) break;
   }
 
-  const results = topMatches.map(({ rowIndex: matchRowIndex }) => {
-    const matchedRow = rows[matchRowIndex];
+  const groupedResults = [];
+  const seenGroupKeys = new Set();
+
+  for (const match of topMatches) {
+    const matchRowIndex = match.rowIndex;
+    const groupKey = getLookupGroupingKey(rows[matchRowIndex][C.NAME]);
+    if (seenGroupKeys.has(groupKey)) continue;
+    seenGroupKeys.add(groupKey);
+
+    const groupedRowIndices = groupingMap.get(groupKey) || [];
+
+    const orderedRowIndices = groupedRowIndices.slice().sort((a, b) => {
+      const aGuest = isGuestName(String(rows[a][C.NAME] || '')) ? 1 : 0;
+      const bGuest = isGuestName(String(rows[b][C.NAME] || '')) ? 1 : 0;
+      return aGuest - bGuest || a - b;
+    });
+
+    const primaryRowIndex = orderedRowIndices.find((idx) => !isGuestName(String(rows[idx][C.NAME] || ''))) || orderedRowIndices[0];
+    const matchedRow = rows[primaryRowIndex];
     const matchedName = String(matchedRow[C.NAME]);
     const guestName = String(matchedRow[C.GUEST] || '').trim();
     const guestMembers = String(matchedRow[C.GUEST] || '')
       .split(',')
-      .map(a => a.trim())
+      .map((a) => a.trim())
       .filter(Boolean);
     const aliasMembers = String(matchedRow[C.ALIASES] || '')
       .split(',')
-      .map(a => a.trim())
+      .map((a) => a.trim())
       .filter(Boolean);
 
     // Prefer Guest whenever present (including a single plus-one), otherwise fallback to Aliases.
@@ -187,24 +315,28 @@ function lookup(query) {
     const familyMembers = [];
     const seenRowIndices = new Set();
 
-    // Add the matched person first
-    familyMembers.push({
-      rowIndex:           matchRowIndex,
-      name:               matchedName,
-      invitedToRehearsal: isInvited(matchedRow[C.INVITED_REHEARSAL]),
-      invitedToBrunch:    isInvited(matchedRow[C.INVITED_BRUNCH]),
-      alreadySubmitted:   !!matchedRow[C.SUBMITTED_AT],
-      existing: {
-        rehearsalRsvp: String(matchedRow[C.REHEARSAL_RSVP] || ''),
-        welcomeRsvp:   String(matchedRow[C.WELCOME_RSVP] || ''),
-        ceremonyRsvp:  String(matchedRow[C.CEREMONY_RSVP] || ''),
-        receptionRsvp: String(matchedRow[C.RECEPTION_RSVP] || ''),
-        meal:          String(matchedRow[C.MEAL] || ''),
-        foodAllergies: String(matchedRow[C.FOOD_ALLERGIES] || ''),
-        brunchRsvp:    String(matchedRow[C.BRUNCH_RSVP] || ''),
-      },
-    });
-    seenRowIndices.add(matchRowIndex);
+    for (const rowIndex of orderedRowIndices) {
+      const row = rows[rowIndex];
+      if (!row || !row[C.NAME]) continue;
+
+      familyMembers.push({
+        rowIndex,
+        name: String(row[C.NAME]),
+        invitedToRehearsal: isInvited(row[C.INVITED_REHEARSAL]),
+        invitedToBrunch: isInvited(row[C.INVITED_BRUNCH]),
+        alreadySubmitted: !!row[C.SUBMITTED_AT],
+        existing: {
+          rehearsalRsvp: String(row[C.REHEARSAL_RSVP] || ''),
+          welcomeRsvp: String(row[C.WELCOME_RSVP] || ''),
+          ceremonyRsvp: String(row[C.CEREMONY_RSVP] || ''),
+          receptionRsvp: String(row[C.RECEPTION_RSVP] || ''),
+          meal: String(row[C.MEAL] || ''),
+          foodAllergies: String(row[C.FOOD_ALLERGIES] || ''),
+          brunchRsvp: String(row[C.BRUNCH_RSVP] || ''),
+        },
+      });
+      seenRowIndices.add(rowIndex);
+    }
 
     // Add household members from primary grouping source (Guest or Aliases fallback)
     for (const householdName of householdMembers) {
@@ -215,19 +347,19 @@ function lookup(query) {
       if (!row || !row[C.NAME]) continue;
 
       familyMembers.push({
-        rowIndex:           householdRowIndex,
-        name:               String(row[C.NAME]),
+        rowIndex: householdRowIndex,
+        name: String(row[C.NAME]),
         invitedToRehearsal: isInvited(row[C.INVITED_REHEARSAL]),
-        invitedToBrunch:    isInvited(row[C.INVITED_BRUNCH]),
-        alreadySubmitted:   !!row[C.SUBMITTED_AT],
+        invitedToBrunch: isInvited(row[C.INVITED_BRUNCH]),
+        alreadySubmitted: !!row[C.SUBMITTED_AT],
         existing: {
           rehearsalRsvp: String(row[C.REHEARSAL_RSVP] || ''),
-          welcomeRsvp:   String(row[C.WELCOME_RSVP] || ''),
-          ceremonyRsvp:  String(row[C.CEREMONY_RSVP] || ''),
+          welcomeRsvp: String(row[C.WELCOME_RSVP] || ''),
+          ceremonyRsvp: String(row[C.CEREMONY_RSVP] || ''),
           receptionRsvp: String(row[C.RECEPTION_RSVP] || ''),
-          meal:          String(row[C.MEAL] || ''),
+          meal: String(row[C.MEAL] || ''),
           foodAllergies: String(row[C.FOOD_ALLERGIES] || ''),
-          brunchRsvp:    String(row[C.BRUNCH_RSVP] || ''),
+          brunchRsvp: String(row[C.BRUNCH_RSVP] || ''),
         },
       });
       seenRowIndices.add(householdRowIndex);
@@ -246,7 +378,7 @@ function lookup(query) {
       }
     }
 
-    return {
+    groupedResults.push({
       members: familyMembers,
       matchedName,
       guestName,
@@ -254,19 +386,34 @@ function lookup(query) {
         songRequests: sharedSongRequests,
         message: sharedMessage,
       },
-    };
-  });
+    });
+  }
 
   return {
-    matches: results,
+    matches: groupedResults,
   };
 }
 
 // ─── Submit ──────────────────────────────────────────────────
 
+function getHeaderColumnIndex(sheet, headerName) {
+  const headerRow = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const normalized = String(headerName || '').trim().toLowerCase();
+
+  for (let i = 0; i < headerRow.length; i++) {
+    if (String(headerRow[i] || '').trim().toLowerCase() === normalized) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+
 function submitRsvp(p) {
   const sheet    = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
   const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+  const guestNameColumnIndex = getHeaderColumnIndex(sheet, 'Guest Name');
+  const guestRsvpColumnIndex = getHeaderColumnIndex(sheet, 'Guest RSVP');
 
   const headerCheck = validateSheetHeaders(sheet);
   if (!headerCheck.ok) {
@@ -278,19 +425,58 @@ function submitRsvp(p) {
 
   // p.members is an array like [{ rowIndex: 1, name: 'Sarah', ... }, { rowIndex: 2, name: 'Mike', ... }, ...]
   const members = JSON.parse(p.members);
+  const allRows = sheet.getDataRange().getValues();
+
+  // Find guest and partner members
+  const guestMember = members.find(m => isGuestName(m.name));
+  const partnerMember = members.find(m => !isGuestName(m.name));
+  const guestName = String(p.guestName || '').trim();
 
   for (const member of members) {
     const mKey = `member_${member.rowIndex}`;
     writePersonRow(sheet, member.rowIndex, {
-      rehearsalRsvp:  p[`${mKey}_rehearsalRsvp`]  || '',
-      welcomeRsvp:    p[`${mKey}_welcomeRsvp`]    || '',
-      ceremonyRsvp:   p[`${mKey}_ceremonyRsvp`]   || '',
-      receptionRsvp:  p[`${mKey}_receptionRsvp`]  || '',
-      meal:           p[`${mKey}_meal`]           || '',
-      foodAllergies:  p[`${mKey}_foodAllergies`]  || '',
-      brunchRsvp:     p[`${mKey}_brunchRsvp`]     || '',
+      rehearsalRsvp:      p[`${mKey}_rehearsalRsvp`]  || '',
+      welcomeRsvp:        p[`${mKey}_welcomeRsvp`]    || '',
+      ceremonyRsvp:       p[`${mKey}_ceremonyRsvp`]   || '',
+      receptionRsvp:      p[`${mKey}_receptionRsvp`]  || '',
+      meal:               p[`${mKey}_meal`]           || '',
+      foodAllergies:      p[`${mKey}_foodAllergies`]  || '',
+      brunchRsvp:         p[`${mKey}_brunchRsvp`]     || '',
+      guestName:          guestName,
+      guestRsvp:          p.guestRsvp || '',
+      guestNameColumnIndex,
+      guestRsvpColumnIndex,
       timestamp,
+      isGuest:            isGuestName(member.name),
     });
+  }
+
+  // If guest name was provided, update household lists to replace guest placeholder
+  if (guestName && guestMember && partnerMember) {
+    const guestRowIndex = guestMember.rowIndex;
+    const partnerRowIndex = partnerMember.rowIndex;
+
+    // Update guest row's household list (B column)
+    const guestHouseholdRaw = String(allRows[guestRowIndex][C.GUEST] || '');
+    const guestHouseholdUpdated = guestHouseholdRaw
+      .split(',')
+      .map(name => {
+        const trimmed = name.trim();
+        return isGuestName(trimmed) ? guestName : trimmed;
+      })
+      .join(', ');
+    sheet.getRange(guestRowIndex + 1, C.GUEST + 1).setValue(guestHouseholdUpdated);
+
+    // Update partner row's household list (B column)
+    const partnerHouseholdRaw = String(allRows[partnerRowIndex][C.GUEST] || '');
+    const partnerHouseholdUpdated = partnerHouseholdRaw
+      .split(',')
+      .map(name => {
+        const trimmed = name.trim();
+        return isGuestName(trimmed) ? guestName : trimmed;
+      })
+      .join(', ');
+    sheet.getRange(partnerRowIndex + 1, C.GUEST + 1).setValue(partnerHouseholdUpdated);
   }
 
   // Write shared fields (song requests, message) to every selected member row
@@ -326,8 +512,20 @@ function writePersonRow(sheet, rowIndex, data) {
     [C.MEAL           + 1, pick(data.meal, C.MEAL)                     ],
     [C.FOOD_ALLERGIES + 1, pick(data.foodAllergies, C.FOOD_ALLERGIES)  ],
     [C.BRUNCH_RSVP    + 1, pick(data.brunchRsvp, C.BRUNCH_RSVP)        ],
-    [C.SUBMITTED_AT   + 1, data.timestamp     ],
   ];
+
+  // If this is a guest row and guest name was provided, update ONLY the name cell
+  if (data.guestName && data.isGuest) {
+    updates.unshift([C.NAME + 1, data.guestName]);
+  }
+
+  if (data.guestNameColumnIndex >= 0) {
+    updates.push([data.guestNameColumnIndex + 1, pick(data.guestName, data.guestNameColumnIndex)]);
+  }
+  if (data.guestRsvpColumnIndex >= 0) {
+    updates.push([data.guestRsvpColumnIndex + 1, pick(data.guestRsvp, data.guestRsvpColumnIndex)]);
+  }
+  updates.push([C.SUBMITTED_AT + 1, data.timestamp]);
   for (const [col, val] of updates) {
     sheet.getRange(sheetRow, col).setValue(val);
   }
@@ -351,8 +549,9 @@ function validateSheetHeaders(sheet) {
     'Message to Couple',
     'Submitted At',
   ];
+  const optionalHeaders = ['Guest Name', 'Guest RSVP'];
 
-  const headerRow = sheet.getRange(1, 1, 1, expectedHeaders.length).getValues()[0];
+  const headerRow = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
   const normalize = (v) => String(v || '').trim().toLowerCase();
 
   for (let i = 0; i < expectedHeaders.length; i++) {
@@ -364,10 +563,29 @@ function validateSheetHeaders(sheet) {
     }
   }
 
+  for (let i = 0; i < optionalHeaders.length; i++) {
+    const header = optionalHeaders[i];
+    const exists = headerRow.some((value) => normalize(value) === normalize(header));
+    if (!exists) continue;
+  }
+
   return { ok: true };
 }
 
 // ─── Household name formatter ────────────────────────────────
+
+function formatHouseholdNamesWithGuest(members, guestName) {
+  if (!members || members.length === 0) return '';
+  
+  const partner = members.find(m => !isGuestName(m.name));
+  const guest = members.find(m => isGuestName(m.name));
+  
+  if (partner && guest && guestName) {
+    return `${partner.name} and ${guestName}`;
+  }
+  
+  return formatHouseholdNames(members);
+}
 
 function formatHouseholdNames(members) {
   if (!members || members.length === 0) return '';
@@ -409,7 +627,8 @@ function formatHouseholdNames(members) {
 // ─── Email Notification ──────────────────────────────────────
 
 function sendNotificationEmail(p, members) {
-  const householdNames = formatHouseholdNames(members);
+  const guestName = String(p.guestName || '').trim();
+  const householdNames = formatHouseholdNamesWithGuest(members, guestName);
   const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
   const htmlBody = buildRsvpHtmlEmail({
     headerLabel: 'New RSVP Received',
@@ -437,7 +656,8 @@ function sendGuestCopyEmail(p, members) {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(guestEmail)) return;
 
-  const householdNames = formatHouseholdNames(members);
+  const guestName = String(p.guestName || '').trim();
+  const householdNames = formatHouseholdNamesWithGuest(members, guestName);
   const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
   const htmlBody = buildRsvpHtmlEmail({
     headerLabel: 'Your RSVP is confirmed',
@@ -476,7 +696,9 @@ function buildRsvpPlainText(householdNames, timestamp, p, members) {
     if (p[`${mKey}_foodAllergies`]) eventDetails += `  Allergies: ${p[`${mKey}_foodAllergies`]}\n`;
     eventDetails += '\n';
   }
-  return `RSVP from ${householdNames}\nSubmitted: ${timestamp}\n\n${eventDetails}\nSong Requests: ${p.songRequests || 'None'}\nMessage: ${p.message || 'None'}`;
+  const guestLine = p.guestName ? `Guest: ${p.guestName}\n` : '';
+  const guestRsvpLine = p.guestRsvp ? `Guest RSVP: ${p.guestRsvp}\n` : '';
+  return `RSVP from ${householdNames}\nSubmitted: ${timestamp}\n${guestLine}${guestRsvpLine}\n${eventDetails}\nSong Requests: ${p.songRequests || 'None'}\nMessage: ${p.message || 'None'}`;
 }
 
 // ── HTML email builder ────────────────────────────────────────
@@ -517,10 +739,18 @@ function buildRsvpHtmlEmail({ headerLabel, subLabel, householdNames, timestamp, 
       </div>`;
   }
 
-  const notesSection = (p.songRequests || p.message) ? `
+  const guestRow = p.guestName
+    ? `<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Guest</td><td style="padding:6px 0;text-align:right;color:#003256;font-size:13px;">${esc(p.guestName)}</td></tr>`
+    : '';
+  const guestRsvpRow = p.guestRsvp
+    ? `<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Guest RSVP</td><td style="padding:6px 0;text-align:right;color:#003256;font-size:13px;">${esc(p.guestRsvp)}</td></tr>`
+    : '';
+  const notesSection = (p.songRequests || p.message || guestRow || guestRsvpRow) ? `
       <div style="margin-bottom:20px;">
         <div style="font-family:Georgia,serif;font-size:15px;font-weight:600;color:#003256;border-bottom:1px solid #e5e7eb;padding-bottom:6px;margin-bottom:8px;">Notes</div>
         <table width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;">
+          ${guestRow}
+          ${guestRsvpRow}
           ${p.songRequests ? `<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Song Request</td><td style="padding:6px 0;text-align:right;color:#003256;font-size:13px;">${esc(p.songRequests)}</td></tr>` : ''}
           ${p.message ? `<tr><td style="padding:6px 0;color:#6b7280;font-size:13px;">Message</td><td style="padding:6px 0;text-align:right;color:#003256;font-size:13px;">${esc(p.message)}</td></tr>` : ''}
         </table>

@@ -126,6 +126,25 @@
   margin-top: 0.3rem;
 }
 
+.guest-entry-card {
+  border: 1px solid rgba(0, 50, 86, 0.08);
+  background-color: rgba(0, 50, 86, 0.02);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.guest-entry-group {
+  margin-bottom: 0.5rem;
+}
+
+.guest-preview {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+}
+
 .form-group {
   margin-bottom: 1.5rem;
 }

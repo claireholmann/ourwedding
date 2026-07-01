@@ -72,7 +72,7 @@ function FAQs() {
           </p>
         </div>
 
-        <div className="faq-item">
+        {/* <div className="faq-item">
           <h3 className="faq-question">What if I have dietary restrictions?</h3>
           <p className="faq-answer">
             Please include dietary needs on your RSVP. You can update your
@@ -82,7 +82,7 @@ function FAQs() {
             </Link>
             .
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
