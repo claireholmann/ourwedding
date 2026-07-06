@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-// import ReactGA from "react-ga4";
+import { trackEvent, trackPageView } from "./analytics";
 
 import Home from "./pages/Home";
 import Registry from "./pages/Registry";
@@ -15,6 +15,17 @@ import RSVP from "./pages/RSVP";
 import Navbar from "./components/Navbar";
 import "./App.css";
 
+const knownRoutes = new Set([
+  "/",
+  "/registry",
+  "/photos",
+  "/faqs",
+  "/attire",
+  "/itinerary",
+  "/hotel-travel",
+  "/things-to-do",
+]);
+
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -25,12 +36,15 @@ function ScrollToTop() {
 
 function App() {
   const location = useLocation();
-  // useEffect(() => {
-  //   ReactGA.send({
-  //     hitType: "pageview",
-  //     page: location.pathname,
-  //   });
-  // }, [location]);
+  useEffect(() => {
+    trackPageView(location.pathname, location.search);
+
+    if (!knownRoutes.has(location.pathname)) {
+      trackEvent("page_not_found", {
+        attempted_path: `${location.pathname}${location.search}`,
+      });
+    }
+  }, [location]);
 
   return (
     <div className="App">
@@ -48,6 +62,7 @@ function App() {
           <Route path="/hotel-travel" element={<HotelTravel />} />
           <Route path="/things-to-do" element={<ThingsToDo />} />
           {/* <Route path="/rsvp" element={<RSVP />} /> */}
+          <Route path="*" element={<Home />} />
         </Routes>
       </main>
       {location.pathname !== "/" && (

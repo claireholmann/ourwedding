@@ -1,4 +1,5 @@
 import "./HotelTravel.css";
+import { trackEvent } from "../analytics";
 
 function HotelTravel() {
   return (
@@ -28,7 +29,13 @@ function HotelTravel() {
               <a
                 href="https://app.marriott.com/reslink?id=1778598509881&key=GRP&app=resvlink"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="hotel-book-link"
+                onClick={() => trackEvent("hotel_click", {
+                  hotel_name: "Aloft by Marriott South Bend",
+                  link_url: "https://app.marriott.com/reslink?id=1778598509881&key=GRP&app=resvlink",
+                  link_type: "room_block",
+                })}
               >
                 Reserve Your Room
               </a>
@@ -51,7 +58,13 @@ function HotelTravel() {
               <a
                 href="https://app.marriott.com/reslink?id=1779122616923&key=GRP&app=resvlink"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="hotel-book-link"
+                onClick={() => trackEvent("hotel_click", {
+                  hotel_name: "Courtyard by Marriott South Bend",
+                  link_url: "https://app.marriott.com/reslink?id=1779122616923&key=GRP&app=resvlink",
+                  link_type: "room_block",
+                })}
               >
                 Reserve Your Room
               </a>

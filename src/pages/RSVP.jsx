@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import './RSVP.css';
+import { trackEvent } from '../analytics';
 
 // Google Apps Script deployment
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbws1dIH4rJjXmJ3cf3aMj2doO6GPhnANN3xzVqsnr5SzMZgfdUqlGmSciuRlRqJiUUvBg/exec';
@@ -253,21 +254,6 @@ function isSimilarToken(queryToken, targetToken) {
   return edits + Math.abs(queryToken.length - targetToken.length) <= 1;
 }
 
-function normalizeNameTokens(value) {
-  return String(value || '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .split(/\s+/)
-    .filter(Boolean)
-    .filter((token) => token !== 'guest')
-    .filter((token, index, array) => {
-      if (token.length === 1 && index > 0 && index < array.length - 1) {
-        return false;
-      }
-      return true;
-    });
-}
-
 function hasGuestInName(name) {
   return /\bguest\b/i.test(String(name || '').trim());
 }
@@ -442,6 +428,7 @@ function RSVP() {
     setLookupError('');
     setSearchResults(null);
     setVisibleResultsCount(SEARCH_RESULTS_PAGE_SIZE);
+    trackEvent('rsvp_lookup_started');
 
     try {
       const queryWords = normalizeText(query).split(/\s+/).filter(Boolean);
@@ -474,10 +461,15 @@ function RSVP() {
       // Render immediately from sheet-backed household data.
       if (latestSearchRequestRef.current === requestId) {
         setSearchResults(initialMatches.length > 0 ? initialMatches : []);
+        trackEvent('rsvp_lookup_completed', {
+          match_count: initialMatches.length,
+          lookup_status: initialMatches.length > 0 ? 'matched' : 'no_match',
+        });
       }
     } catch (error) {
       setLookupError(error instanceof Error ? error.message : 'Lookup failed. Please try again.');
       setSearchResults([]);
+      trackEvent('rsvp_lookup_failed');
     } finally {
       if (latestSearchRequestRef.current === requestId) {
         setSearching(false);
@@ -524,6 +516,9 @@ function RSVP() {
   const handleSelectResult = (match) => {
     initializeHousehold(match);
     setFormError('');
+    trackEvent('rsvp_household_selected', {
+      household_size: Array.isArray(match.members) ? match.members.length : 0,
+    });
   };
 
   // ── Member form helpers ──────────────────────────────────────
@@ -574,10 +569,22 @@ function RSVP() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const err = validate();
-    if (err) { setFormError(err); return; }
+    if (err) {
+      setFormError(err);
+      trackEvent('rsvp_validation_failed');
+      return;
+    }
 
     setSubmitting(true);
     setFormError('');
+    trackEvent('rsvp_submit_started', {
+      household_size: form.members.length,
+      attending_count: form.members.filter((member) =>
+        ['welcomeRsvp', 'ceremonyRsvp', 'receptionRsvp', 'brunchRsvp', 'rehearsalRsvp'].some(
+          (eventKey) => member.form[eventKey] === 'Yes'
+        )
+      ).length,
+    });
     try {
       const params = new URLSearchParams();
       params.append('action', 'submit');
@@ -626,11 +633,20 @@ function RSVP() {
         try { sessionStorage.removeItem(RSVP_SESSION_CACHE_KEY); } catch { /* ignore */ }
 
         setSubmitted(true);
+        trackEvent('rsvp_submit_completed', {
+          household_size: form.members.length,
+        });
       } else {
         setFormError('Something went wrong. Please try again or contact us directly.');
+        trackEvent('rsvp_submit_failed', {
+          failure_type: 'api_response',
+        });
       }
     } catch {
       setFormError('Something went wrong. Please try again or contact us directly.');
+      trackEvent('rsvp_submit_failed', {
+        failure_type: 'network_or_parse',
+      });
     } finally {
       setSubmitting(false);
     }
@@ -663,12 +679,6 @@ function RSVP() {
 
   // ── Main render ───────────────────────────────────────────────
   const householdNames = household ? formatHouseholdNames(household.members) : '';
-  const hasYesResponse = form?.members?.some((member) =>
-    ['rehearsalRsvp', 'welcomeRsvp', 'ceremonyRsvp', 'receptionRsvp', 'brunchRsvp'].some(
-      (eventKey) => member.form[eventKey] === 'Yes'
-    )
-  );
-  const shouldShowGuestField = hasYesResponse && form?.members?.some((member) => member.hasGuest);
 
   return (
     <div className="rsvp-container">

@@ -1,4 +1,5 @@
 import './Registry.css';
+import { trackEvent } from '../analytics';
 
 const registries = [
   {
@@ -55,6 +56,11 @@ function Registry() {
             target="_blank"
             rel="noopener noreferrer"
             className="registry-feature-link"
+            onClick={() => trackEvent('registry_click', {
+              registry_name: 'Zola',
+              link_url: 'https://www.zola.com/registry/brianandclaire2027',
+              link_position: 'featured',
+            })}
           >
             View our Zola registry <span className="registry-arrow">→</span>
           </a>
@@ -71,6 +77,11 @@ function Registry() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="registry-card"
+                onClick={() => trackEvent('registry_click', {
+                  registry_name: registry.accentName ? `${registry.name} & ${registry.accentName}` : registry.name,
+                  link_url: registry.href,
+                  link_position: 'grid',
+                })}
               >
                 <div>
                   <h3 className="registry-card-title">
