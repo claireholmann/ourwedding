@@ -124,8 +124,8 @@ function Itinerary() {
             </div>
           </div>
 
-          {/* <div className="timeline-line-break" />
-          <div className="timeline-day-label"><span className="timeline-day-week">Sunday</span><span className="timeline-day-date">June 27th</span></div>
+          <div className="timeline-line-break" />
+          {/* <div className="timeline-day-label"><span className="timeline-day-week">Sunday</span><span className="timeline-day-date">June 27th</span></div>
           <div className="timeline-line-break" />
           <div className="timeline-item left">
             <div className="timeline-time">10:00 AM EST</div>
@@ -135,6 +135,17 @@ function Itinerary() {
                 Before you head home, join us for a brunch at the Aloft Hotel.
               </p>
               <p className="timeline-detail"><strong>Address</strong><br />111 N Main St<br />South Bend, IN 46601</p>
+            </div>
+          </div>
+
+          <div className="timeline-item right">
+            <div className="timeline-time">10:00 AM EST & 12:00 PM EST</div>
+            <div className="timeline-content">
+              <h3>Sunday Mass Available</h3>
+              <p className="timeline-description">
+                End the weekend with a Sunday Mass at the historic Basilica of the Sacred Heart at the University of Notre Dame.
+              </p>
+              <p className="timeline-detail"><strong>Address</strong><br />100 Basilica Drive<br />Notre Dame, IN 46556</p>
             </div>
           </div> */}
         </div>

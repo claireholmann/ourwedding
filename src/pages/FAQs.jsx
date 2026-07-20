@@ -72,6 +72,17 @@ function FAQs() {
           </p>
         </div>
 
+        <div className="faq-item">
+          <h3 className="faq-question">Where to go for Sunday Mass?</h3>
+          <p className="faq-answer">
+            We recommend attending Sunday Mass at the Basilica of the Sacred Heart at the University of Notre Dame at 10:00 AM EST or 12:00 PM EST. We recommend arriving early. 
+            On your way, tell security at the entrance that you are attending Sunday Mass.
+            For more details, visit the <Link className="faq-inline-link" target="_blank" to="https://basilica.nd.edu/prayer-and-worship/mass-confession-schedule/">
+              Notre Dame Basilica website
+            </Link>
+          </p>
+        </div>
+
         {/* <div className="faq-item">
           <h3 className="faq-question">What if I have dietary restrictions?</h3>
           <p className="faq-answer">
