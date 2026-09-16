@@ -24,6 +24,26 @@ function FAQs() {
         </div>
 
         <div className="faq-item">
+          <h3 className="faq-question">Accessibility?</h3>
+          <p className="faq-answer">
+            Both the ceremony and reception locations have elevators available
+            for easy access to different floors. Each entrance at the Palais
+            Royale is accessible for guests with mobility needs so you should
+            have no trouble accessing the venue. Saint Mary's (Le Mans Hall) has specific
+            entrances that have ramps for guests with mobility needs. For more
+            details on these entrances, visit the{" "}
+            <Link
+              className="faq-inline-link"
+              target="_blank"
+              to="https://www.saintmarys.edu/admission-aid/visit-campus/maps-directions/accessibility"
+            >
+              Saint Mary's College Accessibility page
+            </Link>
+            .
+          </p>
+        </div>
+
+        <div className="faq-item">
           <h3 className="faq-question">What is the dress code?</h3>
           <p className="faq-answer">
             Black tie optional. For some outfit inspiration, visit our{" "}
@@ -38,10 +58,10 @@ function FAQs() {
           <p className="faq-answer">
             Yes! After the champagne toast on The Island at Saint Mary's, there
             will be about an hour to freshen up or check into your hotel before
-            cocktail hour. Cocktail hour begins at 5:30pm EST
-            in the Morris Performing Arts Center Lobby. Dinner begins at 6:30pm EST and
-            will be held in the Palais Royale ballroom attached to the Morris Theatre. 
-            It is a 10 minute drive from Saint Mary's.
+            cocktail hour. Cocktail hour begins at 5:30pm EST in the Morris
+            Performing Arts Center Lobby. Dinner begins at 6:30pm EST and will
+            be held in the Palais Royale ballroom attached to the Morris
+            Theatre. It is a 10 minute drive from Saint Mary's.
           </p>
         </div>
 
@@ -75,9 +95,16 @@ function FAQs() {
         <div className="faq-item">
           <h3 className="faq-question">Where to go for Sunday Mass?</h3>
           <p className="faq-answer">
-            We recommend attending Sunday Mass at the Basilica of the Sacred Heart at the University of Notre Dame at 10:00 AM EST or 12:00 PM EST. We recommend arriving early. 
-            On your way, tell security at the entrance that you are attending Sunday Mass.
-            For more details, visit the <Link className="faq-inline-link" target="_blank" to="https://basilica.nd.edu/prayer-and-worship/mass-confession-schedule/">
+            We recommend attending Sunday Mass at the Basilica of the Sacred
+            Heart at the University of Notre Dame at 10:00 AM EST or 12:00 PM
+            EST. We recommend arriving early. On your way, tell security at the
+            entrance that you are attending Sunday Mass. For more details, visit
+            the{" "}
+            <Link
+              className="faq-inline-link"
+              target="_blank"
+              to="https://basilica.nd.edu/prayer-and-worship/mass-confession-schedule/"
+            >
               Notre Dame Basilica website
             </Link>
           </p>
