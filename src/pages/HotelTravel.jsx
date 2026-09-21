@@ -21,8 +21,15 @@ function HotelTravel() {
           <p className="hotel-intro">
             We’ve reserved rooms at nearby hotels to make your stay easy. Each
             option is close to the wedding events—choose what works best for
-            you!
+            you! 
           </p>
+          <div className="hotel-room-block-banner" role="alert">
+            <span className="hotel-room-block-banner-icon">!</span>
+            <p>
+              We have to manually refill the room blocks, so please contact
+              Claire & Brian at (630) 648-9014 if the links say they are filled or unavailable.
+            </p>
+          </div>
           <div className="hotel-list">
             <div className="hotel-card">
               <h3 className="hotel-name">Aloft by Marriott South Bend</h3>
@@ -39,6 +46,9 @@ function HotelTravel() {
               >
                 Reserve Your Room
               </a>
+              <p className="hotel-family-note">
+                The Holman and Kosch immediate families are staying at the Aloft.
+              </p>
               <p className="hotel-info">
                 <strong>Phone:</strong> (574) 288-8000
                 <br />
@@ -82,6 +92,34 @@ function HotelTravel() {
                 <strong>$169/night.</strong> Classic comfort in the heart of
                 downtown, with a gym and indoor pool. On-site parking available
                 for $25/night. <br /> <strong>Last day to book: May 25th, 2027.</strong>
+              </p>
+            </div>
+            <div className="hotel-card">
+              <h3 className="hotel-name">Double Tree by Hilton South Bend</h3>
+              <a
+                href="https://www.hilton.com/en/hotels/sbnsbdt-doubletree-south-bend/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hotel-book-link"
+                onClick={() => trackEvent("hotel_click", {
+                  hotel_name: "Double Tree by Hilton South Bend",
+                  link_url: "https://www.hilton.com/en/hotels/sbnsbdt-doubletree-south-bend/",
+                  link_type: "room_block",
+                })}
+              >
+                Reserve Your Room
+              </a>
+              <p className="hotel-info">
+                <strong>Phone:</strong> (574) 234-2000
+                <br />
+                <strong>Address:</strong> 123 N. Doctor M.L.K. Jr Blvd, South
+                Bend, IN 46601
+                <br />
+                <strong>Distance:</strong> Across the street from the reception, making it extremely convenient for guests.
+              </p>
+              <p className="hotel-description">
+                <strong>Not a wedding room block!</strong> Wanted to include a Hilton option for those with points, 
+                but unfortunately we do not have a room block here.<br />
               </p>
             </div>
           </div>
