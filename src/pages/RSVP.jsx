@@ -18,6 +18,31 @@ const MEAL_OPTIONS = [
 ];
 
 const NAME_SUFFIX_TERMS = ['jr', 'jr.', 'sr', 'sr.', 'ii', 'iii', 'iv'];
+const LOOKUP_TIMEOUT_MS = 10000;
+
+function fetchWithTimeout(url, options = {}, timeoutMs = LOOKUP_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const externalSignal = options.signal;
+  const abortExternal = () => controller.abort();
+
+  if (externalSignal) {
+    if (externalSignal.aborted) {
+      controller.abort();
+    } else {
+      externalSignal.addEventListener('abort', abortExternal, { once: true });
+    }
+  }
+
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  return fetch(url, { ...options, signal: controller.signal })
+    .finally(() => {
+      clearTimeout(timeoutId);
+      if (externalSignal) {
+        externalSignal.removeEventListener('abort', abortExternal);
+      }
+    });
+}
 
 const EVENTS = [
   {
@@ -62,7 +87,7 @@ const EVENTS = [
   },
 ];
 
-async function lookupInvitations(query) {
+async function lookupInvitations(query, signal) {
   const normalized = normalizeText(query);
   if (!normalized) return [];
 
@@ -87,7 +112,16 @@ async function lookupInvitations(query) {
   }
 
   const url = `${SCRIPT_URL}?action=lookup&q=${encodeURIComponent(query)}`;
-  const res = await fetch(url, { redirect: 'follow' });
+  let res;
+  try {
+    res = await fetchWithTimeout(url, { redirect: 'follow', signal }, LOOKUP_TIMEOUT_MS);
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw new Error('The invitation lookup timed out. Please try again.');
+    }
+    throw error;
+  }
+
   if (!res.ok) {
     throw new Error(`Lookup failed (${res.status}).`);
   }
@@ -411,6 +445,7 @@ function RSVP() {
   const [formError,     setFormError]     = useState('');
   const [lookupError,   setLookupError]   = useState('');
   const latestSearchRequestRef = useRef(0);
+  const activeLookupControllerRef = useRef(null);
 
   // Form state: { members: [{ rowIndex, name, ..., form: { rehearsalRsvp, ..., meal, foodAllergies } }], shared: { songRequests, message } }
   const [form, setForm] = useState(null);
@@ -421,8 +456,12 @@ function RSVP() {
     const query = searchQuery.trim();
     if (!query) return;
 
+    activeLookupControllerRef.current?.abort();
+
     const requestId = latestSearchRequestRef.current + 1;
     latestSearchRequestRef.current = requestId;
+    const controller = new AbortController();
+    activeLookupControllerRef.current = controller;
 
     setSearching(true);
     setLookupError('');
@@ -434,7 +473,7 @@ function RSVP() {
       const queryWords = normalizeText(query).split(/\s+/).filter(Boolean);
 
       // Phase 1: exact lookup first for fastest perceived response.
-      let finalMatches = await lookupInvitations(query);
+      let finalMatches = await lookupInvitations(query, controller.signal);
 
       // Phase 2: fallback lookups only when exact lookup returns no matches.
       if (finalMatches.length === 0 && queryWords.length >= 2) {
@@ -450,7 +489,7 @@ function RSVP() {
         const uniqueFallbacks = [...new Set(fallbackQueries.map((q) => q.trim()).filter(Boolean))]
           .filter((q) => normalizeText(q) !== normalizeText(query));
 
-        const fallbackMatchesLists = await Promise.all(uniqueFallbacks.map((candidate) => lookupInvitations(candidate)));
+        const fallbackMatchesLists = await Promise.all(uniqueFallbacks.map((candidate) => lookupInvitations(candidate, controller.signal)));
         for (const matches of fallbackMatchesLists) {
           finalMatches = mergeUniqueMatches(finalMatches, matches);
         }
@@ -458,8 +497,7 @@ function RSVP() {
 
       const initialMatches = preferFilteredMatches(linkRelatedMatches(finalMatches), query);
 
-      // Render immediately from sheet-backed household data.
-      if (latestSearchRequestRef.current === requestId) {
+      if (latestSearchRequestRef.current === requestId && !controller.signal.aborted) {
         setSearchResults(initialMatches.length > 0 ? initialMatches : []);
         trackEvent('rsvp_lookup_completed', {
           match_count: initialMatches.length,
@@ -467,12 +505,18 @@ function RSVP() {
         });
       }
     } catch (error) {
+      if (controller.signal.aborted) {
+        return;
+      }
       setLookupError(error instanceof Error ? error.message : 'Lookup failed. Please try again.');
       setSearchResults([]);
       trackEvent('rsvp_lookup_failed');
     } finally {
-      if (latestSearchRequestRef.current === requestId) {
+      if (latestSearchRequestRef.current === requestId && !controller.signal.aborted) {
         setSearching(false);
+      }
+      if (activeLookupControllerRef.current === controller) {
+        activeLookupControllerRef.current = null;
       }
     }
   };
@@ -704,7 +748,16 @@ function RSVP() {
                     type="text"
                     id="searchQuery"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      if (searching || lookupError || searchResults !== null) {
+                        activeLookupControllerRef.current?.abort();
+                        setSearching(false);
+                        setLookupError('');
+                        setSearchResults(null);
+                        setVisibleResultsCount(SEARCH_RESULTS_PAGE_SIZE);
+                      }
+                    }}
                     placeholder="Enter first and last name"
                     autoComplete="off"
                   />
