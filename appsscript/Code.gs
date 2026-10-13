@@ -645,6 +645,7 @@ function sendNotificationEmail(p, members) {
     subject:  `RSVP: ${householdNames}`,
     body:     buildRsvpPlainText(householdNames, timestamp, p, members),
     htmlBody,
+    name: "Brian & Claire"
   });
 }
 
@@ -674,6 +675,7 @@ function sendGuestCopyEmail(p, members) {
     subject:  `Your RSVP — Claire & Brian`,
     body:     buildRsvpPlainText(householdNames, timestamp, p, members),
     htmlBody,
+    name: "Brian & Claire"
   });
 }
 
