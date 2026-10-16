@@ -46,6 +46,12 @@ function HotelTravel() {
               >
                 Reserve Your Room
               </a>
+              <p className="aloft-booking-notice">
+                THE SAVANNAH BANANAS HAVE TAKEN OVER NOTRE DAME!!
+                <br />We will have more rooms opened up tomorrow 10/16/26. We don&apos;t want you
+                spending anything more than our $149 room rate! So sorry for
+                the inconvience! Love, Claire &amp; Brian
+              </p>
               <p className="hotel-family-note">
                 The Holman and Kosch immediate families are staying at the Aloft.
               </p>
