@@ -48,7 +48,7 @@ function HotelTravel() {
               </a>
               <p className="aloft-booking-notice">
                 UPDATE! October 16th at 2:30pm <br />
-                More rooms have been released for booking.  Unfortuantely, our initial room block of 50 rooms have been booked.  
+                More rooms have been released for booking.  Unfortuantely, our initial room block of 50 rooms has been booked.  
                 The updated rate is now $179/night with parking included. Sorry for the inconvenience.
                 <br />Love, Claire & Brian
               </p>
