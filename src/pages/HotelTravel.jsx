@@ -49,7 +49,8 @@ function HotelTravel() {
               <p className="aloft-booking-notice">
                 UPDATE! October 16th at 2:30pm <br />
                 More rooms have been released for booking.  Unfortuantely, our initial room block of 50 rooms have been booked.  
-                The updated rate is now $179/night with parking included. Sorry for the inconvenience. Love, Claire & Brian
+                The updated rate is now $179/night with parking included. Sorry for the inconvenience.
+                <br />Love, Claire & Brian
               </p>
               <p className="hotel-family-note">
                 The Holman and Kosch immediate families are staying at the Aloft.
