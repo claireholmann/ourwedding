@@ -47,10 +47,9 @@ function HotelTravel() {
                 Reserve Your Room
               </a>
               <p className="aloft-booking-notice">
-                THE SAVANNAH BANANAS HAVE TAKEN OVER NOTRE DAME!!
-                <br />We will have more rooms opened up tomorrow 10/16/26. We don&apos;t want you
-                spending anything more than our $149 room rate! So sorry for
-                the inconvience! Love, Claire &amp; Brian
+                UPDATE! 2:30pm at 10/16/26 <br />
+                More rooms have been released for booking.  Unfortuantely, our initial room block of 50 rooms have been booked.  
+                The updated rate is now $179/night with parking included. Sorry for the inconvenience. Love, Claire & Brian
               </p>
               <p className="hotel-family-note">
                 The Holman and Kosch immediate families are staying at the Aloft.
@@ -64,7 +63,7 @@ function HotelTravel() {
                 even closer to the after party at NEWFS!
               </p>
               <p className="hotel-description">
-                <strong>$149/night.</strong> Modern vibes with vibrant decor, a
+                <strong>$179/night.</strong> Modern vibes with vibrant decor, a
                 lively bar, a 24-hour cafe, and an indoor pool. On-site parking
                 available is complimentary. <br /> <strong>Last day to book: May 25th, 2027.</strong>
               </p>
