@@ -4,18 +4,19 @@ import { trackEvent } from "../analytics";
 function HotelTravel() {
   return (
     <div className="hotel-travel-container">
-      <div className="page-hero">
-        <span className="page-eyebrow">
-          Notre Dame, Indiana · June&nbsp;26th&nbsp;2027
-        </span>
-        <h1 className="page-hero-title">
-          Hotel <span className="page-hero-and symbol-fallback">&</span> Travel
-        </h1>
-        <div className="page-hero-divider" />
-      </div>
+      <div className="hotel-travel-page-content">
+        <div className="page-hero">
+          <span className="page-eyebrow">
+            Notre Dame, Indiana · June&nbsp;26th&nbsp;2027
+          </span>
+          <h1 className="page-hero-title">
+            Hotel <span className="page-hero-and symbol-fallback">&</span> Travel
+          </h1>
+          <div className="page-hero-divider" />
+        </div>
 
-      <div className="hotel-travel-content">
-        <section className="hotel-section">
+        <div className="hotel-travel-content">
+          <section className="hotel-section">
           <span className="section-eyebrow">Where to Stay</span>
           <h2 className="section-heading">Accommodations</h2>
           <p className="hotel-intro">
@@ -210,6 +211,15 @@ function HotelTravel() {
             </div> */}
           </div>
         </section>
+        </div>
+      </div>
+
+      <div className="hotel-travel-notice-overlay" role="status" aria-live="polite">
+        <div className="hotel-travel-notice-card">
+          <p>
+            Attention: We manually have to update the hotel blocks. There are no rooms currently available. Please check back on Monday for hotels. DO NOT BOOK ANYTHING OVER $200. WAIT UNTIL THE ROOM BLOCK IS RELOADED
+          </p>
+        </div>
       </div>
     </div>
   );

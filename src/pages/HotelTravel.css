@@ -1,6 +1,51 @@
 .hotel-travel-container {
+  position: relative;
   min-height: 100vh;
+  overflow: hidden;
   background-color: #fafafa;
+}
+
+.hotel-travel-page-content {
+  filter: grayscale(1) blur(2px) brightness(0.7);
+  opacity: 0.75;
+  pointer-events: none;
+  user-select: none;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.hotel-travel-notice-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(15, 23, 42, 0.18);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.hotel-travel-notice-card {
+  width: min(100%, 900px);
+  background: rgba(255, 255, 255, 0.94);
+  border: 2px solid rgba(0, 50, 86, 0.25);
+  border-radius: 18px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.22);
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+}
+
+.hotel-travel-notice-card p {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.98rem, 1.8vw, 1.25rem);
+  line-height: 1.6;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #003256;
+  text-transform: none;
 }
 
 /* Page Hero */
