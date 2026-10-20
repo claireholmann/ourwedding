@@ -217,7 +217,19 @@ function HotelTravel() {
       <div className="hotel-travel-notice-overlay" role="status" aria-live="polite">
         <div className="hotel-travel-notice-card">
           <p>
-            Attention: We manually have to update the hotel blocks. There are no rooms currently available. Please check back on Monday for hotels. DO NOT BOOK ANYTHING OVER $200. WAIT UNTIL THE ROOM BLOCK IS RELOADED
+            Update 10/20/26: 
+            <br />
+            <br />
+            We have officially hit capacity at the Aloft and are working on 
+            adding more rooms to the Courtyard Marriott. We will update this 
+            notice as soon as more rooms become available.
+            <br />
+            <br />
+            Thank you for your patience and understanding as we work to secure additional 
+            accommodations for all of our guests.
+            <br />
+            <br />
+            -Claire & Brian
           </p>
         </div>
       </div>
