@@ -56,11 +56,6 @@ function Navbar() {
             </Link>
           </li> */}
           <li className="nav-item">
-            <Link to="/registry" className="nav-link" onClick={closeMenu}>
-              Registry
-            </Link>
-          </li>
-          <li className="nav-item">
             <Link to="/hotel-travel" className="nav-link" onClick={closeMenu}>
               Hotel&nbsp;<span className="symbol-fallback">&</span> Travel
             </Link>
@@ -78,6 +73,11 @@ function Navbar() {
           <li className="nav-item">
             <Link to="/attire" className="nav-link" onClick={closeMenu}>
               Attire
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/registry" className="nav-link" onClick={closeMenu}>
+              Registry
             </Link>
           </li>
           <li className="nav-item">

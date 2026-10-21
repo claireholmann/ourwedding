@@ -23,7 +23,7 @@ function BridalParty() {
   const getNameClass = (name) => name.toLowerCase().replace(/\s+/g, '-');
 
   const bridesmaids = [
-    { name: 'Caitlyn Holman', role: 'Sister of the Bride', image: getProfileImage('caitlyn', brideSideAvatar) },
+    { name: 'Caitlyn Holman', role: <><strong>Maid of Honor</strong> <br />Sister of the Bride</>, image: getProfileImage('caitlyn', brideSideAvatar) },
     { name: 'Megan Holman', role: 'Sister-in-law of the Bride', image: getProfileImage('pattymegan', brideSideAvatar) },
     { name: 'Shannon Kosch', role: 'Sister of the Groom', image: getProfileImage('shannon', brideSideAvatar) },
     { name: 'Samantha Ray', role: 'Childhood Friend & Neighbor', image: getProfileImage('sam', brideSideAvatar) },
@@ -34,7 +34,7 @@ function BridalParty() {
   ];
 
   const groomsmen = [
-    { name: 'Tyler Gillespie', role: 'College Roommate', image: getProfileImage('tyler', groomSideAvatar) },
+    { name: 'Tyler Gillespie', role: <><strong>Best Man</strong> <br />College Roommate</>, image: getProfileImage('tyler', groomSideAvatar) },
     { name: 'Patrick Holman', role: 'Brother of the Bride', image: getProfileImage('pattymegan', groomSideAvatar) },
     { name: 'Danny Freitag', role: 'Brother-in-law of the Groom', image: getProfileImage('danny', groomSideAvatar) },
     { name: 'Joseph Roscetti', role: 'Childhood Friend', image: getProfileImage('boys', groomSideAvatar) },
