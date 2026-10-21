@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import './Registry.css';
 import { trackEvent } from '../analytics';
 
@@ -11,6 +12,10 @@ const registries = [
   {
     name: 'Anthropologie',
     href: 'https://www.anthropologie.com/registry/listing?registryId=0E105FCED8FA',
+  },
+  {
+    name: "Bloomingdale's",
+    href: 'https://www.bloomingdales.com/registry/Claire-Holman-Brian-Kosch/1935516',
   },
   {
     name: 'Crate',
@@ -92,7 +97,14 @@ function Registry() {
                         <span>{registry.accentName}</span>
                       </>
                     ) : (
-                      registry.name
+                      <span>
+                        {registry.name.split("'").map((part, i) => (
+                          <Fragment key={i}>
+                            {i > 0 && <span className="registry-card-title-apostrophe">&rsquo;</span>}
+                            {part}
+                          </Fragment>
+                        ))}
+                      </span>
                     )}
                   </h3>
                   <p className="registry-card-description">{registry.description}</p>

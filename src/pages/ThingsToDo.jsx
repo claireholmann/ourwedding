@@ -139,12 +139,12 @@ const DINING = [
     reserve: "https://www.carmelassouthbend.com/reservations",
   },
   {
-    name: "Cafe Navarre",
+    name: "Ciao's",
     cuisine: "Italian",
     description:
-      "Modern Italian spot with pasta, fresh seafood, and romantic atmosphere.",
-    menu: "https://www.cafenavarre.co/eat",
-    reserve: "https://www.cafenavarre.co/visit",
+      "Casual restaurant offering traditional Italian antipasti, pasta and grills.",
+    menu: "https://www.ciaoscatering.com/restaurant",
+    reserve: "https://www.ciaoscatering.com",
   },
   {
     name: "Ritter's Frozen Custard",

@@ -158,6 +158,10 @@
     font-size: 16px;
 }
 
+.registry-card-title-apostrophe {
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
 .registry-card-description {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.86rem;
