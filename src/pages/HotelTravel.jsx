@@ -24,13 +24,23 @@ function HotelTravel() {
             option is close to the wedding events—choose what works best for
             you! 
           </p>
-          <div className="hotel-room-block-banner" role="alert">
+          {/* <div className="hotel-room-block-banner" role="alert">
             <span className="hotel-room-block-banner-icon">!</span>
             <p>
-              We have to manually refill the room blocks, so please contact
-              Claire & Brian at (630) 648-9014 if the links say they are filled or unavailable.
+              The Savannah Bananas are now playing at Notre Dame the same day as our wedding.  
+              Unfortunately, our initial hotel room blocks have now been capped  
+              to a limited number of rooms due to the game.  
+              
+              <br />
+              Please bear with us as we work to accommodate everyone. We are actively
+              finding other accomadations for our guests. There's also the option of 
+              finding Airbnbs in the area.
+
+              <br />
+              Please contact Claire & Brian at (630) 648-9014 if you have any questions or 
+              need assistance with accommodations.
             </p>
-          </div>
+          </div> */}
           <div className="hotel-list">
             <div className="hotel-card">
               <h3 className="hotel-name">Aloft by Marriott South Bend</h3>
@@ -47,11 +57,8 @@ function HotelTravel() {
               >
                 Reserve Your Room
               </a>
-              <p className="aloft-booking-notice">
-                UPDATE! October 16th at 2:30pm <br />
-                More rooms have been released for booking.  Unfortuantely, our initial room block of 50 rooms has been booked.  
-                The updated rate is now $179/night with parking included. Sorry for the inconvenience.
-                <br />Love, Claire & Brian
+              <p className="aloft-booking-full">
+                UPDATE! Aloft has been fully booked.
               </p>
               <p className="hotel-family-note">
                 The Holman and Kosch immediate families are staying at the Aloft.
@@ -65,7 +72,7 @@ function HotelTravel() {
                 even closer to the after party at NEWFS!
               </p>
               <p className="hotel-description">
-                <strong>$179/night.</strong> Modern vibes with vibrant decor, a
+                <strong>$149/night.</strong> Modern vibes with vibrant decor, a
                 lively bar, a 24-hour cafe, and an indoor pool. On-site parking
                 available is complimentary. <br /> <strong>Last day to book: May 25th, 2027.</strong>
               </p>
@@ -85,6 +92,9 @@ function HotelTravel() {
               >
                 Reserve Your Room
               </a>
+              <p className="aloft-booking-full">
+                UPDATE! Courtyard by Marriott has been fully booked.
+              </p>
               <p className="hotel-info">
                 <strong>Phone:</strong> (574) 237-7777
                 <br />
@@ -92,8 +102,7 @@ function HotelTravel() {
                 Bend, IN 46601
                 <br />
                 <strong>Distance:</strong> Just a short stroll from our
-                reception—perfect for a quick walk home after dancing the night
-                away!
+                reception—perfect for a quick walk home!
               </p>
               <p className="hotel-description">
                 <strong>$169/night.</strong> Classic comfort in the heart of
@@ -217,12 +226,14 @@ function HotelTravel() {
       <div className="hotel-travel-notice-overlay" role="status" aria-live="polite">
         <div className="hotel-travel-notice-card">
           <p>
-            Update 10/20/26: 
+            Update 10/27/26: 
             <br />
             <br />
-            We have officially hit capacity at the Aloft and are working on 
-            adding more rooms to the Courtyard Marriott. We will update this 
-            notice as soon as more rooms become available.
+            We have officially hit capacity at the Aloft and the Courtyard. 
+            Luckily, we were able to secure two more hotels near by!!
+            <br />
+            <br />
+            <strong>Please check back on Friday, October 30th for links to the new room blocks.</strong>
             <br />
             <br />
             Thank you for your patience and understanding as we work to secure additional 
