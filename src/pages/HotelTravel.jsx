@@ -1,7 +1,19 @@
 import "./HotelTravel.css";
+// import { useEffect, useState } from "react";
 import { trackEvent } from "../analytics";
 
 function HotelTravel() {
+  // const [showNotice, setShowNotice] = useState(true);
+
+  // useEffect(() => {
+  //   if (!showNotice) return undefined;
+  //   const onKeyDown = (e) => {
+  //     if (e.key === "Escape") setShowNotice(false);
+  //   };
+  //   window.addEventListener("keydown", onKeyDown);
+  //   return () => window.removeEventListener("keydown", onKeyDown);
+  // }, [showNotice]);
+
   return (
     <div className="hotel-travel-container">
       <div className="hotel-travel-page-content">
@@ -42,6 +54,63 @@ function HotelTravel() {
             </p>
           </div> */}
           <div className="hotel-list">
+            <div className="hotel-card">
+              <h3 className="hotel-name">Wingate by Wyndham South Bend</h3>
+              <a
+                href="https://www.wyndhamhotels.com/wingate/south-bend-indiana/wingate-south-bend-notre-dame/overview?checkInDate=06/25/2027&checkOutDate=06/27/2027&groupCode=062527HKW"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hotel-book-link"
+                onClick={() => trackEvent("hotel_click", {
+                  hotel_name: "Wingate by Wyndham South Bend",
+                  link_url: "https://www.wyndhamhotels.com/wingate/south-bend-indiana/wingate-south-bend-notre-dame/overview?checkInDate=06/25/2027&checkOutDate=06/27/2027&groupCode=062527HKW",
+                  link_type: "room_block",
+                })}
+              >
+                Reserve Your Room
+              </a>
+              <p className="hotel-info">
+                <strong>Phone:</strong> (574) 272-5220
+                <br />
+                <strong>Address:</strong> 52890 SR-933, South Bend, IN 46637
+                <br />
+                <strong>Distance:</strong> 5 minute drive from Saint Mary's and about 10 minutes from the reception.
+              </p>
+              <p className="hotel-description">
+                <strong>$115 - $120 / night.</strong> Located right off the highway down the street from the ceremony! Indoor and outdoor pools 
+                & great hotel restaurant! Parking and continental breakfast included. <br /> <strong>Last day to book: May 25th, 2027.</strong>
+              </p>
+            </div>
+            <div className="hotel-card">
+              <h3 className="hotel-name">Irish Lodge South Bend</h3>
+              <a
+                href="https://www.irishlodgesouthbend.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hotel-book-link"
+                onClick={() => trackEvent("hotel_click", {
+                  hotel_name: "Irish Lodge South Bend",
+                  link_url: "https://www.irishlodgesouthbend.com/",
+                  link_type: "room_block",
+                })}
+              >
+                Irish Lodge Website
+              </a>
+              <p className="aloft-booking-notice">
+                To book a room, please call the hotel directly and ask for the Holman-Kosch wedding block rate.
+              </p>
+              <p className="hotel-info">
+                <strong>Phone:</strong> (574) 277-9373
+                <br />
+                <strong>Address:</strong> 52709 State Hwy 933, South Bend, IN 46637
+                <br />
+                <strong>Distance:</strong> 5 minute drive from Saint Mary's and about 10 minutes from the reception.
+              </p>
+              <p className="hotel-description">
+                <strong>$189/night.</strong> Located right off the highway down the street from the ceremony!
+                Parking and continental breakfast included. <br /> <strong>Last day to book: May 25th, 2027.</strong>
+              </p>
+            </div>
             <div className="hotel-card">
               <h3 className="hotel-name">Aloft by Marriott South Bend</h3>
               <a
@@ -223,27 +292,57 @@ function HotelTravel() {
         </div>
       </div>
 
-      <div className="hotel-travel-notice-overlay" role="status" aria-live="polite">
-        <div className="hotel-travel-notice-card">
+      {/* {showNotice && (
+      <div
+        className="hotel-travel-notice-overlay"
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setShowNotice(false);
+        }}
+      >
+        <div
+          className="hotel-travel-notice-card"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Hotel room block notice"
+        >
+          <button
+            type="button"
+            className="hotel-travel-notice-close"
+            aria-label="Close notice"
+            onClick={() => setShowNotice(false)}
+          >
+            &times;
+          </button>
           <p>
-            Update 10/27/26: 
-            <br />
-            <br />
-            We have officially hit capacity at the Aloft and the Courtyard. 
-            Luckily, we were able to secure two more hotels near by!!
-            <br />
-            <br />
-            <strong>Please check back on Friday, October 30th for links to the new room blocks.</strong>
-            <br />
-            <br />
-            Thank you for your patience and understanding as we work to secure additional 
-            accommodations for all of our guests.
-            <br />
-            <br />
-            -Claire & Brian
+              The Savannah Bananas are now playing at Notre Dame the same day as our wedding.  
+              Unfortunately, our initial hotel room blocks have been capped  
+              to a limited number of rooms due to the game.  
+              <br /> 
+              <br />
+              <strong>LUCKILY, we have secured additional accommodations for our guests.
+               We encourage you to book as soon as possible to ensure availability.</strong>
+              <br /> 
+              <br />
+              If you book other accommodations, please let us know so we can keep track of everyone. 
+              There's been quite a few families choosing to do Airbnbs for the weekend as well. 
+              <br /> 
+              <br />
+              Please contact Claire & Brian at (630) 648-9014 if you have any questions or 
+              need assistance with accommodations.
+              <br /> 
+              <br />
+              -Claire & Brian
           </p>
+          <button
+            type="button"
+            className="hotel-travel-notice-dismiss"
+            onClick={() => setShowNotice(false)}
+          >
+            Close
+          </button>
         </div>
       </div>
+      )} */}
     </div>
   );
 }

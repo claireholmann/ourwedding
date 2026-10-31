@@ -6,10 +6,6 @@
 }
 
 .hotel-travel-page-content {
-  filter: grayscale(1) blur(2px) brightness(0.7);
-  opacity: 0.75;
-  pointer-events: none;
-  user-select: none;
   min-height: 100vh;
   overflow: hidden;
 }
@@ -28,24 +24,64 @@
 }
 
 .hotel-travel-notice-card {
-  width: min(100%, 900px);
-  background: rgba(255, 255, 255, 0.94);
+  position: relative;
+  width: min(100%, 640px);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
   border: 2px solid rgba(0, 50, 86, 0.25);
   border-radius: 18px;
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.22);
-  padding: 1.25rem 1.5rem;
+  padding: 2.5rem 1.5rem 1.5rem;
   text-align: center;
 }
 
-.hotel-travel-notice-card p {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(0.98rem, 1.8vw, 1.25rem);
-  line-height: 1.6;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+.hotel-travel-notice-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  background: transparent;
   color: #003256;
-  text-transform: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.hotel-travel-notice-close:hover,
+.hotel-travel-notice-close:focus-visible {
+  background: rgba(0, 50, 86, 0.1);
+}
+
+.hotel-travel-notice-card p {
+  margin: 0 0 1.25rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.87rem;
+  line-height: 1.5;
+  color: #2f4d34;
+  text-align: center;
+}
+
+.hotel-travel-notice-dismiss {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: #003256;
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1.75rem;
+  cursor: pointer;
+}
+
+.hotel-travel-notice-dismiss:hover,
+.hotel-travel-notice-dismiss:focus-visible {
+  background: #00507f;
 }
 
 /* Page Hero */
@@ -223,7 +259,7 @@
   display: inline-block;
 }
 
-.aloft-booking-notice {
+.aloft-booking-full {
   background: #fef2f2;
   border: 1px solid #fca5a5;
   border-left: 5px solid #dc2626;
@@ -234,6 +270,20 @@
   font-size: 0.9rem;
   font-weight: 500;
   color: #991b1b;
+  line-height: 1.6;
+}
+
+.aloft-booking-notice {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 5px solid #6c8b19;
+  border-radius: 6px;
+  padding: 1rem 1.1rem;
+  margin: 0 0 1.25rem 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1f5633;
   line-height: 1.6;
 }
 
